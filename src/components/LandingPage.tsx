@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import TurbineCursor from "./TurbineCursor";
 import TurbineAssembly from "./TurbineAssembly";
 import TurbineParts from "./TurbineParts";
 import OnTheFloor from "./OnTheFloor";
@@ -142,8 +141,6 @@ export default function LandingPage() {
 
   return (
     <div ref={rootRef}>
-      <TurbineCursor />
-
       <main id="main">
         <section className="heroScroll" ref={hero} aria-label="NEGBUY introduction">
           <div className="pin">

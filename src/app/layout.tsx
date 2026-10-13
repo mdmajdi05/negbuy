@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
+import TurbineCursor from "@/components/TurbineCursor";
 import "./globals.css";
 import "./nb.css";
 
@@ -54,6 +55,7 @@ export default function RootLayout({
         <Header />
         {children}
         <SiteFooter />
+        <TurbineCursor />
       </body>
     </html>
   );

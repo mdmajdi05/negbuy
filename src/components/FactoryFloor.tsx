@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Factory3D from "./Factory3D";
 
 const BG_IMG =
   "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1800&auto=format&fit=crop";
@@ -65,6 +66,10 @@ export default function FactoryFloor() {
   const beaconRef = useRef<HTMLDivElement>(null);
   const stageEls = useRef<(HTMLDivElement | null)[]>([]);
   const dotEls = useRef<(HTMLSpanElement | null)[]>([]);
+  /** scroll progress (0→1) and active line stage, shared with the 3D viewer */
+  const scrollProgRef = useRef(0);
+  const activeStageRef = useRef(0);
+  const [view, setView] = useState<"3d" | "scene">("3d");
 
   useEffect(() => {
     const t = window.setInterval(() => {
@@ -98,6 +103,7 @@ export default function FactoryFloor() {
       const raw = max > 0 ? -rect.top / max : 0;
       const target = Math.max(0, Math.min(1, raw));
       current += (target - current) * (reduced ? 1 : 0.09);
+      scrollProgRef.current = current;
 
       // Cinematic camera push-in
       if (bgRef.current) {
@@ -161,6 +167,7 @@ export default function FactoryFloor() {
       }
 
       const idx = Math.min(3, Math.floor(current * 4));
+      activeStageRef.current = idx;
       if (beaconRef.current) beaconRef.current.dataset.stage = String(idx);
 
       if (unitsRef.current) {
@@ -197,6 +204,19 @@ export default function FactoryFloor() {
     frame = requestAnimationFrame(render);
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  /**
+   * Picking a station in the 3D floor drives the same scroll-linked stage
+   * state as the scroll itself, so there is only ever one source of truth
+   * for which line section is "live".
+   */
+  const pickStation = (i: number) => {
+    const sec = sectionRef.current;
+    if (!sec) return;
+    const top = window.scrollY + sec.getBoundingClientRect().top;
+    const travel = Math.max(0, sec.offsetHeight - window.innerHeight);
+    window.scrollTo({ top: top + ((i + 0.5) / 4) * travel, behavior: "smooth" });
+  };
 
   return (
     <section
@@ -249,7 +269,32 @@ export default function FactoryFloor() {
           NEGBUY crate.
         </p>
 
-        <div className="factoryBody">
+        <div className="factoryViews tpViewSwitch" role="group" aria-label="Factory floor view mode">
+          <button
+            type="button"
+            className={view === "3d" ? "on" : ""}
+            aria-pressed={view === "3d"}
+            onClick={() => setView("3d")}
+          >
+            3D floor
+          </button>
+          <button
+            type="button"
+            className={view === "scene" ? "on" : ""}
+            aria-pressed={view === "scene"}
+            onClick={() => setView("scene")}
+          >
+            Live scene
+          </button>
+        </div>
+
+        <div className={`factoryBody ${view === "3d" ? "show3d" : "showScene"}`}>
+          <Factory3D
+            active={activeStageRef}
+            onPick={pickStation}
+            progress={scrollProgRef}
+          />
+
           {/* REALISTIC SCENE */}
           <div className="rscene">
             <div className="rbg" ref={bgRef} aria-hidden="true">
