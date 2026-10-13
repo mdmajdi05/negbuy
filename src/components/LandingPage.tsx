@@ -1,13 +1,21 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import Image from "next/image";
-import Header from "./Header";
 import TurbineCursor from "./TurbineCursor";
+import TurbineAssembly from "./TurbineAssembly";
+import TurbineParts from "./TurbineParts";
+import OnTheFloor from "./OnTheFloor";
 import TurbineWorks from "./TurbineWorks";
 import FactoryFloor from "./FactoryFloor";
 import StatsBand from "./StatsBand";
+import TrustBand from "./TrustBand";
 import ProcessLine from "./ProcessLine";
+import CaseStudies from "./CaseStudies";
+import Testimonials from "./Testimonials";
+import FaqSection from "./FaqSection";
+import CtaForm from "./CtaForm";
+import { useReveal } from "@/hooks/useReveal";
+import { SECTOR, SERVICE } from "@/lib/media";
 import {
   useLandingAnimation,
   useRevealObserver,
@@ -38,29 +46,29 @@ const SERVICES = [
     title: ["Energy", "Systems"],
     description:
       "Power generation, distribution and clean-energy infrastructure.",
-    img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop",
-    alt: "Wind turbines generating clean energy",
+    img: SECTOR.energy,
+    alt: "Power generation and clean energy infrastructure",
   },
   {
     no: "02 / TURBINES",
     title: ["Turbine", "Solutions"],
     description: "Gas turbine parts, engines, maintenance and optimization.",
-    img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800&auto=format&fit=crop",
-    alt: "Engineer servicing turbine equipment",
+    img: SECTOR.turbine,
+    alt: "Gas turbine parts and engines for maintenance and optimization",
   },
   {
     no: "03 / MARINE",
     title: ["Marine &", "Offshore"],
     description: "Marine automation, navigation and power solutions.",
-    img: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=800&auto=format&fit=crop",
-    alt: "Cargo ship at sea for marine solutions",
+    img: SECTOR.marine,
+    alt: "Marine automation, navigation and power solutions",
   },
   {
     no: "04 / AUTOMATION",
     title: ["Industrial", "Automation"],
     description:
       "Control systems, electrical engineering and process optimization.",
-    img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+    img: SERVICE.elecControls,
     alt: "Industrial automation and control systems",
   },
 ];
@@ -130,17 +138,13 @@ export default function LandingPage() {
 
   useLandingAnimation(refs);
   useRevealObserver(rootRef);
+  useReveal();
 
   return (
     <div ref={rootRef}>
       <TurbineCursor />
-      <a className="skipLink" href="#main-content">
-        Skip to main content
-      </a>
 
-      <Header />
-
-      <main id="main-content">
+      <main id="main">
         <section className="heroScroll" ref={hero} aria-label="NEGBUY introduction">
           <div className="pin">
             <div className="grid" aria-hidden="true" />
@@ -222,13 +226,23 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <TurbineAssembly />
+
+        <TurbineParts />
+
+        <OnTheFloor />
+
         <TurbineWorks />
 
         <FactoryFloor />
 
         <StatsBand />
 
+        <TrustBand />
+
         <ProcessLine />
+
+        <CaseStudies />
 
         <section className="section light" id="about" ref={about}>
           <div className="floatingWord" id="floatWord" ref={floatWord} aria-hidden="true">
@@ -308,7 +322,7 @@ export default function LandingPage() {
             {INDUSTRIES.map((industry) => (
               <a
                 className="industry reveal"
-                href="#contact"
+                href="/contact"
                 key={industry.no}
                 aria-label={`${industry.name} — ${industry.description}`}
               >
@@ -320,45 +334,12 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="redSection" id="contact">
-          <div className="redContent reveal">
-            <div className="kicker" style={{ color: "#111" }}>
-              05 / Start a conversation
-            </div>
-            <h2>
-              MOVE
-              <br />
-              FORWARD.
-            </h2>
-            <a className="cta" href="mailto:contact@negbuy.com">
-              Talk to NEGBUY{" "}
-              <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </section>
-      </main>
+        <Testimonials />
 
-      <footer>
-        <div className="footerGrid">
-          <a href="https://negbuy.com/" aria-label="NEGBUY home">
-            <Image
-              className="footerLogo"
-              src="/header-logo.png"
-              alt="NEGBUY logo"
-              width={155}
-              height={62}
-            />
-          </a>
-          <p className="footerText">
-            NEGBUY provides solutions across turbines, energy, oil &amp; gas,
-            marine, electrical, automation, EV and solar industries.
-          </p>
-        </div>
-        <div className="footerBottom">
-          <span>© 2026 NEGBUY. All rights reserved.</span>
-          <span>Energy · Industry · Technology</span>
-        </div>
-      </footer>
+        <FaqSection />
+
+        <CtaForm />
+      </main>
     </div>
   );
 }

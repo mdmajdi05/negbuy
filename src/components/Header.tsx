@@ -1,21 +1,22 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  { href: "#services", label: "Solutions", index: "01" },
-  { href: "#industries", label: "Industries", index: "02" },
-  { href: "#about", label: "About", index: "03" },
+  { href: "/products", label: "Products", index: "01" },
+  { href: "/services", label: "Solutions", index: "02" },
+  { href: "/about", label: "About", index: "03" },
+  { href: "/#industries", label: "Industries", index: "04" },
 ];
 
-const SECTION_IDS = ["services", "industries", "about", "contact"];
-
 export default function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [active, setActive] = useState("");
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   // Compact glass bar + top progress line while scrolling.
@@ -31,24 +32,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Highlight the nav link of the section currently in view.
-  useEffect(() => {
-    const els = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => Boolean(el)
-    );
-    if (els.length === 0) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
-        });
-      },
-      { rootMargin: "-38% 0px -52% 0px", threshold: 0 }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-
   // Close the mobile menu on Escape and return focus to the toggle.
   useEffect(() => {
     if (!open) return;
@@ -62,13 +45,35 @@ export default function Header() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  const closeMenu = () => setOpen(false);
+  // Close the mobile panel when the user navigates with browser back/forward.
+  useEffect(() => {
+    const close = () => setOpen(false);
+    window.addEventListener("popstate", close);
+    return () => window.removeEventListener("popstate", close);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const isActive = (href: string) => {
+    const base = href.split("#")[0];
+    if (base === "/") return pathname === "/";
+    return pathname === base || pathname.startsWith(base + "/");
+  };
 
   return (
     <header className={scrolled ? "is-scrolled" : ""}>
-      <i className="navProgress" style={{ width: `${progress}%` }} aria-hidden="true" />
+      <i
+        className="navProgress"
+        style={{ width: `${progress}%` }}
+        aria-hidden="true"
+      />
 
-      <a className="logo" href="https://negbuy.com/" aria-label="NEGBUY home">
+      <Link className="logo" href="/" aria-label="NEGBUY home">
         <Image
           src="/header-logo.png"
           alt="NEGBUY"
@@ -77,7 +82,7 @@ export default function Header() {
           priority
         />
         <span className="logoBadge">ENERGY · INDUSTRIAL</span>
-      </a>
+      </Link>
 
       <nav
         id="primary-navigation"
@@ -85,26 +90,26 @@ export default function Header() {
         aria-label="Primary"
       >
         {NAV_LINKS.map((link) => (
-          <a
+          <Link
             key={link.href}
             href={link.href}
             data-label={link.label}
-            className={active === link.href ? "active" : ""}
-            onClick={closeMenu}
+            className={isActive(link.href) ? "active" : ""}
+            onClick={() => setOpen(false)}
           >
             <span className="navNo">{link.index}</span>
             <span className="navLabel">{link.label}</span>
             <i className="navUnder" aria-hidden="true" />
             <i className="navDot" aria-hidden="true" />
-          </a>
+          </Link>
         ))}
-        <a className="contact" href="#contact" onClick={closeMenu}>
-          <span className="ctaText">Contact</span>
+        <Link className="contact" href="/contact" onClick={() => setOpen(false)}>
+          <span className="ctaText">Get a quote</span>
           <svg className="ctaArrow" viewBox="0 0 12 12" aria-hidden="true">
             <path d="M1 6h9M7 3l3 3-3 3" />
           </svg>
           <i className="ctaShine" aria-hidden="true" />
-        </a>
+        </Link>
       </nav>
 
       <button

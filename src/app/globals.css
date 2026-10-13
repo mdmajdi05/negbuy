@@ -1113,66 +1113,57 @@ footer {
   position: fixed;
   left: 0;
   top: 0;
-  width: 46px;
-  height: 46px;
+  width: 24px;
+  height: 26px;
   z-index: 9999;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s;
   will-change: transform;
+  transform-origin: 0 0;
+  mix-blend-mode: difference;
+}
+.tcArrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 26px;
+  display: block;
+}
+.tcArrow path {
+  fill: #fff;
 }
 .tc-ring {
   position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  box-shadow: 0 0 18px rgba(237, 28, 36, 0.25), inset 0 0 12px rgba(0, 0, 0, 0.5);
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.35), transparent 70%);
-}
-.tc-rotor {
-  position: absolute;
-  inset: 7px;
-  will-change: transform;
-}
-.tc-blade {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 5px;
+  left: 7px;
+  top: 7px;
+  width: 13px;
   height: 13px;
-  transform-origin: 50% 100%;
-  background: linear-gradient(to top, #2a2a2a, #bbb 55%, #ed1c24 90%);
-  clip-path: polygon(40% 0, 72% 6%, 100% 100%, 50% 84%, 0 100%, 28% 6%);
-  opacity: 0.95;
-}
-.tc-hub {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 10px;
-  height: 10px;
-  transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff, #888 45%, #111 75%);
-  box-shadow: 0 0 10px rgba(237, 28, 36, 0.7);
+  border: 1.6px solid #fff;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: opacity 0.25s, transform 0.25s;
 }
-.tc-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 2px;
-  height: 2px;
-  transform: translate(-50%, -50%);
-  background: #ed1c24;
-  border-radius: 50%;
+.tc-cursor.tc-link .tc-ring {
+  opacity: 0.9;
+  transform: translate(-50%, -50%) scale(1);
+}
+.tc-cursor.tc-kick .tcArrow {
+  animation: tcArrowKick 0.26s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes tcArrowKick {
+  0% { transform: scale(1) rotate(0deg); }
+  40% { transform: scale(1.24) rotate(-7deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 .tc-cursor.tc-kick .tc-ring {
-  animation: tcKick 0.22s ease-out;
+  animation: tcRingKick 0.4s ease-out;
 }
-@keyframes tcKick {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.35); border-color: var(--red); }
-  100% { transform: scale(1); }
+@keyframes tcRingKick {
+  0% { transform: translate(-50%, -50%) scale(0.7); opacity: 0.95; }
+  100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
 }
 .tc-ripples {
   position: fixed;
@@ -2060,3 +2051,1247 @@ footer {
 /* sim reduced-motion guard */
 
 /* nav guard */
+
+/* ============================================================
+   Turbine manufacturing line — bold engineering / light dossier
+   ============================================================ */
+.asmScroll {
+  position: relative;
+  background: #e7ecf2;
+  height: 460vh;
+  color: #0b1220;
+}
+.asmPin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 92px 0 16px;
+  background: radial-gradient(120% 80% at 88% 0%, rgba(29, 78, 216, 0.07), transparent 58%),
+    linear-gradient(180deg, #ffffff 0%, #f1f4f8 58%, #e4eaf1 100%);
+}
+.asmPin::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 54px;
+  border-right: 1.5px solid rgba(11, 18, 32, 0.16);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(11, 18, 32, 0.24) 0 1px,
+    transparent 1px 24px
+  );
+  pointer-events: none;
+}
+.asmGridBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(20, 50, 100, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 50, 100, 0.07) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(130% 92% at 50% 38%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(130% 92% at 50% 38%, #000 30%, transparent 100%);
+}
+.asmScroll button,
+.partsSection button {
+  font: inherit;
+  color: inherit;
+}
+.asmDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* heads must never inherit the global fixed <header> bar */
+.asmHead,
+.tpHead {
+  position: static;
+  height: auto;
+  background: none;
+  border: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.asmHead {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px 48px;
+  flex-wrap: wrap;
+  padding: 0 5vw 20px;
+  border-bottom: 2px solid #0b1220;
+}
+.asmHead::after,
+.tpHead::after {
+  content: "";
+  position: absolute;
+  left: 5vw;
+  bottom: -2px;
+  width: 128px;
+  height: 5px;
+  background: #ed1c24;
+}
+.asmHead .kicker,
+.tpHead .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 7px 12px;
+  background: #0b1220;
+  color: #fff;
+  border-radius: 3px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+.asmHead .kicker::before,
+.tpHead .kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: #ed1c24;
+}
+.asmHead h2 {
+  margin: 0;
+  font-size: clamp(36px, 4.6vw, 78px);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  font-weight: 900;
+  color: #0b1220;
+}
+.asmHead h2 span {
+  color: transparent;
+  -webkit-text-stroke: 2px #0b1220;
+}
+.asmHeadRight {
+  max-width: 470px;
+}
+.asmHeadRight p {
+  margin: 0 0 14px;
+  color: #333e4f;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.asmHeadMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.asmHeadMeta span {
+  font: 800 10px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0b1220;
+  padding: 7px 11px;
+  border: 1.5px solid rgba(11, 18, 32, 0.5);
+  border-radius: 3px;
+  background: #ffffff;
+}
+
+/* stage + track */
+.asmStage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  padding-left: 5vw;
+}
+.asmTrack {
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+  will-change: transform;
+  padding-right: 5vw;
+}
+.asmCell {
+  position: relative;
+  flex: 0 0 auto;
+  width: 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 16px;
+  border: 1.5px solid rgba(11, 18, 32, 0.55);
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 6px 6px 0 rgba(11, 18, 32, 0.09);
+  opacity: 0.82;
+  filter: grayscale(0.28);
+  transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.4s ease,
+    box-shadow 0.4s ease, filter 0.4s ease;
+}
+.asmCell::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  border-radius: 3px 3px 0 0;
+  background: #0b1220;
+}
+.asmCell.active {
+  opacity: 1;
+  filter: none;
+  transform: translate(-3px, -3px);
+  border-color: #ed1c24;
+  border-width: 2px;
+  box-shadow: 8px 8px 0 rgba(237, 28, 36, 0.22);
+}
+.asmCell.active::before {
+  background: #ed1c24;
+}
+.asmCell.done {
+  opacity: 0.94;
+  filter: grayscale(0.08);
+}
+.asmCellTop {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 4px;
+}
+.asmCellNo {
+  font: 800 22px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: -0.02em;
+  color: #0b1220;
+  background: #eef1f6;
+  border: 1.5px solid rgba(11, 18, 32, 0.5);
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+.asmCell.active .asmCellNo {
+  background: #ed1c24;
+  border-color: #ed1c24;
+  color: #fff;
+}
+.asmCellTag {
+  font: 800 10px/1.2 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a5568;
+}
+.asmCellTick {
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e3e9f1;
+  color: #94a3b8;
+  font-size: 11px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: 0.35s;
+}
+.asmCell.done .asmCellTick {
+  opacity: 1;
+  transform: scale(1);
+  background: #0b1220;
+  color: #fff;
+}
+.asmCellTitle {
+  margin: 13px 0 12px;
+  font-size: 21px;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: #0b1220;
+}
+.asmCellScene {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 108px;
+  min-width: 0;
+  border: 1.5px solid rgba(11, 18, 32, 0.35);
+  border-radius: 3px;
+  background: #ffffff;
+  overflow: hidden;
+}
+.asmSvg {
+  position: absolute;
+  inset: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  display: block;
+}
+.asmCellDwg {
+  position: absolute;
+  right: 7px;
+  bottom: 5px;
+  font: 800 8.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.1em;
+  color: #5b6c86;
+}
+.asmCellDesc {
+  margin: 12px 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #333e4f;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.asmCellSpecs {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+  border-top: 1.5px solid rgba(11, 18, 32, 0.25);
+  padding-top: 10px;
+}
+.asmCellSpecs > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.asmCellSpecs dt {
+  font: 800 10px/1.4 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4a5568;
+}
+.asmCellSpecs dd {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  color: #0b1220;
+}
+.asmCellFoot {
+  margin-top: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.asmCellFoot b {
+  font: 800 27px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: -0.03em;
+  color: #0b1220;
+}
+.asmCellFoot small {
+  font: 800 10px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ed1c24;
+}
+
+/* connector link */
+.asmLink {
+  position: relative;
+  flex: 0 0 auto;
+  width: 48px;
+  align-self: center;
+  height: 46px;
+  display: grid;
+  place-items: center;
+}
+.asmLinkLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(11, 18, 32, 0.55) 0 7px,
+    transparent 7px 14px
+  );
+}
+.asmLinkNode {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2.5px solid #0b1220;
+}
+.asmLinkChev {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1;
+  color: #0b1220;
+}
+
+/* HUD + progress */
+.asmNow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 5vw 0;
+  font: 800 10.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a5568;
+}
+.asmNowDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ed1c24;
+  box-shadow: 0 0 0 4px rgba(237, 28, 36, 0.18);
+}
+.asmNow b {
+  margin-left: auto;
+  color: #0b1220;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.asmProgress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 5vw 0;
+}
+.asmProgressTrack {
+  position: relative;
+  flex: 1 1 auto;
+  height: 3px;
+  background: rgba(11, 18, 32, 0.18);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.asmProgressFill {
+  position: absolute;
+  inset: 0;
+  background: #ed1c24;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+.asmProgressPct {
+  font: 800 11px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.1em;
+  color: #0b1220;
+}
+
+/* svg labels */
+.asmDcap {
+  font: 800 10px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  fill: #33415a;
+}
+.asmDdim {
+  font: 800 10px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  fill: #33415a;
+}
+.asmDreadout {
+  font: 800 11px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.08em;
+  fill: #5ee08a;
+}
+
+/* animation */
+@keyframes asmSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.asmSpin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: asmSpin 12s linear infinite;
+}
+@keyframes asmNeedleK {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+.asmNeedle {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: asmNeedleK 3.2s ease-in-out infinite;
+}
+
+@media (max-width: 1100px) {
+  .asmCell {
+    width: 330px;
+  }
+}
+@media (max-height: 760px) {
+  .asmHead h2 {
+    font-size: clamp(30px, 3.8vw, 62px);
+  }
+  .asmHeadRight p {
+    display: none;
+  }
+  .asmCellDesc {
+    -webkit-line-clamp: 2;
+  }
+  .asmCell {
+    padding: 14px 16px 12px;
+  }
+  .asmCellTitle {
+    margin: 9px 0;
+    font-size: 19px;
+  }
+}
+@media (max-width: 640px) {
+  .asmPin {
+    padding-top: 80px;
+  }
+  .asmCell {
+    width: 84vw;
+    padding: 16px 16px 14px;
+  }
+  .asmHead h2 {
+    font-size: clamp(34px, 11vw, 54px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .asmSpin,
+  .asmNeedle {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Turbine parts catalogue — bold engineering / light dossier
+   ============================================================ */
+.partsSection {
+  position: relative;
+  overflow: clip;
+  padding: 120px 5vw 110px;
+  background: radial-gradient(90% 60% at 6% 0%, rgba(237, 28, 36, 0.08), transparent 52%),
+    radial-gradient(90% 60% at 100% 100%, rgba(29, 78, 216, 0.08), transparent 55%),
+    linear-gradient(180deg, #e7ecf2, #f4f6f9 42%, #e4eaf1);
+  color: #0b1220;
+}
+.partsSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 54px;
+  border-right: 1.5px solid rgba(11, 18, 32, 0.16);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(11, 18, 32, 0.22) 0 1px,
+    transparent 1px 26px
+  );
+  pointer-events: none;
+}
+.tpInner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.tpHead {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px 44px;
+  flex-wrap: wrap;
+  margin-bottom: 42px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #0b1220;
+}
+.tpHead h2 {
+  margin: 0;
+  font-size: clamp(44px, 6.4vw, 112px);
+  line-height: 0.84;
+  letter-spacing: -0.06em;
+  font-weight: 900;
+  color: #0b1220;
+}
+.tpHead h2 span {
+  color: transparent;
+  -webkit-text-stroke: 2px #0b1220;
+}
+.tpHeadRight {
+  max-width: 440px;
+}
+.tpHeadRight p {
+  margin: 0 0 14px;
+  color: #333e4f;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.tpHeadMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tpHeadMeta span {
+  font: 800 10px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0b1220;
+  padding: 7px 11px;
+  border: 1.5px solid rgba(11, 18, 32, 0.5);
+  border-radius: 3px;
+  background: #ffffff;
+}
+
+/* layout */
+.tpBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.85fr);
+  grid-template-areas:
+    "figure detail"
+    "table detail";
+  gap: 24px 30px;
+  align-items: start;
+}
+
+/* figure */
+.tpFig {
+  grid-area: figure;
+  margin: 0;
+  position: relative;
+  border: 2px solid #0b1220;
+  border-radius: 6px;
+  background-color: #ffffff;
+  background-image: linear-gradient(rgba(20, 50, 100, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 50, 100, 0.09) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px;
+  box-shadow: 10px 10px 0 rgba(11, 18, 32, 0.09);
+  padding: 40px 20px 16px;
+  overflow: hidden;
+}
+.tpFigTag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 7px 12px;
+  background: #0b1220;
+  color: #fff;
+  font: 800 9.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 0 0 4px 0;
+}
+.tpFigCanvas {
+  position: relative;
+}
+.tpSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* callout pins */
+.tpPins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.tpPin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 2px solid #0b1220;
+  background: #fff;
+  color: #0b1220;
+  font: 900 10.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(11, 18, 32, 0.2);
+  transition: 0.22s;
+}
+.tpPin:hover {
+  border-color: #ed1c24;
+  color: #ed1c24;
+  transform: translate(-50%, -50%) scale(1.12);
+}
+.tpPin.on {
+  background: #ed1c24;
+  border-color: #ed1c24;
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(237, 28, 36, 0.2), 0 4px 0 rgba(160, 12, 20, 0.6);
+}
+
+/* drawing part states */
+.tpPart {
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+.tpPart.on {
+  opacity: 1;
+}
+
+/* detail panel */
+.tpDetail {
+  grid-area: detail;
+  position: sticky;
+  top: 108px;
+  border: 2px solid #0b1220;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 10px 10px 0 rgba(11, 18, 32, 0.09);
+  padding: 0 24px 22px;
+  overflow: hidden;
+}
+.tpDetailTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 -24px 16px;
+  padding: 15px 24px;
+  background: #0b1220;
+}
+.tpDetailNo {
+  font: 800 14px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+.tpBadge {
+  font: 800 9.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  color: #fff;
+}
+.tpCondNew {
+  background: #15803d;
+  border-color: #15803d;
+}
+.tpCondRefurb {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+.tpCondOh {
+  background: #c2740a;
+  border-color: #c2740a;
+}
+.tpDetail h3 {
+  margin: 0 0 7px;
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: #0b1220;
+}
+.tpDetailRole {
+  font: 800 10.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ed1c24;
+  margin-bottom: 14px;
+}
+.tpDetailDesc {
+  margin: 0 0 18px;
+  color: #333e4f;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.tpSpecs {
+  margin: 0 0 18px;
+  display: grid;
+  border-top: 1.5px solid rgba(11, 18, 32, 0.22);
+}
+.tpSpecs > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(11, 18, 32, 0.14);
+}
+.tpSpecs dt {
+  font: 800 10px/1.5 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4a5568;
+}
+.tpSpecs dd {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #0b1220;
+  text-align: right;
+}
+.tpAvail {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.tpAvail > div {
+  border: 1.5px solid rgba(11, 18, 32, 0.25);
+  border-radius: 4px;
+  padding: 9px 10px;
+  background: #f4f6f9;
+}
+.tpAvail span {
+  display: block;
+  font: 800 9px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a5568;
+  margin-bottom: 6px;
+}
+.tpAvail b {
+  font-size: 12px;
+  color: #0b1220;
+}
+.tpChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+.tpChips span {
+  font: 800 10px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.08em;
+  color: #0b1220;
+  padding: 6px 10px;
+  border-radius: 3px;
+  background: #eef1f6;
+  border: 1.5px solid rgba(11, 18, 32, 0.22);
+}
+.tpPick {
+  width: 100%;
+  padding: 15px 16px;
+  border: 2px solid #ed1c24;
+  border-radius: 4px;
+  background: #fff;
+  color: #ed1c24;
+  font: 800 11px/1.2 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.22s;
+}
+.tpPick:hover {
+  background: #fff0f0;
+}
+.tpPick.on {
+  background: #ed1c24;
+  color: #fff;
+  box-shadow: 4px 4px 0 rgba(160, 12, 20, 0.35);
+}
+
+/* catalogue table */
+.tpTableWrap {
+  grid-area: table;
+  border: 2px solid #0b1220;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 10px 10px 0 rgba(11, 18, 32, 0.09);
+  overflow-x: auto;
+}
+.tpTable {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+}
+.tpTable thead th {
+  text-align: left;
+  padding: 13px 14px;
+  font: 800 9.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #0b1220;
+  white-space: nowrap;
+}
+.tpTable tbody td {
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: #333e4f;
+  border-bottom: 1.5px solid rgba(11, 18, 32, 0.1);
+  white-space: nowrap;
+}
+.tpTable tbody tr {
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.tpTable tbody tr:hover {
+  background: #eef2f8;
+}
+.tpTable tbody tr.active {
+  background: #fff0f0;
+}
+.tpTable tbody tr.active td {
+  border-bottom-color: rgba(237, 28, 36, 0.35);
+}
+.tpTableNo {
+  font: 800 11.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.06em;
+  color: #0b1220;
+}
+.tpTable tbody tr.active .tpTableNo {
+  color: #ed1c24;
+}
+.tpTableName {
+  font-weight: 800;
+  color: #0b1220;
+}
+.tpTableAdd {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(11, 18, 32, 0.45);
+  background: #fff;
+  color: #0b1220;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.18s;
+}
+.tpTableAdd:hover {
+  border-color: #ed1c24;
+  color: #ed1c24;
+}
+.tpTableAdd.on {
+  background: #ed1c24;
+  border-color: #ed1c24;
+  color: #fff;
+}
+
+/* RFQ bar */
+.tpQuote {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 30px;
+  flex-wrap: wrap;
+  padding: 20px 22px;
+  border: 2px solid #0b1220;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 10px 10px 0 rgba(11, 18, 32, 0.09);
+}
+.tpQuoteInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  flex: 1 1 420px;
+}
+.tpQuoteCount {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.tpQuoteCount b {
+  font: 800 36px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color: #0b1220;
+  letter-spacing: -0.03em;
+}
+.tpQuoteCount span {
+  font: 800 10px/1.3 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a5568;
+}
+.tpQuoteList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1 1 240px;
+}
+.tpQuoteList em {
+  color: #4a5568;
+  font-size: 12px;
+  font-style: normal;
+}
+.tpQuoteChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1.5px solid rgba(11, 18, 32, 0.4);
+  border-radius: 3px;
+  background: #f4f6f9;
+  color: #0b1220;
+  font: 800 10.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  cursor: pointer;
+  transition: 0.18s;
+}
+.tpQuoteChip:hover {
+  border-color: #ed1c24;
+}
+.tpQuoteChip i {
+  color: #ed1c24;
+  font-style: normal;
+}
+.tpCta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border: 2px solid #0b1220;
+  border-radius: 4px;
+  background: #ed1c24;
+  color: #fff;
+  font: 800 11px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 5px 5px 0 #0b1220;
+  transition: 0.22s;
+}
+.tpCta:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #0b1220;
+}
+.tpCtaArrow {
+  width: 15px;
+  height: 15px;
+}
+.tpCtaArrow path {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 1100px) {
+  .tpBody {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "figure"
+      "table"
+      "detail";
+  }
+  .tpDetail {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .partsSection {
+    padding: 90px 5vw 80px;
+  }
+  .tpHead h2 {
+    font-size: clamp(38px, 12vw, 60px);
+  }
+  .tpAvail {
+    grid-template-columns: 1fr;
+  }
+  .tpQuote {
+    padding: 16px;
+  }
+  .tpCta {
+    width: 100%;
+    justify-content: center;
+  }
+  .tpPin {
+    width: 24px;
+    height: 24px;
+    font-size: 9px;
+  }
+}
+
+/* ============================================================
+   Real media — shop-floor photos + film (light dossier)
+   ============================================================ */
+
+/* assembly card: real shop-floor photo with a blueprint overlay */
+.asmCellShot {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0b1220;
+}
+.asmCellShot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(1.06) contrast(1.06);
+  transition: transform 0.7s ease;
+}
+.asmCellShot::after {
+  content: "SHOP FLOOR";
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  padding: 3px 7px;
+  font: 800 7.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.16em;
+  color: #fff;
+  background: #ed1c24;
+  border-radius: 2px;
+}
+.asmCell.active .asmCellShot img {
+  transform: scale(1.05);
+}
+.asmCellDraw {
+  position: absolute;
+  inset: 5px;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.asmCellDraw .asmSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.asmCellScene .asmCellDwg {
+  background: rgba(255, 255, 255, 0.84);
+  padding: 2px 5px;
+  border-radius: 2px;
+  color: #0b1220;
+}
+
+/* parts section: film + stills */
+.tpFilm {
+  margin-top: 54px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: stretch;
+  padding: 18px;
+  border: 1.5px solid rgba(11, 18, 32, 0.55);
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 8px 8px 0 rgba(11, 18, 32, 0.08);
+}
+.tpFilmVideo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.tpFilmFrame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1.5px solid rgba(11, 18, 32, 0.5);
+  border-radius: 3px;
+  overflow: hidden;
+  background: #0b1220;
+}
+.tpFilmFrame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.tpFilmVideo figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: 800 10px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5b6c86;
+}
+.tpFilmVideo figcaption b {
+  color: #0b1220;
+}
+.tpFilmSide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.tpFilmHead .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 7px 12px;
+  background: #0b1220;
+  color: #fff;
+  border-radius: 3px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+.tpFilmHead .kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: #ed1c24;
+}
+.tpFilmHead h3 {
+  margin: 0 0 10px;
+  font-size: clamp(26px, 2.7vw, 42px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  color: #0b1220;
+}
+.tpFilmHead h3 span {
+  color: transparent;
+  -webkit-text-stroke: 2px #0b1220;
+}
+.tpFilmHead p {
+  margin: 0;
+  color: #333e4f;
+  font-size: 12.5px;
+  line-height: 1.62;
+}
+.tpFilmStills {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.tpFilmStills figure {
+  position: relative;
+  margin: 0;
+  border: 1.5px solid rgba(11, 18, 32, 0.45);
+  border-radius: 3px;
+  overflow: hidden;
+  background: #eef1f6;
+}
+.tpFilmStills img {
+  display: block;
+  width: 100%;
+  height: 96px;
+  object-fit: cover;
+}
+.tpFilmStills figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5px 7px;
+  font: 800 8.5px/1.15 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(11, 18, 32, 0.85));
+}
+@media (max-width: 1000px) {
+  .tpFilm {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .tpFilmStills {
+    grid-template-columns: 1fr;
+    margin-top: 4px;
+  }
+  .tpFilmStills img {
+    height: 132px;
+  }
+}
+
+/* tc arrow guard */

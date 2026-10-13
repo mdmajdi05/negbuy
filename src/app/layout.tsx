@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Header from "@/components/Header";
+import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
+import "./nb.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -44,7 +47,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} overflow-x-hidden`}>{children}</body>
+      <body className={`${inter.className} overflow-x-hidden`}>
+        <a className="skipLink" href="#main">
+          Skip to content
+        </a>
+        <Header />
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }

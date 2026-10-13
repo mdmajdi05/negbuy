@@ -1,17 +1,25 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 /**
- * Tiny turbine-rotor cursor:
- * - follows mouse with lerp
- * - rotor spins faster when mouse moves
- * - click spawns a water-drop ripple (expanding waves)
+ * Adaptive black & white arrow cursor:
+ * - real pointer shape (tip sits exactly at the mouse point)
+ * - pure-white arrow with `mix-blend-mode: difference` => it flips to
+ *   black on light areas and stays white on dark ones — always visible
+ * - leans slightly into the direction of movement
+ * - hover of links/buttons => soft ring appears + arrow grows
+ * - click => arrow kick + water-drop ripple (kept)
  */
 export default function TurbineCursor() {
+  const [mounted, setMounted] = useState(false);
   const dotRef = useRef<HTMLDivElement>(null);
-  const rotorRef = useRef<HTMLDivElement>(null);
   const rippleLayerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -22,18 +30,17 @@ export default function TurbineCursor() {
     if (reduced) return;
 
     const dot = dotRef.current;
-    const rotor = rotorRef.current;
     const layer = rippleLayerRef.current;
-    if (!dot || !rotor || !layer) return;
+    if (!dot || !layer) return;
 
     let mx = window.innerWidth / 2;
     let my = window.innerHeight / 2;
     let x = mx;
     let y = my;
-    let angle = 0;
-    let spin = 2.2; // base idle spin
     let lastX = mx;
     let lastY = my;
+    let targetTilt = 0;
+    let tilt = 0;
     let frame = 0;
     let visible = false;
 
@@ -45,13 +52,9 @@ export default function TurbineCursor() {
         dot.style.opacity = "1";
       }
       const dx = e.clientX - lastX;
-      const dy = e.clientY - lastY;
       lastX = e.clientX;
       lastY = e.clientY;
-      const speed = Math.min(28, Math.hypot(dx, dy));
-      spin += speed * 0.55; // moving => rotor accelerates
-      // tilt cursor slightly toward movement direction
-      dot.dataset.tilt = String(Math.max(-18, Math.min(18, dx * 1.4)));
+      targetTilt = Math.max(-16, Math.min(16, dx * 1.6));
     };
 
     const onLeave = () => {
@@ -59,8 +62,20 @@ export default function TurbineCursor() {
       dot.style.opacity = "0";
     };
 
+    // ring appears over anything interactive; fades elsewhere
+    const onOver = (e: MouseEvent) => {
+      const t = e.target as Element;
+      const hit = t.closest
+        ? t.closest(
+            "a, button, [role='button'], input, textarea, select, .industry, .serviceCard, .worksCard"
+          )
+        : null;
+      if (hit) dot.classList.add("tc-link");
+      else dot.classList.remove("tc-link");
+    };
+
     const spawnRipple = (cx: number, cy: number) => {
-      // Water-drop ripple: core drop + 3 expanding waves
+      // water-drop ripple: core drop + 3 expanding waves + droplets
       const wrap = document.createElement("div");
       wrap.className = "tc-ripple";
       wrap.style.left = `${cx}px`;
@@ -76,7 +91,6 @@ export default function TurbineCursor() {
         wrap.appendChild(wave);
       }
 
-      // tiny splash droplets
       for (let i = 0; i < 6; i++) {
         const s = document.createElement("span");
         s.className = "tc-splash";
@@ -93,53 +107,45 @@ export default function TurbineCursor() {
 
     const onDown = (e: MouseEvent) => {
       spawnRipple(e.clientX, e.clientY);
-      spin += 26; // click kick => turbine jolts
       dot.classList.add("tc-kick");
-      window.setTimeout(() => dot.classList.remove("tc-kick"), 220);
+      window.setTimeout(() => dot.classList.remove("tc-kick"), 240);
     };
 
     const render = () => {
-      x += (mx - x) * 0.22;
-      y += (my - y) * 0.22;
-      spin += (2.2 - spin) * 0.06; // ease back to idle
-      angle = (angle + spin) % 360;
-      const tilt = Number(dot.dataset.tilt || 0);
-      dot.dataset.tilt = String(tilt * 0.88);
-      dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%,-50%) rotate(${tilt}deg)`;
-      rotor.style.transform = `rotate(${angle}deg)`;
+      x += (mx - x) * 0.24;
+      y += (my - y) * 0.24;
+      tilt += (targetTilt - tilt) * 0.14;
+      dot.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${tilt.toFixed(2)}deg)`;
       frame = requestAnimationFrame(render);
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mousedown", onDown, { passive: true });
+    document.addEventListener("mouseover", onOver, { passive: true });
     document.documentElement.addEventListener("mouseleave", onLeave);
     frame = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mousedown", onDown);
+      document.removeEventListener("mouseover", onOver);
       document.documentElement.removeEventListener("mouseleave", onLeave);
       cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [mounted]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <>
       <div ref={rippleLayerRef} className="tc-ripples" aria-hidden="true" />
       <div ref={dotRef} className="tc-cursor" aria-hidden="true">
+        <svg className="tcArrow" viewBox="0 0 24 26" aria-hidden="true">
+          <path d="M0 0 L0 17.5 L5.4 13.6 L9 24.5 L12.6 22.9 L9.2 12 L16 12.4 Z" />
+        </svg>
         <div className="tc-ring" />
-        <div ref={rotorRef} className="tc-rotor">
-          {[0, 60, 120, 180, 240, 300].map((deg) => (
-            <span
-              key={deg}
-              className="tc-blade"
-              style={{ transform: `translate(-50%,-100%) rotate(${deg}deg)` }}
-            />
-          ))}
-        </div>
-        <div className="tc-hub" />
-        <div className="tc-center" />
       </div>
-    </>
+    </>,
+    document.body
   );
 }
