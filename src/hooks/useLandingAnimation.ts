@@ -89,34 +89,18 @@ export function useLandingAnimation(refs: LandingRefs) {
     const descEl =
       hero.current?.querySelector<HTMLElement>("[data-hero-desc]") ?? null;
 
-    // Layout measurements are expensive (forced reflow) — cache them and only
-    // refresh on resize rather than every single animation frame.
+    // Viewport size is refreshed on resize only.
     let vw = window.innerWidth;
     let vh = window.innerHeight;
-    let heroMax = 1;
-    let serviceMax = 1;
-    let trackTravel = 0;
-
-    const measure = () => {
-      vw = window.innerWidth;
-      vh = window.innerHeight;
-      heroMax = hero.current
-        ? Math.max(1, hero.current.offsetHeight - vh)
-        : 1;
-      serviceMax = service.current
-        ? Math.max(1, service.current.offsetHeight - vh)
-        : 1;
-      trackTravel = track.current
-        ? Math.max(0, track.current.scrollWidth - vw * 0.9)
-        : 0;
-    };
 
     let target = 0;
     let current = 0;
     let lastPhase = -1;
     let frame = 0;
     let running = false;
-    let dirty = true;
+    // Set whenever the scroll position / viewport changes so the next frame
+    // re-reads the layout. While idle we can skip both measuring and writing.
+    let scrollDirty = true;
 
     // Only the regions currently near the viewport get measured / animated.
     const near = { hero: true, about: false, service: false };
@@ -141,18 +125,20 @@ export function useLandingAnimation(refs: LandingRefs) {
     };
 
     const render = () => {
-      const wasDirty = dirty;
+      const wasScroll = scrollDirty;
+      scrollDirty = false;
 
-      // ---- HERO: read scroll progress (only when hero is near) ----
-      if (dirty && near.hero && hero.current) {
+      // ---- HERO: read scroll progress (only while hero is near) ----
+      if (wasScroll && near.hero && hero.current && core.current) {
+        const heroMax = Math.max(1, hero.current.offsetHeight - vh);
         target = clamp(-hero.current.getBoundingClientRect().top / heroMax);
       }
-      current = lerp(current, target, 0.11);
+      current = lerp(current, target, 0.1);
       const settled = Math.abs(current - target) < 0.0005;
       if (settled) current = target;
-      dirty = false;
 
-      const active = wasDirty || !settled;
+      // Re-write styles only when something actually changed.
+      const active = wasScroll || !settled;
 
       if (active && near.hero && core.current) {
         const rotation = current * 720;
@@ -220,14 +206,18 @@ export function useLandingAnimation(refs: LandingRefs) {
 
       // ---- Pinned horizontal services ----
       if (active && near.service && service.current && track.current) {
+        const serviceMax = Math.max(1, service.current.offsetHeight - vh);
+        const travel = Math.max(0, track.current.scrollWidth - vw * 0.9);
         const sx = clamp(
           -service.current.getBoundingClientRect().top / serviceMax
         );
-        track.current.style.transform = `translate3d(${-sx * trackTravel}px,0,0)`;
+        track.current.style.transform = `translate3d(${-sx * travel}px,0,0)`;
       }
 
-      // Idle => stop the loop entirely (restarted by scroll/resize/IO).
-      if (!dirty && settled) {
+      // Keep the loop alive while any animated region is on screen so motion
+      // stays perfectly smooth; go idle only once every region is far away.
+      const anyNear = near.hero || near.about || near.service;
+      if (!anyNear && settled) {
         running = false;
         return;
       }
@@ -237,11 +227,12 @@ export function useLandingAnimation(refs: LandingRefs) {
     const start = () => {
       if (running) return;
       running = true;
-      dirty = true;
       frame = requestAnimationFrame(render);
     };
-
-    measure();
+    const wake = () => {
+      scrollDirty = true;
+      start();
+    };
 
     // Track which animated regions are near the viewport.
     const tag = new Map<Element, keyof typeof near>();
@@ -257,11 +248,16 @@ export function useLandingAnimation(refs: LandingRefs) {
                 const key = tag.get(entry.target);
                 if (key) near[key] = entry.isIntersecting;
               });
-              start();
+              wake();
             },
             { rootMargin: "180px 0px" }
           )
         : null;
+    if (!io) {
+      // No IntersectionObserver: animate everything (original behaviour).
+      near.about = true;
+      near.service = true;
+    }
     tag.forEach((_key, el) => io?.observe(el));
 
     let resizeRaf = 0;
@@ -269,13 +265,14 @@ export function useLandingAnimation(refs: LandingRefs) {
       if (resizeRaf) return;
       resizeRaf = requestAnimationFrame(() => {
         resizeRaf = 0;
-        measure();
-        start();
+        vw = window.innerWidth;
+        vh = window.innerHeight;
+        wake();
       });
     };
-    const onScroll = () => start();
+    const onScroll = () => wake();
     const onVisibility = () => {
-      if (!document.hidden) start();
+      if (!document.hidden) wake();
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
