@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { OFFICES, SITE } from "@/lib/site";
 
 const COLUMNS = [
   {
@@ -80,14 +81,14 @@ export default function SiteFooter() {
 
           <div className="nbFootContact">
             <h4>Talk to us</h4>
-            <a className="nbFootMail" href="mailto:contact@negbuy.com">
-              contact@negbuy.com
+            <a className="nbFootMail" href={`mailto:${SITE.emails.general}`}>
+              {SITE.emails.general}
             </a>
-            <a className="nbFootMailsub" href="mailto:contact@negbuygroup.com">
-              contact@negbuygroup.com
+            <a className="nbFootMailsub" href={`mailto:${SITE.emails.group}`}>
+              {SITE.emails.group}
             </a>
-            <a className="nbFootPhone" href="tel:+917011123269">
-              +91 70111 23269
+            <a className="nbFootPhone" href={SITE.phoneHref}>
+              {SITE.phone}
             </a>
             <p>Global feedstock · 24/7 emergency breakdown support</p>
             <Link className="nbFootCta" href="/contact">
@@ -95,6 +96,21 @@ export default function SiteFooter() {
             </Link>
           </div>
         </div>
+
+        <section className="nbFootOffices" aria-label="Our locations">
+          <h4>Our locations</h4>
+          <div className="nbFootOfficeGrid">
+            {OFFICES.map((office) => (
+              <address className="nbFootOffice" key={office.country}>
+                <strong>{office.country}</strong>
+                <span>{office.role}</span>
+                {office.lines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </address>
+            ))}
+          </div>
+        </section>
 
         <div className="nbFootBottom">
           <span>© 2026 NEGBUY. All rights reserved.</span>

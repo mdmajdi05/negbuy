@@ -68,67 +68,68 @@ export default function Header() {
   };
 
   return (
-    <header className={scrolled ? "is-scrolled" : ""}>
+    <>
       <i
         className="navProgress"
         style={{ width: `${progress}%` }}
         aria-hidden="true"
       />
 
-      <Link className="logo" href="/" aria-label="NEGBUY home">
-        <Image
-          src="/header-logo.png"
-          alt="NEGBUY"
-          width={659}
-          height={302}
-          sizes="120px"
-          priority
-        />
-        <span className="logoBadge">ENERGY · INDUSTRIAL</span>
-      </Link>
-
-      <nav
-        id="primary-navigation"
-        className={`nav${open ? " open" : ""}`}
-        aria-label="Primary"
-      >
-        {NAV_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            data-label={link.label}
-            className={isActive(link.href) ? "active" : ""}
-            onClick={() => setOpen(false)}
-          >
-            <span className="navNo">{link.index}</span>
-            <span className="navLabel">{link.label}</span>
-            <i className="navUnder" aria-hidden="true" />
-            <i className="navDot" aria-hidden="true" />
-          </Link>
-        ))}
-        <Link className="contact" href="/contact" onClick={() => setOpen(false)}>
-          <span className="ctaText">Get a quote</span>
-          <svg className="ctaArrow" viewBox="0 0 12 12" aria-hidden="true">
-            <path d="M1 6h9M7 3l3 3-3 3" />
-          </svg>
-          <i className="ctaShine" aria-hidden="true" />
+      <header className={`siteHeader${scrolled ? " is-scrolled" : ""}`}>
+        <Link className="logo" href="/" aria-label="NEGBUY home">
+          <Image
+            src="/header-logo.png"
+            alt="NEGBUY"
+            width={659}
+            height={302}
+            sizes="120px"
+            priority
+          />
         </Link>
-      </nav>
 
-      <button
-        type="button"
-        className={`menu${open ? " open" : ""}`}
-        ref={buttonRef}
-        aria-expanded={open}
-        aria-controls="primary-navigation"
-        aria-label={open ? "Close menu" : "Open menu"}
-        onClick={() => setOpen((value) => !value)}
-      >
-        <span className="menuLines" aria-hidden="true">
-          <i />
-          <i />
-        </span>
-      </button>
-    </header>
+        <nav
+          id="primary-navigation"
+          className={`nav${open ? " open" : ""}`}
+          aria-label="Primary"
+        >
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              data-label={link.label}
+              className={isActive(link.href) ? "active" : ""}
+              onClick={() => setOpen(false)}
+            >
+              <span className="navNo">{link.index}</span>
+              <span className="navLabel">{link.label}</span>
+              <i className="navUnder" aria-hidden="true" />
+              <i className="navDot" aria-hidden="true" />
+            </Link>
+          ))}
+          <Link className="contact" href="/contact" onClick={() => setOpen(false)}>
+            <span className="ctaText">Get a quote</span>
+            <svg className="ctaArrow" viewBox="0 0 12 12" aria-hidden="true">
+              <path d="M1 6h9M7 3l3 3-3 3" />
+            </svg>
+            <i className="ctaShine" aria-hidden="true" />
+          </Link>
+        </nav>
+
+        <button
+          type="button"
+          className={`menu${open ? " open" : ""}`}
+          ref={buttonRef}
+          aria-expanded={open}
+          aria-controls="primary-navigation"
+          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen((value) => !value)}
+        >
+          <span className="menuLines" aria-hidden="true">
+            <i />
+            <i />
+          </span>
+        </button>
+      </header>
+    </>
   );
 }

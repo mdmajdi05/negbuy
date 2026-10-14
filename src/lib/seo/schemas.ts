@@ -6,7 +6,7 @@
  * Pages never hand-write raw JSON-LD — always import a builder from here so the
  * `@id` graph stays consistent (Organization → WebSite → Article/Service …).
  */
-import { SITE, absoluteUrl } from "@/lib/site";
+import { OFFICES, SITE, absoluteUrl } from "@/lib/site";
 
 export const ORG_ID = `${SITE.url}/#organization`;
 export const WEBSITE_ID = `${SITE.url}/#website`;
@@ -36,14 +36,16 @@ export function organizationSchema(): JsonLdProps {
     description: SITE.defaultDescription,
     email: SITE.email,
     telephone: SITE.phone,
-    address: {
+    address: OFFICES.map((office) => ({
       "@type": "PostalAddress",
-      streetAddress: SITE.address.street,
-      addressLocality: SITE.address.locality,
-      addressRegion: SITE.address.region,
-      postalCode: SITE.address.postalCode,
-      addressCountry: SITE.address.country,
-    },
+      streetAddress: office.address.street,
+      addressLocality: office.address.locality,
+      addressRegion: office.address.region,
+      ...(office.address.postalCode
+        ? { postalCode: office.address.postalCode }
+        : {}),
+      addressCountry: office.address.country,
+    })),
   });
 }
 

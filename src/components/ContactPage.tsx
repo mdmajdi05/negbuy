@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import PageHero from "./PageHero";
 import { PLANT, SECTOR, SHOP } from "@/lib/media";
-import { SITE, whatsappUrl } from "@/lib/site";
+import { OFFICES, SITE, whatsappUrl } from "@/lib/site";
 import { useReveal } from "@/hooks/useReveal";
 
 const CHANNELS = [
@@ -17,14 +17,14 @@ const CHANNELS = [
   },
   {
     tag: "Sales & RFQ",
-    value: "contact@negbuy.com",
-    href: "mailto:contact@negbuy.com",
+    value: SITE.emails.general,
+    href: `mailto:${SITE.emails.general}`,
     note: "Quotes, availability and stockholding enquiries.",
   },
   {
     tag: "Emergency breakdown",
     value: "24/7 support desk",
-    href: "mailto:contact@negbuy.com?subject=EMERGENCY%20breakdown",
+    href: `mailto:${SITE.emails.general}?subject=EMERGENCY%20breakdown`,
     note: "Plants and fleets down — marked urgent, fast-tracked.",
   },
   {
@@ -41,8 +41,8 @@ const CHANNELS = [
   },
   {
     tag: "Group desk",
-    value: "contact@negbuygroup.com",
-    href: "mailto:contact@negbuygroup.com",
+    value: SITE.emails.group,
+    href: `mailto:${SITE.emails.group}`,
     note: "Group enquiries, acquisitions and holding.",
   },
   {
@@ -50,41 +50,6 @@ const CHANNELS = [
     value: SITE.phone,
     href: SITE.phoneHref,
     note: "Sales desk, Mon–Sat during IST business hours.",
-  },
-];
-
-const OFFICES = [
-  {
-    city: "India",
-    role: "Head office & workshop",
-    lines: [
-      "A-24/5, 3rd Floor, NH-19",
-      "Mohan Cooperative Industrial Estate",
-      "New Delhi, Delhi 110044",
-    ],
-  },
-  {
-    city: "United Arab Emirates",
-    role: "Amala — company acquisition",
-    lines: [
-      "Business Centre",
-      "Sharjah Publishing City Free Zone",
-      "Sharjah, United Arab Emirates",
-    ],
-  },
-  {
-    city: "Oman",
-    role: "Regional office",
-    lines: ["P.O. Box 385, PC 103", "Muscat, Oman"],
-  },
-  {
-    city: "Hong Kong",
-    role: "Warehouse & logistics",
-    lines: [
-      "612, Complex Building No. 3",
-      "Xixiang Street, Shenzhen",
-      "China / Hong Kong",
-    ],
   },
 ];
 
@@ -259,12 +224,12 @@ export default function ContactPage() {
             </h2>
           </div>
           <div className="nbOfficeGrid">
-            {OFFICES.map((o, i) => (
-              <article className="nbOffice rv" data-rv-delay={i * 80} key={o.city}>
-                <h3>{o.city}</h3>
-                <b>{o.role}</b>
+            {OFFICES.map((office, i) => (
+              <article className="nbOffice rv" data-rv-delay={i * 80} key={office.country}>
+                <h3>{office.country}</h3>
+                <b>{office.role}</b>
                 <address>
-                  {o.lines.map((line) => (
+                  {office.lines.map((line) => (
                     <span key={line}>{line}</span>
                   ))}
                 </address>

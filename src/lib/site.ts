@@ -6,6 +6,69 @@
  * from here so canonical URLs, JSON-LD schema and social cards all stay in sync
  * when something changes.
  */
+export const OFFICES = [
+  {
+    country: "India",
+    role: "Head office & workshop",
+    lines: [
+      "A-24/5, 3rd Floor, NH-19",
+      "Mohan Cooperative Industrial Estate",
+      "New Delhi, Delhi 110044, India",
+    ],
+    address: {
+      street: "A-24/5, 3rd Floor, NH-19, Mohan Cooperative Industrial Estate",
+      locality: "New Delhi",
+      region: "Delhi",
+      postalCode: "110044",
+      country: "IN",
+    },
+  },
+  {
+    country: "UAE",
+    role: "Amala Company Acquisition",
+    lines: [
+      "Business Centre",
+      "Sharjah Publishing City Free Zone",
+      "Sharjah, United Arab Emirates",
+    ],
+    address: {
+      street: "Business Centre, Sharjah Publishing City Free Zone",
+      locality: "Sharjah",
+      region: "Sharjah",
+      postalCode: "",
+      country: "AE",
+    },
+  },
+  {
+    country: "Oman",
+    role: "Regional office",
+    lines: ["P.O. Box 385, PC 103", "Muscat, Oman"],
+    address: {
+      street: "P.O. Box 385",
+      locality: "Muscat",
+      region: "Muscat",
+      postalCode: "103",
+      country: "OM",
+    },
+  },
+  {
+    country: "Hong Kong",
+    role: "Warehouse",
+    lines: [
+      "612 Complex, Building No. 3",
+      "Xixiang Street, Shenzhen",
+      "China / Hong Kong",
+    ],
+    address: {
+      street: "612 Complex, Building No. 3, Xixiang Street",
+      locality: "Shenzhen",
+      region: "Guangdong",
+      postalCode: "",
+      country: "CN",
+    },
+  },
+] as const;
+
 export const SITE = {
   name: "NEGBUY",
   companyName: "NEGBUY",
@@ -16,6 +79,7 @@ export const SITE = {
   email: "contact@negbuy.com",
   emails: {
     general: "contact@negbuy.com",
+    group: "contact@negbuygroup.com",
     service: "service@negbuy.com",
     partners: "partners@negbuy.com",
   },
@@ -26,11 +90,7 @@ export const SITE = {
   whatsapp: "917011123269",
 
   address: {
-    street: "A-24/5, 3rd Floor, NH-19, Mohan Cooperative Industrial Estate",
-    locality: "New Delhi",
-    region: "Delhi",
-    postalCode: "110044",
-    country: "IN",
+    ...OFFICES[0].address,
   },
 
   tagline: "Energy · Turbine · Marine · Electrical",
@@ -67,4 +127,3 @@ export function whatsappUrl(text: string) {
 
 /** Default greeting used by the floating contact widget. */
 export const WHATSAPP_GREETING = `Hi ${SITE.name}, I have an enquiry about turbine parts and service.`;
-

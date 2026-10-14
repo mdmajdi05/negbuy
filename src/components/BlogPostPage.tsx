@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import CtaForm from "./CtaForm";
 import { SITE, whatsappUrl } from "@/lib/site";
@@ -146,24 +146,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
 
   const post = getPost(slug);
 
-  /** Reading-progress fraction (0–1), driven by scroll position. */
-  const [progress, setProgress] = useState(0);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      setProgress(max > 0 ? Math.min(1, Math.max(0, doc.scrollTop / max)) : 0);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
 
   /** Table of contents, built from the body's `h` blocks with unique ids. */
   const headings = useMemo(() => {
@@ -199,6 +182,9 @@ export default function BlogPostPage({ slug }: { slug: string }) {
   }
 
   const more = POSTS_SORTED.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const issueNumber = String(
+    POSTS_SORTED.findIndex((item) => item.slug === post.slug) + 1,
+  ).padStart(2, "0");
   const shareUrl = `${SITE.url}/blog/${post.slug}`;
 
   const copyLink = async () => {
@@ -242,18 +228,8 @@ export default function BlogPostPage({ slug }: { slug: string }) {
 
   return (
     <div className="nbPage">
-      <div className="nbPostProgress" aria-hidden="true">
-        <i style={{ width: `${progress * 100}%` }} />
-      </div>
-
       <article className="nbPost">
         <header className="nbPostHead">
-          <div className="nbPostHeadBg" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={post.cover} alt="" />
-            <span />
-          </div>
-
           <div className="nbPostHeadInner">
             <nav className="nbCrumb" aria-label="Breadcrumb">
               <Link href="/">Home</Link>
@@ -263,11 +239,9 @@ export default function BlogPostPage({ slug }: { slug: string }) {
               <span>{post.category}</span>
             </nav>
 
-            <div className="nbPostHeadGrid">
+            <div className="nbPostTitleRow">
               <div className="nbPostHeadCopy">
-                <div className="kicker">
-                  {post.category} / Field note
-                </div>
+                <div className="kicker">{post.category} / Field note</div>
                 <h1>{post.title}</h1>
                 <div className="nbBlogMeta">
                   <time dateTime={post.date}>{formatPostDate(post.date)}</time>
@@ -279,12 +253,11 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                   </span>
                 </div>
               </div>
-
-              <figure className="nbPostHeadFig">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={post.cover} alt={post.coverAlt} />
-                <figcaption>{post.coverAlt}</figcaption>
-              </figure>
+              <aside className="nbPostEdition" aria-label="Journal issue">
+                <span>NEGBUY / JOURNAL</span>
+                <strong>{issueNumber}</strong>
+                <span>FIELD NOTE</span>
+              </aside>
             </div>
           </div>
         </header>
@@ -321,7 +294,38 @@ export default function BlogPostPage({ slug }: { slug: string }) {
 
           {/* Article column */}
           <div className="nbPostBody nbPostMain rv">
+            <figure className="nbPostCover">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={post.cover} alt={post.coverAlt} fetchPriority="high" />
+              <figcaption>{post.coverAlt}</figcaption>
+            </figure>
             <p className="nbPostLead">{post.excerpt}</p>
+
+            <div className="nbPostInlineShare" aria-label="Share this article">
+              <span>Share</span>
+              {shareTargets.map((target) => (
+                <a
+                  key={target.key}
+                  className={`nbShareIcon is-${target.key}`}
+                  href={target.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={target.label}
+                  title={target.label}
+                >
+                  <ShareIcon name={target.key} />
+                </a>
+              ))}
+              <button
+                type="button"
+                className={`nbShareIcon is-copy${copied ? " is-done" : ""}`}
+                onClick={copyLink}
+                aria-label="Copy link"
+                title="Copy link"
+              >
+                <ShareIcon name={copied ? "check" : "copy"} />
+              </button>
+            </div>
 
             {headings.length > 1 && (
               <nav className="nbPostToc" aria-label="On this page">
