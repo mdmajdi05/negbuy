@@ -10,6 +10,8 @@ import StatsBand from "./StatsBand";
 import TrustBand from "./TrustBand";
 import ProcessLine from "./ProcessLine";
 import CaseStudies from "./CaseStudies";
+import ShowReel from "./ShowReel";
+import BlogTeaser from "./BlogTeaser";
 import Testimonials from "./Testimonials";
 import FaqSection from "./FaqSection";
 import CtaForm from "./CtaForm";
@@ -241,6 +243,8 @@ export default function LandingPage() {
 
         <CaseStudies />
 
+        <ShowReel />
+
         <section className="section light" id="about" ref={about}>
           <div className="floatingWord" id="floatWord" ref={floatWord} aria-hidden="true">
             MOVE
@@ -332,6 +336,8 @@ export default function LandingPage() {
         </section>
 
         <Testimonials />
+
+        <BlogTeaser />
 
         <FaqSection />
 

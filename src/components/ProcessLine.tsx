@@ -117,10 +117,10 @@ function NegbuyLogoMark({
       y={y}
       width={width}
       height={height}
-      viewBox="106 0 655 298"
+      viewBox="0 0 659 302"
       preserveAspectRatio="xMidYMid meet"
     >
-      <image href="/header-logo.png" x="0" y="0" width="827" height="302" />
+      <image href="/header-logo.png" x="0" y="0" width="659" height="302" />
     </svg>
   );
 }

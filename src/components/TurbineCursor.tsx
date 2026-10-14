@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+
+/** stable no-op subscribe used only to detect "are we on the client yet?" */
+const emptySubscribe = () => () => {};
 
 /**
  * Adaptive black & white arrow cursor:
@@ -13,13 +16,14 @@ import { createPortal } from "react-dom";
  * - click => arrow kick + water-drop ripple (kept)
  */
 export default function TurbineCursor() {
-  const [mounted, setMounted] = useState(false);
+  // client detection without a setState-in-effect cascading render
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const dotRef = useRef<HTMLDivElement>(null);
   const rippleLayerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -38,7 +42,6 @@ export default function TurbineCursor() {
     let x = mx;
     let y = my;
     let lastX = mx;
-    let lastY = my;
     let targetTilt = 0;
     let tilt = 0;
     let frame = 0;
@@ -53,7 +56,6 @@ export default function TurbineCursor() {
       }
       const dx = e.clientX - lastX;
       lastX = e.clientX;
-      lastY = e.clientY;
       targetTilt = Math.max(-16, Math.min(16, dx * 1.6));
     };
 

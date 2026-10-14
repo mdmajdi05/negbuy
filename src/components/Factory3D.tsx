@@ -13,16 +13,23 @@ import type {
 import type { OrbitControls as OrbitControlsImpl } from "three/examples/jsm/controls/OrbitControls.js";
 
 /* ------------------------------------------------------------------ *
- * Real 3D working area.
+ * Real 3D working area — the turbine assembly bay.
  *
- * Nine CC0 (public-domain) models from Poly Haven are assembled into a
- * NEGBUY service bay: roller-shutter doors, a steel shelving unit, two
- * tool carts, an industrial storage cart, a portable generator, drums,
- * crates and a wet-floor sign — all light (512 px WebP + meshopt) and
- * lazy-loaded only when the section approaches the viewport.
+ * Centre stage: a full gas-turbine engine (CC0, meshopt-compressed)
+ * sitting on a steel assembly cradle while a four-person crew works
+ * around it. The crew and the hall props are CC0 models too — MakeHuman
+ * based workers in real working poses, plus roller-shutter doors,
+ * shelving, carts, drums and crates. Everything is light (512 px WebP +
+ * meshopt) and lazy-loaded only when the section approaches the
+ * viewport.
  * ------------------------------------------------------------------ */
 
 const BASE = "/models/factory";
+
+/** centre of the assembly bay on the floor */
+const BAY_Z = -2.4;
+/** how far the turbine underside floats above the floor on its cradle */
+const LIFT = 0.27;
 
 interface Place {
   file: string;
@@ -36,38 +43,45 @@ interface Place {
 }
 
 const PLAN: Place[] = [
-  // --- back wall: two roller-shutter bays -------------------------------
-  { file: "shutter_door.glb", pos: [-4.0, 0, -4.9], ry: 0, drop: ["rollershutter_door_graffiti"] },
-  { file: "shutter_door.glb", pos: [-2.55, 0, -4.9], ry: 0, drop: ["rollershutter_door_graffiti"] },
-  // --- left bay: shelving ----------------------------------------------
-  { file: "steel_shelves.glb", pos: [-6.1, 0, -3.85], ry: 0.26 },
-  // --- centre: the bench the work happens on ---------------------------
-  { file: "tool_cart.glb", pos: [-1.45, 0, -2.15], ry: 0.52 },
-  // --- right: storage + power ------------------------------------------
-  { file: "storage_cart.glb", pos: [2.7, 0, -3.85], ry: -0.34 },
-  { file: "generator.glb", pos: [5.7, 0, -3.8], ry: -0.52 },
-  // --- drums ------------------------------------------------------------
+  /* --- the turbine under assembly, lifted on the cradle --------------- */
+  { file: "turbine.glb", pos: [0, LIFT, BAY_Z], ry: Math.PI / 2 },
+
+  /* --- the crew ------------------------------------------------------- */
+  // lead fitter, hard hat + hi-vis, working the front of the engine
+  { file: "worker-hivis.glb", pos: [0.75, 0, -1.0], ry: Math.PI },
+  // sparky up the step ladder, working the far side from above
+  { file: "worker-ladder.glb", pos: [-0.75, 0, -4.0], ry: 0 },
+  // store man walking a crate in from the loading side
+  { file: "worker-crate.glb", pos: [3.05, 0, -1.35], ry: -2.02 },
+  // QC lead with the build sheet
+  { file: "worker-qc.glb", pos: [-2.75, 0, -1.2], ry: 2.03 },
+
+  /* --- the hall ------------------------------------------------------- */
+  { file: "shutter_door.glb", pos: [-4.3, 0, -4.9], drop: ["rollershutter_door_graffiti"] },
+  { file: "shutter_door.glb", pos: [-2.85, 0, -4.9], drop: ["rollershutter_door_graffiti"] },
+  { file: "steel_shelves.glb", pos: [-6.3, 0, -3.6], ry: 0.26 },
+  { file: "tool_cart.glb", pos: [-3.9, 0, -1.6], ry: 0.52 },
+  { file: "storage_cart.glb", pos: [3.5, 0, -4.2], ry: -0.34 },
+  { file: "generator.glb", pos: [6.1, 0, -3.4], ry: -0.52 },
   {
     file: "barrel.glb",
-    pos: [-0.25, 0, -4.3],
+    pos: [0.9, 0, -4.7],
     ry: 0.4,
     copies: [
-      { pos: [0.42, 0, -4.6], ry: 1.15 },
-      { pos: [3.7, 0, -2.45], ry: -0.3 },
+      { pos: [1.55, 0, -4.95], ry: 1.15 },
+      { pos: [4.85, 0, -2.5], ry: -0.3 },
     ],
   },
-  // --- crates (one stacked) --------------------------------------------
   {
     file: "crate.glb",
-    pos: [1.05, 0, -2.6],
+    pos: [2.0, 0, -0.7],
     ry: -0.22,
     copies: [
-      { pos: [1.12, 0.254, -2.66], ry: 0.34 },
-      { pos: [4.5, 0, -3.15], ry: 0.92 },
+      { pos: [2.06, 0.254, -0.76], ry: 0.34 },
+      { pos: [5.1, 0, -3.6], ry: 0.92 },
     ],
   },
-  // --- detail -----------------------------------------------------------
-  { file: "wet_floor_sign.glb", pos: [1.35, 0, -0.55], ry: 0.16 },
+  { file: "wet_floor_sign.glb", pos: [-1.9, 0, -1.0], ry: 0.16 },
 ];
 
 interface Station {
@@ -76,14 +90,14 @@ interface Station {
 }
 
 const STATIONS: Station[] = [
-  { label: "01 · Assembly", pos: [-1.45, 1.45, -2.15] },
-  { label: "02 · Weld + QC", pos: [-6.1, 2.6, -3.85] },
-  { label: "03 · Oil + test", pos: [5.7, 1.05, -3.8] },
-  { label: "04 · Dispatch", pos: [2.7, 1.8, -3.85] },
+  { label: "01 · Rotor assembly", pos: [0.15, 2.25, BAY_Z] },
+  { label: "02 · Weld + QC", pos: [-2.75, 2.0, -1.2] },
+  { label: "03 · Oil + test", pos: [6.1, 1.5, -3.4] },
+  { label: "04 · Dispatch", pos: [3.5, 2.35, -4.2] },
 ];
 
-const HOME_POS: [number, number, number] = [8.4, 5.4, 6.4];
-const LOOK_AT: [number, number, number] = [0.1, 1.0, -3.0];
+const HOME_POS: [number, number, number] = [7.8, 6.6, 6.4];
+const LOOK_AT: [number, number, number] = [0.1, 1.15, BAY_Z];
 
 export default function Factory3D({
   active,
@@ -235,7 +249,7 @@ export default function Factory3D({
         key.shadow.camera.far = 42;
         key.shadow.bias = -0.0009;
         key.shadow.normalBias = 0.022;
-        key.target.position.set(0, 0, -3);
+        key.target.position.set(0, 0.8, BAY_Z);
         scene.add(key, key.target);
 
         const fill = new THREE.DirectionalLight(0xa9bfd8, 0.4);
@@ -266,7 +280,83 @@ export default function Factory3D({
         wall.receiveShadow = true;
         scene.add(wall);
 
-        /* ---------- load the props ---------- */
+        /* ---------- assembly cradle, gantry + bay markings ---------- */
+        const steel = new THREE.MeshStandardMaterial({
+          color: 0x333a45,
+          roughness: 0.42,
+          metalness: 0.72,
+        });
+        const paint = new THREE.MeshStandardMaterial({
+          color: 0xa8242b,
+          roughness: 0.5,
+          metalness: 0.35,
+        });
+        const hazard = new THREE.MeshStandardMaterial({
+          color: 0xc9922a,
+          roughness: 0.62,
+          metalness: 0.2,
+          emissive: 0x2a1c00,
+          emissiveIntensity: 1,
+        });
+
+        const addBox = (
+          parent: Object3D,
+          w: number,
+          h: number,
+          d: number,
+          x: number,
+          y: number,
+          z: number,
+          mat: MeshStandardMaterial
+        ) => {
+          const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+          m.position.set(x, y, z);
+          m.castShadow = true;
+          m.receiveShadow = true;
+          parent.add(m);
+          return m;
+        };
+
+        // steel cradle holding the engine: base rails, uprights, red top rails
+        const cradle = new THREE.Group();
+        for (const dz of [-0.95, 0.95]) {
+          addBox(cradle, 3.5, 0.1, 0.16, 0, 0.1, BAY_Z + dz, steel);
+          addBox(cradle, 3.1, 0.12, 0.15, 0, 1.2, BAY_Z + dz, paint);
+        }
+        for (const dx of [-1.35, 1.35]) {
+          addBox(cradle, 0.12, 0.1, 2.06, dx, 0.1, BAY_Z, steel);
+          for (const dz of [-0.95, 0.95]) {
+            addBox(cradle, 0.11, 1.08, 0.11, dx, 0.69, BAY_Z + dz, steel);
+          }
+        }
+        for (const dx of [-1.15, 1.15]) {
+          addBox(cradle, 0.5, 0.14, 1.15, dx, 0.2, BAY_Z, paint);
+        }
+        scene.add(cradle);
+
+        // gantry rail over the bay with a hoist parked above the engine
+        const gantry = new THREE.Group();
+        for (const dx of [-3.3, 3.3]) addBox(gantry, 0.16, 3.6, 0.16, dx, 1.8, BAY_Z, steel);
+        addBox(gantry, 6.92, 0.2, 0.24, 0, 3.7, BAY_Z, steel);
+        addBox(gantry, 0.52, 0.24, 0.42, 0.35, 3.52, BAY_Z, paint);
+        const chain = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 1.0, 8), steel);
+        chain.position.set(0.35, 2.9, BAY_Z);
+        chain.castShadow = true;
+        const hook = new THREE.Mesh(new THREE.TorusGeometry(0.09, 0.026, 8, 16), paint);
+        hook.position.set(0.35, 2.36, BAY_Z);
+        hook.castShadow = true;
+        gantry.add(chain, hook);
+        scene.add(gantry);
+
+        // painted bay outline on the floor
+        const mark = new THREE.Group();
+        addBox(mark, 4.6, 0.02, 0.07, 0, 0.012, BAY_Z - 1.2, hazard);
+        addBox(mark, 4.6, 0.02, 0.07, 0, 0.012, BAY_Z + 1.2, hazard);
+        addBox(mark, 0.07, 0.02, 2.4, -2.3, 0.012, BAY_Z, hazard);
+        addBox(mark, 0.07, 0.02, 2.4, 2.3, 0.012, BAY_Z, hazard);
+        scene.add(mark);
+
+        /* ---------- load the models ---------- */
         const loader = new GLTFLoader();
         loader.setMeshoptDecoder(MeshoptDecoder);
 
@@ -373,7 +463,7 @@ export default function Factory3D({
 
           // scroll-linked dolly: the bay pulls closer as the line runs
           const pr = Math.min(1, Math.max(0, progressRef.current?.current ?? 0));
-          const want = (13.8 - pr * 2.6) * zoom;
+          const want = (12.9 - pr * 2.9) * zoom;
           dir.copy(camera.position).sub(controls.target);
           const cur = dir.length();
           dir.setLength(cur + (want - cur) * Math.min(1, dt * 3));
@@ -394,9 +484,11 @@ export default function Factory3D({
             el.style.opacity = live ? "1" : "0";
             el.style.pointerEvents = live ? "auto" : "none";
             if (live) {
-              el.style.transform = `translate(-50%, -50%) translate(${(tmp.x * 0.5 + 0.5) * w}px, ${
-                (-tmp.y * 0.5 + 0.5) * h
-              }px)`;
+              // keep the tag inside the frame — it is wider than the dot and
+              // would otherwise be clipped by the viewer's overflow:hidden
+              const px = Math.min(w - 74, Math.max(74, (tmp.x * 0.5 + 0.5) * w));
+              const py = Math.min(h - 26, Math.max(26, (-tmp.y * 0.5 + 0.5) * h));
+              el.style.transform = `translate(-50%, -50%) translate(${px}px, ${py}px)`;
             }
             el.classList.toggle("on", i === act);
           }
@@ -443,7 +535,7 @@ export default function Factory3D({
         <div className="f3dLoad">
           <span className="f3dSpin" aria-hidden="true" />
           <b>Building the 3D floor</b>
-          <span>{done > 0 ? `${done} / ${PLAN.length} stations placed` : "loading models…"}</span>
+          <span>{done > 0 ? `${done} / ${PLAN.length} pieces placed` : "loading models…"}</span>
         </div>
       )}
       {failed && (

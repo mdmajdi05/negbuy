@@ -8,33 +8,33 @@ const BG_IMG =
 
 const FSTAGES = [
   {
-    tag: "LINE 01 / ASSEMBLY",
-    title: "BOTS ASSEMBLE",
-    desc: "Two 6-axis arms lift turbine blades off the belt and seat them on pallets — every pick torque-logged, every place vision-checked.",
-    metric: "2×",
-    unit: "ROBOT ARMS LIVE",
+    tag: "BAY 01 / ASSEMBLY",
+    title: "HANDS ON THE ENGINE",
+    desc: "Fitters seat the rotor, torque the case bolts and spin-check the shaft by hand — every value logged against the build sheet.",
+    metric: "4",
+    unit: "CREW ON THE BAY",
     bar: 30,
   },
   {
-    tag: "LINE 02 / WELD + QC",
+    tag: "BAY 02 / WELD + QC",
     title: "SPARKS FLY",
-    desc: "Welding cell fires in pulses while the overhead camera scans each seam. Tower lamp stays green — pass, pass, pass.",
+    desc: "The welder fires in pulses up the step ladder while the QC lead scans every seam against the drawing. Lamp stays green — pass, pass, pass.",
     metric: "99.4%",
     unit: "QC PASS RATE",
     bar: 58,
   },
   {
-    tag: "LINE 03 / OIL FILL",
+    tag: "BAY 03 / OIL FILL",
     title: "OIL + TEST",
-    desc: "Lube-oil rigs fill, pressurise and leak-test each unit at 8.2 bar. The amber floor line breathes with the test cycle.",
+    desc: "Lube-oil rigs fill, pressurise and leak-test each turbine at 8.2 bar. The amber floor line breathes with the test cycle.",
     metric: "8.2",
     unit: "BAR TEST PRESSURE",
     bar: 80,
   },
   {
-    tag: "LINE 04 / DISPATCH",
+    tag: "BAY 04 / DISPATCH",
     title: "NEGBUY OUT",
-    desc: "Finished crates — stencilled, barcoded, sealed — ride the belt to dispatch. The counter climbs as you scroll.",
+    desc: "The hoist lifts each finished turbine off its cradle into crates — stencilled, barcoded, sealed — and the counter climbs as you scroll.",
     metric: "12.4K",
     unit: "UNITS / SHIFT",
     bar: 100,
@@ -264,9 +264,9 @@ export default function FactoryFloor() {
           </div>
         </div>
         <p className="factorySub">
-          Scroll to run the line — camera pushes in, bots swing, crates roll,
-          crane patrols and the welder fires. This is the floor behind every
-          NEGBUY crate.
+          Scroll to run the line — the camera pushes in, the crew torques up the
+          engine on its cradle, the hoist tracks overhead and the QC lamp stays
+          green. This is the floor behind every NEGBUY crate.
         </p>
 
         <div className="factoryViews tpViewSwitch" role="group" aria-label="Factory floor view mode">
@@ -339,7 +339,7 @@ export default function FactoryFloor() {
                   </div>
                 </div>
               </div>
-              <span className="rrlabel">BOT-01 · KUKA CLASS</span>
+              <span className="rrlabel">ASM-01 · ASSEMBLY CELL</span>
             </div>
 
             <div className="rrobot rr2" aria-hidden="true">
@@ -355,7 +355,7 @@ export default function FactoryFloor() {
                   </div>
                 </div>
               </div>
-              <span className="rrlabel">BOT-02 · KUKA CLASS</span>
+              <span className="rrlabel">ASM-02 · ASSEMBLY CELL</span>
             </div>
 
             <div className="rwelder" aria-hidden="true">

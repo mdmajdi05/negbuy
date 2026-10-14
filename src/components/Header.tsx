@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  { href: "/products", label: "Products", index: "01" },
-  { href: "/services", label: "Solutions", index: "02" },
-  { href: "/about", label: "About", index: "03" },
-  { href: "/#industries", label: "Industries", index: "04" },
+  { href: "/", label: "Home", index: "01" },
+  { href: "/products", label: "Products", index: "02" },
+  { href: "/services", label: "Solutions", index: "03" },
+  { href: "/about", label: "About", index: "04" },
+  { href: "/#industries", label: "Industries", index: "05" },
+  { href: "/blog", label: "Blog", index: "06" },
 ];
 
 export default function Header() {
@@ -77,8 +79,9 @@ export default function Header() {
         <Image
           src="/header-logo.png"
           alt="NEGBUY"
-          width={150}
-          height={60}
+          width={659}
+          height={302}
+          sizes="120px"
           priority
         />
         <span className="logoBadge">ENERGY · INDUSTRIAL</span>

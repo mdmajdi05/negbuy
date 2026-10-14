@@ -29,6 +29,7 @@ const COLUMNS = [
       { href: "/about#story", label: "Our Story" },
       { href: "/#industries", label: "Industries" },
       { href: "/#cases", label: "Case Studies" },
+      { href: "/blog", label: "Journal" },
       { href: "/contact", label: "Contact" },
     ],
   },
@@ -47,8 +48,9 @@ export default function SiteFooter() {
               className="footerLogo"
               src="/header-logo.png"
               alt="NEGBUY logo"
-              width={155}
-              height={62}
+              width={659}
+              height={302}
+              sizes="110px"
             />
             <p>
               NEGBUY supplies genuine gas &amp; steam turbine parts, generators and

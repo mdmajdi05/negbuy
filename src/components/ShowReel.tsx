@@ -1,11 +1,27 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { VIDEO, SERVICE } from "@/lib/media";
 
 export default function ShowReel() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+
+  // Some browsers hold a muted `autoPlay` element until play() is called
+  // explicitly, so nudge it once on mount and retry on the first interaction.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    const kick = () => void v.play().catch(() => {});
+    kick();
+    window.addEventListener("pointerdown", kick, { once: true });
+    window.addEventListener("scroll", kick, { once: true, passive: true });
+    return () => {
+      window.removeEventListener("pointerdown", kick);
+      window.removeEventListener("scroll", kick);
+    };
+  }, []);
 
   const toggle = () => {
     const v = videoRef.current;
