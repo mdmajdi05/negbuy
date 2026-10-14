@@ -21,7 +21,7 @@ export default function Header() {
   const [progress, setProgress] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // Compact glass bar + top progress line while scrolling.
+  // Compact glass bar and viewport-top progress line while scrolling.
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
@@ -70,7 +70,7 @@ export default function Header() {
   return (
     <>
       <i
-        className="navProgress"
+        className="scrollProgress"
         style={{ width: `${progress}%` }}
         aria-hidden="true"
       />

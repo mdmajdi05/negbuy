@@ -531,7 +531,9 @@ export default function Factory3D({
         window.addEventListener("pointerup", onUp);
 
         /* ---------- loop (wakes on demand, parks the moment it settles) --- */
-        const clock = new THREE.Clock();
+        // THREE.Timer replaces the deprecated THREE.Clock (same seconds-based
+        // delta, but it has to be updated once per frame)
+        const clock = new THREE.Timer();
         const tmp = new THREE.Vector3();
         const dir = new THREE.Vector3();
         const focus = new THREE.Vector3();
@@ -550,6 +552,7 @@ export default function Factory3D({
           // teleporting the camera. Mid-animation the delta is capped at 0.25 s,
           // which keeps the glide the same length in *time* on a slow device
           // instead of dragging it out for hundreds of frames.
+          clock.update();
           const raw = clock.getDelta();
           const dt = fresh ? 1 / 60 : Math.min(0.25, raw);
           fresh = false;
