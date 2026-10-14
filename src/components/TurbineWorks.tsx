@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
+import {
+  easeTo,
+  prefersReducedMotion,
+  sectionProgress,
+  useRafLoop,
+} from "@/hooks/useRafLoop";
 
 const STAGES = [
   {
@@ -81,67 +87,58 @@ export default function TurbineWorks() {
   const stageEls = useRef<(HTMLDivElement | null)[]>([]);
   const progressRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    let frame = 0;
-    let current = 0;
+  const currentRef = useRef(0);
 
-    const render = () => {
-      const sec = sectionRef.current;
-      if (!sec) {
-        frame = requestAnimationFrame(render);
-        return;
-      }
-      const rect = sec.getBoundingClientRect();
-      const max = sec.offsetHeight - window.innerHeight;
-      const raw = max > 0 ? -rect.top / max : 0;
-      const target = Math.max(0, Math.min(1, raw));
-      current += (target - current) * (reduced ? 1 : 0.1);
+  const draw = useCallback(() => {
+    const sec = sectionRef.current;
+    if (!sec) return true;
 
-      // 3D engine reacts to scroll: spins up, tilts, heats up
-      if (fanRef.current) {
-        const spins = 40 + current * 1400;
-        fanRef.current.style.transform = `rotateZ(${spins}deg)`;
-      }
-      if (engineRef.current) {
-        engineRef.current.style.transform = `rotateX(${52 - current * 22}deg) rotateZ(${-12 + current * 34}deg) scale(${1 + current * 0.12})`;
-      }
-      if (glowRef.current) {
-        const heat = current;
-        glowRef.current.style.opacity = String(0.25 + heat * 0.75);
-        glowRef.current.style.transform = `translate(-50%,-50%) scale(${0.8 + heat * 0.9})`;
-        glowRef.current.style.filter = `blur(${18 - heat * 8}px) hue-rotate(${-heat * 24}deg)`;
-      }
-      if (oilRef.current) {
-        oilRef.current.style.setProperty("--oil-speed", `${0.6 + current * 3}s`);
-        (oilRef.current as HTMLElement).style.opacity = String(
-          0.55 + current * 0.45
-        );
-      }
+    const target = sectionProgress(sec);
+    const next = easeTo(
+      currentRef.current,
+      target,
+      prefersReducedMotion() ? 1 : 0.1
+    );
+    currentRef.current = next;
 
-      // stage text crossfade
-      const idx = Math.min(
-        STAGES.length - 1,
-        Math.floor(current * STAGES.length)
-      );
-      stageEls.current.forEach((el, i) => {
-        if (!el) return;
-        const active = i === idx;
-        el.classList.toggle("active", active);
-        el.setAttribute("aria-hidden", active ? "false" : "true");
-      });
-      if (progressRef.current) {
-        progressRef.current.style.transform = `scaleX(${current})`;
-      }
+    // 3D engine reacts to scroll: spins up, tilts, heats up
+    if (fanRef.current) {
+      const spins = 40 + next * 1400;
+      fanRef.current.style.transform = `rotateZ(${spins}deg)`;
+    }
+    if (engineRef.current) {
+      engineRef.current.style.transform = `rotateX(${52 - next * 22}deg) rotateZ(${-12 + next * 34}deg) scale(${1 + next * 0.12})`;
+    }
+    if (glowRef.current) {
+      const heat = next;
+      glowRef.current.style.opacity = String(0.25 + heat * 0.75);
+      glowRef.current.style.transform = `translate(-50%,-50%) scale(${0.8 + heat * 0.9})`;
+      glowRef.current.style.filter = `blur(${18 - heat * 8}px) hue-rotate(${-heat * 24}deg)`;
+    }
+    if (oilRef.current) {
+      oilRef.current.style.setProperty("--oil-speed", `${0.6 + next * 3}s`);
+      oilRef.current.style.opacity = String(0.55 + next * 0.45);
+    }
 
-      frame = requestAnimationFrame(render);
-    };
+    // stage text crossfade
+    const idx = Math.min(
+      STAGES.length - 1,
+      Math.floor(next * STAGES.length)
+    );
+    stageEls.current.forEach((el, i) => {
+      if (!el) return;
+      const active = i === idx;
+      el.classList.toggle("active", active);
+      el.setAttribute("aria-hidden", active ? "false" : "true");
+    });
+    if (progressRef.current) {
+      progressRef.current.style.transform = `scaleX(${next})`;
+    }
 
-    frame = requestAnimationFrame(render);
-    return () => cancelAnimationFrame(frame);
+    return next === target;
   }, []);
+
+  useRafLoop(sectionRef, draw);
 
   return (
     <section

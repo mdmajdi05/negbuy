@@ -3,9 +3,18 @@
 import { useState, type FormEvent } from "react";
 import PageHero from "./PageHero";
 import { PLANT, SECTOR, SHOP } from "@/lib/media";
+import { SITE, whatsappUrl } from "@/lib/site";
 import { useReveal } from "@/hooks/useReveal";
 
 const CHANNELS = [
+  {
+    tag: "WhatsApp",
+    value: SITE.phone,
+    href: whatsappUrl(
+      "Hi NEGBUY, I have an enquiry about turbine parts and service.",
+    ),
+    note: "Fastest channel — send part numbers, photos or a fault note.",
+  },
   {
     tag: "Sales & RFQ",
     value: "contact@negbuy.com",
@@ -30,13 +39,53 @@ const CHANNELS = [
     href: "mailto:partners@negbuy.com",
     note: "OEM, EPC and distribution partnerships.",
   },
+  {
+    tag: "Group desk",
+    value: "contact@negbuygroup.com",
+    href: "mailto:contact@negbuygroup.com",
+    note: "Group enquiries, acquisitions and holding.",
+  },
+  {
+    tag: "Direct line",
+    value: SITE.phone,
+    href: SITE.phoneHref,
+    note: "Sales desk, Mon–Sat during IST business hours.",
+  },
 ];
 
 const OFFICES = [
-  { city: "India", role: "Head office & workshop", note: "Spares desk, engineering, dispatch" },
-  { city: "GCC", role: "Regional hub", note: "Power & oilfield spares, field service" },
-  { city: "SE Asia", role: "Marine support", note: "Fleet overhauls & port logistics" },
-  { city: "Global", role: "Feedstock network", note: "Verified sourcing, 40+ countries" },
+  {
+    city: "India",
+    role: "Head office & workshop",
+    lines: [
+      "A-24/5, 3rd Floor, NH-19",
+      "Mohan Cooperative Industrial Estate",
+      "New Delhi, Delhi 110044",
+    ],
+  },
+  {
+    city: "United Arab Emirates",
+    role: "Amala — company acquisition",
+    lines: [
+      "Business Centre",
+      "Sharjah Publishing City Free Zone",
+      "Sharjah, United Arab Emirates",
+    ],
+  },
+  {
+    city: "Oman",
+    role: "Regional office",
+    lines: ["P.O. Box 385, PC 103", "Muscat, Oman"],
+  },
+  {
+    city: "Hong Kong",
+    role: "Warehouse & logistics",
+    lines: [
+      "612, Complex Building No. 3",
+      "Xixiang Street, Shenzhen",
+      "China / Hong Kong",
+    ],
+  },
 ];
 
 const SUBJECTS = [
@@ -66,12 +115,20 @@ export default function ContactPage() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\nCountry: ${form.country}\nSubject: ${form.subject}\n\n${form.message}`
-    );
-    window.location.href = `mailto:contact@negbuy.com?subject=${encodeURIComponent(
-      form.subject
-    )}&body=${body}`;
+    const text = [
+      "New enquiry from the NEGBUY website",
+      "",
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Company: ${form.company || "—"}`,
+      `Country: ${form.country || "—"}`,
+      `Subject: ${form.subject}`,
+      "",
+      "Requirement:",
+      form.message,
+    ].join("\n");
+
+    window.open(whatsappUrl(text), "_blank", "noopener,noreferrer");
     setSent(true);
   };
 
@@ -121,8 +178,19 @@ export default function ContactPage() {
                 <span aria-hidden="true">✓</span>
                 <h3>Enquiry ready to send.</h3>
                 <p>
-                  We&apos;ve opened your mail client with the details. If nothing
-                  happened, email <a href="mailto:contact@negbuy.com">contact@negbuy.com</a>.
+                  WhatsApp has opened with your details filled in — just hit
+                  send. If nothing happened, message us on{" "}
+                  <a
+                    href={whatsappUrl(
+                      `Hi NEGBUY, I have an enquiry about ${form.subject}.`,
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WhatsApp
+                  </a>{" "}
+                  or email{" "}
+                  <a href="mailto:contact@negbuy.com">contact@negbuy.com</a>.
                 </p>
                 <button type="button" onClick={() => setSent(false)}>
                   Send another
@@ -183,7 +251,7 @@ export default function ContactPage() {
       <section className="nbOffices" aria-label="Where we operate">
         <div className="nbOfficesInner">
           <div className="nbOfficesHead rv">
-            <div className="kicker">Where we operate</div>
+            <div className="kicker">Group of companies</div>
             <h2>
               LOCAL CREWS.
               <br />
@@ -195,7 +263,11 @@ export default function ContactPage() {
               <article className="nbOffice rv" data-rv-delay={i * 80} key={o.city}>
                 <h3>{o.city}</h3>
                 <b>{o.role}</b>
-                <p>{o.note}</p>
+                <address>
+                  {o.lines.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </address>
               </article>
             ))}
           </div>

@@ -22,6 +22,9 @@ interface ModelDef {
   spec: [string, string][];
 }
 
+/** Tab shown when the section first appears — cutaway by default. */
+const DEFAULT_MODEL_ID: ModelDef["id"] = "cut";
+
 const MODELS: ModelDef[] = [
   {
     id: "ext",
@@ -112,7 +115,10 @@ export default function Parts3D({
   active: string;
   onPick: (id: string) => void;
 }) {
-  const [model, setModel] = useState(0);
+  const [model, setModel] = useState(() => {
+    const i = MODELS.findIndex((m) => m.id === DEFAULT_MODEL_ID);
+    return i < 0 ? 0 : i;
+  });
   const [auto, setAuto] = useState(true);
   const [ready, setReady] = useState(false);
   const [near, setNear] = useState(false);

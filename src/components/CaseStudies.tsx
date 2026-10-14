@@ -44,7 +44,7 @@ const CASES = [
 
 export default function CaseStudies() {
   return (
-    <section className="nbCases" id="cases" aria-label="Case studies">
+    <section className="nbCases light" id="cases" aria-label="Case studies">
       <div className="nbCasesInner">
         <div className="nbCasesHead rv">
           <div className="kicker">03 / Work in the field</div>

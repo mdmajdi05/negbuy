@@ -17,34 +17,34 @@ export const VIDEO = {
 /** OEM product media (real turbine hardware). */
 export const OEM = {
   gtHero: "/oem/ge-turbine-hero.webp",
-  gtHome: "/oem/ge-home-hero.png",
+  gtHome: "/oem/ge-home-hero.webp",
   gtServices: "/oem/ge-services.webp",
   steam: "/oem/ge-steam.webp",
   generators: "/oem/ge-generators.webp",
 
   sgt5_8000h: "/oem/se-sgt5-8000h.jpg",
-  sgt5_4000f: "/oem/se-sgt5-4000f.png",
+  sgt5_4000f: "/oem/se-sgt5-4000f.webp",
   sgt5_2000e: "/oem/se-sgt5-2000e.jpg",
-  sgt5_9000hl: "/oem/se-sgt5-9000hl.png",
+  sgt5_9000hl: "/oem/se-sgt5-9000hl.webp",
   sgt6_8000h: "/oem/se-sgt6-8000h.jpg",
   sgt6_5000f: "/oem/se-sgt6-5000f.jpg",
   sgt800c1: "/oem/se-sgt800c1.jpg",
-  sgt750: "/oem/se-sgt750.png",
+  sgt750: "/oem/se-sgt750.webp",
   sgt700: "/oem/se-sgt700.jpg",
   phoenix: "/oem/se-phoenix.jpg",
 
-  sst700_900: "/oem/se-sst700-900.png",
+  sst700_900: "/oem/se-sst700-900.webp",
   sst6000: "/oem/se-sst6000.jpg",
   sst600: "/oem/se-sst600.jpg",
   sst3000: "/oem/se-sst3000.jpg",
-  sst200: "/oem/se-sst200.png",
+  sst200: "/oem/se-sst200.webp",
 
   sgen100a: "/oem/se-sgen100a.jpg",
-  sgen100aCut: "/oem/se-sgen100a-cut.png",
-  sgen3000w: "/oem/se-sgen3000w.png",
+  sgen100aCut: "/oem/se-sgen100a-cut.webp",
+  sgen3000w: "/oem/se-sgen3000w.webp",
   sgen5: "/oem/se-sgen5.jpg",
-  genSphere: "/oem/se-gen-sphere.png",
-  genGraphic: "/oem/se-gen-grafik.png",
+  genSphere: "/oem/se-gen-sphere.webp",
+  genGraphic: "/oem/se-gen-grafik.webp",
 } as const;
 
 /** Real plant / site photography. */
@@ -109,7 +109,7 @@ export const SECTOR = {
   solar: "/real/p-solar.webp",
   oilgas: "/real/p-oilgas.webp",
   turbine: "/real/p-turbine.webp",
-  wind: "/real/wind-turbine.png",
+  wind: "/real/wind-turbine.webp",
   windProject: "/real/wind-project-1.jpg",
   solarField: "/real/ind-solar1.jpg",
   elec1: "/real/elec-1.jpg",

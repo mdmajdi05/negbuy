@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { SHOP, MACHINE } from "@/lib/media";
+import {
+  easeTo,
+  prefersReducedMotion,
+  sectionProgress,
+  useRafLoop,
+} from "@/hooks/useRafLoop";
 
 const FRAMES = [
   {
@@ -52,37 +58,36 @@ export default function OnTheFloor() {
   const barRef = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState(0);
 
-  useEffect(() => {
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    let frame = 0;
-    let current = 0;
+  const currentRef = useRef(0);
 
-    const render = () => {
-      const sec = sectionRef.current;
-      const track = trackRef.current;
-      if (sec && track) {
-        const rect = sec.getBoundingClientRect();
-        const max = sec.offsetHeight - window.innerHeight;
-        const raw = max > 0 ? -rect.top / max : 0;
-        const target = Math.max(0, Math.min(1, raw));
-        current += (target - current) * (reduced ? 1 : 0.09);
+  const draw = useCallback(() => {
+    const sec = sectionRef.current;
+    const track = trackRef.current;
+    if (!sec || !track) return true;
 
-        const travel = Math.max(0, track.scrollWidth - window.innerWidth + 64);
-        track.style.transform = `translate3d(${(-current * travel).toFixed(1)}px,0,0)`;
-        if (barRef.current) {
-          barRef.current.style.transform = `scaleX(${current.toFixed(3)})`;
-        }
-        const idx = Math.min(FRAMES.length - 1, Math.round(current * (FRAMES.length - 1)));
-        setActive((prev) => (prev === idx ? prev : idx));
-      }
-      frame = requestAnimationFrame(render);
-    };
+    const target = sectionProgress(sec);
+    const next = easeTo(
+      currentRef.current,
+      target,
+      prefersReducedMotion() ? 1 : 0.09
+    );
+    currentRef.current = next;
 
-    frame = requestAnimationFrame(render);
-    return () => cancelAnimationFrame(frame);
+    const travel = Math.max(0, track.scrollWidth - window.innerWidth + 64);
+    track.style.transform = `translate3d(${(-next * travel).toFixed(1)}px,0,0)`;
+    if (barRef.current) {
+      barRef.current.style.transform = `scaleX(${next.toFixed(3)})`;
+    }
+    const idx = Math.min(
+      FRAMES.length - 1,
+      Math.round(next * (FRAMES.length - 1))
+    );
+    setActive((prev) => (prev === idx ? prev : idx));
+
+    return next === target;
   }, []);
+
+  useRafLoop(sectionRef, draw);
 
   return (
     <section

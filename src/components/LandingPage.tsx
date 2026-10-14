@@ -8,7 +8,6 @@ import TurbineWorks from "./TurbineWorks";
 import FactoryFloor from "./FactoryFloor";
 import StatsBand from "./StatsBand";
 import TrustBand from "./TrustBand";
-import ProcessLine from "./ProcessLine";
 import CaseStudies from "./CaseStudies";
 import ShowReel from "./ShowReel";
 import BlogTeaser from "./BlogTeaser";
@@ -229,6 +228,8 @@ export default function LandingPage() {
 
         <TurbineParts />
 
+        <TrustBand />
+
         <OnTheFloor />
 
         <TurbineWorks />
@@ -236,10 +237,6 @@ export default function LandingPage() {
         <FactoryFloor />
 
         <StatsBand />
-
-        <TrustBand />
-
-        <ProcessLine />
 
         <CaseStudies />
 
@@ -304,10 +301,10 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="industries" id="industries">
+        <section className="industries light" id="industries">
           <div className="industryTop reveal">
             <div>
-              <div className="kicker">04 / Industries</div>
+              <div className="kicker">03 / Industries</div>
               <h2>
                 ONE NETWORK.
                 <br />

@@ -1,27 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { VIDEO, SERVICE } from "@/lib/media";
+import { useAutoVideo } from "@/hooks/useAutoVideo";
 
 export default function ShowReel() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { videoRef, armed } = useAutoVideo(sectionRef);
   const [muted, setMuted] = useState(true);
-
-  // Some browsers hold a muted `autoPlay` element until play() is called
-  // explicitly, so nudge it once on mount and retry on the first interaction.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    const kick = () => void v.play().catch(() => {});
-    kick();
-    window.addEventListener("pointerdown", kick, { once: true });
-    window.addEventListener("scroll", kick, { once: true, passive: true });
-    return () => {
-      window.removeEventListener("pointerdown", kick);
-      window.removeEventListener("scroll", kick);
-    };
-  }, []);
 
   const toggle = () => {
     const v = videoRef.current;
@@ -33,17 +19,17 @@ export default function ShowReel() {
   };
 
   return (
-    <section className="nbReel" aria-label="NEGBUY showreel">
+    <section className="nbReel" ref={sectionRef} aria-label="NEGBUY showreel">
       <video
         ref={videoRef}
         className="nbReelVideo"
-        src={VIDEO.hero}
+        src={armed ? VIDEO.hero : undefined}
         poster={SERVICE.turbineBanner}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
       />
       <span className="nbReelScrim" aria-hidden="true" />
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { whatsappUrl } from "@/lib/site";
 
 export default function CtaForm() {
   const [sent, setSent] = useState(false);
@@ -16,13 +17,18 @@ export default function CtaForm() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Demo: compose a mailto so the enquiry still lands somewhere real.
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\n\nRequirement:\n${form.part}`
-    );
-    window.location.href = `mailto:contact@negbuy.com?subject=${encodeURIComponent(
-      "RFQ — turbine parts & service"
-    )}&body=${body}`;
+    const text = [
+      "New RFQ from the NEGBUY website",
+      "",
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Company: ${form.company || "—"}`,
+      "",
+      "Requirement:",
+      form.part,
+    ].join("\n");
+
+    window.open(whatsappUrl(text), "_blank", "noopener,noreferrer");
     setSent(true);
   };
 
@@ -65,8 +71,8 @@ export default function CtaForm() {
               <span aria-hidden="true">✓</span>
               <h3>Enquiry ready to send.</h3>
               <p>
-                We&apos;ve opened your mail client with the details filled in. If
-                nothing happened, email us directly at{" "}
+                WhatsApp has opened with your details filled in — just hit send.
+                If nothing happened, email us directly at{" "}
                 <a href="mailto:contact@negbuy.com">contact@negbuy.com</a>.
               </p>
               <button type="button" onClick={() => setSent(false)}>

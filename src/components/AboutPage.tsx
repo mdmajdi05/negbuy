@@ -2,7 +2,9 @@ import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import Reveal from "./Reveal";
-import { VIDEO, PLANT, MACHINE, SECTOR, SERVICE, SHOP } from "@/lib/media";
+import CompanyFilm from "./CompanyFilm";
+import GroupCompanies from "./GroupCompanies";
+import { PLANT, MACHINE, SECTOR, SERVICE, SHOP } from "@/lib/media";
 
 const VALUES = [
   { no: "01", title: "Uptime first", copy: "Every decision is measured against one question: does this keep the machine running?" },
@@ -72,21 +74,7 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <figure className="nbAboutFilm rv" data-rv-delay="120">
-            <video
-              src={VIDEO.about}
-              poster={SERVICE.aboutVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
-            <figcaption>
-              <b>NEGBUY — capability film</b>
-              <span>Autoplaying · company footage</span>
-            </figcaption>
-          </figure>
+          <CompanyFilm />
         </div>
       </section>
 
@@ -174,6 +162,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Group of companies */}
+      <GroupCompanies />
 
       {/* Facility strip */}
       <section className="nbFacility" aria-label="Our facilities">

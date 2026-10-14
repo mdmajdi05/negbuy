@@ -23,7 +23,7 @@ export default function BlogPage() {
   const [lead, ...rest] = list;
 
   return (
-    <>
+    <div className="nbPage">
       <PageHero
         index="05"
         kicker="Journal"
@@ -38,7 +38,11 @@ export default function BlogPage() {
         ]}
       />
 
-      <section className="nbBlog" id="journal-list" aria-label="Journal articles">
+      <section
+        className="nbBlog nbBlogIndex"
+        id="journal-list"
+        aria-label="Journal articles"
+      >
         <div className="nbBlogInner">
           <div className="nbBlogBar rv">
             <div className="nbChips" role="tablist" aria-label="Filter by topic">
@@ -142,6 +146,6 @@ export default function BlogPage() {
       </section>
 
       <CtaForm />
-    </>
+    </div>
   );
 }

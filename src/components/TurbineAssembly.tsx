@@ -1,6 +1,12 @@
 "use client";
 
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useCallback, useRef } from "react";
+import {
+  easeTo,
+  prefersReducedMotion,
+  sectionProgress,
+  useRafLoop,
+} from "@/hooks/useRafLoop";
 
 type Kind = "fab" | "compressor" | "combustor" | "turbine" | "balance" | "test";
 
@@ -347,50 +353,48 @@ export default function TurbineAssembly() {
   const pctRef = useRef<HTMLSpanElement>(null);
   const cellRefs = useRef<(HTMLElement | null)[]>([]);
 
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const currentRef = useRef(0);
+
+  const draw = useCallback(() => {
+    const sec = sectionRef.current;
+    const track = trackRef.current;
+    if (!sec || !track) return true;
+
     const N = STATIONS.length;
-    let frame = 0;
-    let current = 0;
+    const target = sectionProgress(sec);
+    const next = easeTo(
+      currentRef.current,
+      target,
+      prefersReducedMotion() ? 1 : 0.085
+    );
+    currentRef.current = next;
 
-    const render = () => {
-      const sec = sectionRef.current;
-      const track = trackRef.current;
-      if (sec && track) {
-        const rect = sec.getBoundingClientRect();
-        const max = sec.offsetHeight - window.innerHeight;
-        const raw = max > 0 ? -rect.top / max : 0;
-        const target = Math.max(0, Math.min(1, raw));
-        current += (target - current) * (reduced ? 1 : 0.085);
+    const travel = Math.max(
+      0,
+      track.scrollWidth - window.innerWidth + window.innerWidth * 0.06
+    );
+    track.style.transform = `translate3d(${-next * travel}px,0,0)`;
 
-        const travel = Math.max(
-          0,
-          track.scrollWidth - window.innerWidth + window.innerWidth * 0.06
-        );
-        track.style.transform = `translate3d(${-current * travel}px,0,0)`;
+    const idx = Math.min(N - 1, Math.floor(next * N));
+    cellRefs.current.forEach((el, i) => {
+      if (!el) return;
+      el.classList.toggle("active", i === idx);
+      el.classList.toggle("done", next * N >= i + 0.55);
+    });
 
-        const idx = Math.min(N - 1, Math.floor(current * N));
-        cellRefs.current.forEach((el, i) => {
-          if (!el) return;
-          el.classList.toggle("active", i === idx);
-          el.classList.toggle("done", current * N >= i + 0.55);
-        });
+    if (progressRef.current) {
+      progressRef.current.style.transform = `scaleX(${next})`;
+    }
+    if (titleRef.current) titleRef.current.textContent = STATIONS[idx].title;
+    if (tagRef.current) tagRef.current.textContent = STATIONS[idx].tag;
+    if (pctRef.current) {
+      pctRef.current.textContent = `${String(idx + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
+    }
 
-        if (progressRef.current) {
-          progressRef.current.style.transform = `scaleX(${current})`;
-        }
-        if (titleRef.current) titleRef.current.textContent = STATIONS[idx].title;
-        if (tagRef.current) tagRef.current.textContent = STATIONS[idx].tag;
-        if (pctRef.current) {
-          pctRef.current.textContent = `${String(idx + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
-        }
-      }
-      frame = requestAnimationFrame(render);
-    };
-
-    frame = requestAnimationFrame(render);
-    return () => cancelAnimationFrame(frame);
+    return next === target;
   }, []);
+
+  useRafLoop(sectionRef, draw);
 
   return (
     <section

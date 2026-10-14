@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import CtaForm from "./CtaForm";
+import { SITE } from "@/lib/site";
 import {
   POSTS_SORTED,
   formatPostDate,
@@ -10,10 +12,24 @@ import {
 } from "@/lib/posts";
 import { useReveal } from "@/hooks/useReveal";
 
-function Block({ block }: { block: PostBlock }) {
+/** Turn a heading into a URL-safe, unique anchor id. */
+function headingId(text: string) {
+  return (
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "section"
+  );
+}
+
+function Block({ block, id }: { block: PostBlock; id?: string }) {
   switch (block.t) {
     case "h":
-      return <h2 className="nbPostH">{block.v}</h2>;
+      return (
+        <h2 className="nbPostH" id={id}>
+          {block.v}
+        </h2>
+      );
     case "p":
       return <p>{block.v}</p>;
     case "ul":
@@ -70,22 +86,77 @@ export default function BlogPostPage({ slug }: { slug: string }) {
 
   const post = getPost(slug);
 
+  /** Reading-progress fraction (0–1), driven by scroll position. */
+  const [progress, setProgress] = useState(0);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      setProgress(max > 0 ? Math.min(1, Math.max(0, doc.scrollTop / max)) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  /** Table of contents, built from the body's `h` blocks with unique ids. */
+  const headings = useMemo(() => {
+    const seen = new Map<string, number>();
+    const out: { id: string; text: string; index: number }[] = [];
+    (post?.body ?? []).forEach((block, index) => {
+      if (block.t !== "h") return;
+      const base = headingId(block.v);
+      const count = seen.get(base) ?? 0;
+      seen.set(base, count + 1);
+      out.push({ id: count ? `${base}-${count + 1}` : base, text: block.v, index });
+    });
+    return out;
+  }, [post]);
+
+  const headingIdByIndex = useMemo(
+    () => new Map(headings.map((h) => [h.index, h.id])),
+    [headings],
+  );
+
   if (!post) {
     return (
-      <section className="nbBlog">
-        <div className="nbBlogInner">
-          <p className="nbBlogEmpty">
-            That article has moved. <Link href="/blog">Back to the journal</Link>
-          </p>
-        </div>
-      </section>
+      <div className="nbPage">
+        <section className="nbBlog">
+          <div className="nbBlogInner">
+            <p className="nbBlogEmpty">
+              That article has moved. <Link href="/blog">Back to the journal</Link>
+            </p>
+          </div>
+        </section>
+      </div>
     );
   }
 
   const more = POSTS_SORTED.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const shareUrl = `${SITE.url}/blog/${post.slug}`;
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable — ignore */
+    }
+  };
 
   return (
-    <>
+    <div className="nbPage">
+      <div className="nbPostProgress" aria-hidden="true">
+        <i style={{ width: `${progress * 100}%` }} />
+      </div>
+
       <article className="nbPost">
         <header className="nbPostHead">
           <div className="nbPostHeadBg" aria-hidden="true">
@@ -131,9 +202,52 @@ export default function BlogPostPage({ slug }: { slug: string }) {
 
         <div className="nbPostBody rv">
           <p className="nbPostLead">{post.excerpt}</p>
+
+          {headings.length > 1 && (
+            <nav className="nbPostToc" aria-label="On this page">
+              <p>On this page</p>
+              <ol>
+                {headings.map((h) => (
+                  <li key={h.id}>
+                    <a href={`#${h.id}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+
           {post.body.map((block, i) => (
-            <Block key={`${block.t}-${i}`} block={block} />
+            <Block
+              key={`${block.t}-${i}`}
+              block={block}
+              id={headingIdByIndex.get(i)}
+            />
           ))}
+
+          <div className="nbPostShare">
+            <span className="nbPostShareLabel">Share</span>
+            <a
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                shareUrl,
+              )}&text=${encodeURIComponent(post.title)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              X
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                shareUrl,
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <button type="button" onClick={copyLink}>
+              {copied ? "Link copied" : "Copy link"}
+            </button>
+          </div>
 
           <ul className="nbTagRow">
             {post.tags.map((t) => (
@@ -213,6 +327,6 @@ export default function BlogPostPage({ slug }: { slug: string }) {
       </section>
 
       <CtaForm />
-    </>
+    </div>
   );
 }

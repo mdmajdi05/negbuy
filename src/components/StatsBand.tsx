@@ -76,7 +76,7 @@ export default function StatsBand() {
   const row = [...MARQUEE, ...MARQUEE];
 
   return (
-    <section className="statsBand" ref={bandRef} aria-label="NEGBUY in numbers">
+    <section className="statsBand light" ref={bandRef} aria-label="NEGBUY in numbers">
       <div className="marquee" aria-hidden="true">
         <div className="marqueeTrack">
           {[0, 1].map((half) => (

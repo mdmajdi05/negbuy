@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
 import TurbineCursor from "@/components/TurbineCursor";
+import ContactWidget from "@/components/ContactWidget";
+import { SITE } from "@/lib/site";
+import { organizationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 import "./nb.css";
 
@@ -12,32 +15,43 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "NEGBUY — Energy, Turbine, Marine & Electrical Solutions",
-  description:
-    "NEGBUY provides turbine, energy, marine, electrical, automation, oil and gas, EV and solar solutions.",
-  metadataBase: new URL("https://negbuy.com"),
-  keywords: [
-    "NEGBUY",
-    "turbine",
-    "energy",
-    "marine",
-    "electrical",
-    "automation",
-    "oil and gas",
-    "EV",
-    "solar",
-  ],
-  openGraph: {
-    title: "NEGBUY — Energy, Turbine, Marine & Electrical Solutions",
-    description:
-      "NEGBUY provides turbine, energy, marine, electrical, automation, oil and gas, EV and solar solutions.",
-    url: "https://negbuy.com",
-    siteName: "NEGBUY",
-    type: "website",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: SITE.defaultTitle,
+    template: `%s | ${SITE.name}`,
   },
+  description: SITE.defaultDescription,
+  keywords: [...SITE.defaultKeywords],
+  applicationName: SITE.name,
+  authors: [{ name: SITE.companyName }],
+  creator: SITE.companyName,
+  publisher: SITE.companyName,
+  formatDetection: { telephone: false, address: false, email: false },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: SITE.locale,
+    title: SITE.defaultTitle,
+    description: SITE.defaultDescription,
+    images: [{ url: SITE.ogImage, alt: SITE.defaultTitle }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE.defaultTitle,
+    description: SITE.defaultDescription,
+    images: [SITE.ogImage],
   },
 };
 
@@ -49,12 +63,21 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} overflow-x-hidden`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={organizationSchema()}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={websiteSchema()}
+        />
         <a className="skipLink" href="#main">
           Skip to content
         </a>
         <Header />
         {children}
         <SiteFooter />
+        <ContactWidget />
         <TurbineCursor />
       </body>
     </html>

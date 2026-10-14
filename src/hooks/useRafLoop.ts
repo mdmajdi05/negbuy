@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type RefObject } from "react";
+import { useCallback, useEffect, useRef, type RefObject } from "react";
 
 /** Cached reduced-motion lookup (the query rarely changes mid-session). */
 let reducedMotion: boolean | null = null;
@@ -38,12 +38,18 @@ export function sectionProgress(sec: HTMLElement) {
  * `frame` must be stable (wrap it in `useCallback`) and return `true` once the
  * motion has converged; the loop restarts on the next scroll, resize or
  * visibility change.
+ *
+ * Returns a `kick()` callback for interaction the scroll cannot see — a click,
+ * a drag, a toggle — so on-demand animations can park completely and still wake
+ * on the next user action.
  */
 export function useRafLoop(
   host: RefObject<HTMLElement | null>,
   frame: () => boolean,
   rootMargin = "320px 0px"
 ) {
+  const wakeRef = useRef<() => void>(() => {});
+
   useEffect(() => {
     let raf = 0;
     let running = false;
@@ -68,6 +74,7 @@ export function useRafLoop(
       running = true;
       raf = requestAnimationFrame(step);
     };
+    wakeRef.current = wake;
 
     const park = () => {
       running = false;
@@ -101,10 +108,13 @@ export function useRafLoop(
 
     return () => {
       park();
+      wakeRef.current = () => {};
       io?.disconnect();
       window.removeEventListener("scroll", onMove);
       window.removeEventListener("resize", onMove);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [host, frame, rootMargin]);
+
+  return useCallback(() => wakeRef.current(), []);
 }

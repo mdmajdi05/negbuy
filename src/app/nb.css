@@ -217,6 +217,29 @@ header.is-scrolled {
   border-bottom: 1px solid var(--red);
   padding-bottom: 3px;
 }
+.nbFootMailsub {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #a4a4a4;
+  border-bottom: 1px solid var(--nb-hair);
+  padding-bottom: 2px;
+  transition: color 0.2s ease;
+}
+.nbFootMailsub:hover {
+  color: var(--white);
+}
+.nbFootPhone {
+  display: inline-block;
+  margin-top: 14px;
+  font: 700 15px/1 var(--nb-mono);
+  letter-spacing: 0.02em;
+  color: var(--white);
+  transition: color 0.2s ease;
+}
+.nbFootPhone:hover {
+  color: var(--red);
+}
 .nbFootContact p {
   margin: 16px 0 20px;
   font-size: 12.5px;
@@ -2371,6 +2394,56 @@ header.is-scrolled {
   text-transform: uppercase;
 }
 
+/* --- Group of companies — addresses + group desk --------------------- */
+.nbOffice address {
+  margin: 0;
+  font-style: normal;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #5a5a5a;
+}
+.nbOffice address span {
+  display: block;
+}
+.nbPage .nbOffice address {
+  color: #9a9a9a;
+}
+.nbGroupContact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 26px;
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid var(--nb-hair-d);
+}
+.nbGroupContactLabel {
+  font: 700 9.5px/1 var(--nb-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.nbGroupContact a {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0b0b0b;
+  border-bottom: 1px solid var(--red);
+  padding-bottom: 2px;
+  transition: color 0.2s ease;
+}
+.nbGroupContact a:hover {
+  color: var(--red);
+}
+.nbPage .nbGroupContact {
+  border-top-color: var(--nb-hair);
+}
+.nbPage .nbGroupContact a {
+  color: var(--white);
+}
+.nbPage .nbGroupContact a:hover {
+  color: var(--red);
+}
+
 /* --------------------------------------------------------------------------
    15. TurbineParts film band — support 4 stills + live badge
    -------------------------------------------------------------------------- */
@@ -3667,9 +3740,7 @@ header.is-scrolled {
 }
 
 /* ---------------------------------------------- 01.8 factory — real 3D floor */
-/* the two floor viewers share the first grid column, so switching is instant */
-.factoryBody > .f3d,
-.factoryBody > .rscene {
+.factoryBody > .f3d {
   grid-column: 1;
   grid-row: 1;
 }
@@ -3677,19 +3748,13 @@ header.is-scrolled {
   grid-column: 2;
   grid-row: 1;
 }
-.factoryBody.show3d > .rscene,
-.factoryBody.showScene > .f3d {
-  display: none;
-}
-.factoryViews {
-  position: relative;
-  top: auto;
-  right: auto;
-  z-index: 3;
-  max-width: 1400px;
-  width: 100%;
-  margin: 16px auto 0;
-  justify-content: flex-end;
+/* single-column layout below 1024px: the 3D bay stacks above the line copy */
+@media (max-width: 1024px) {
+  .factoryBody > .f3d,
+  .factoryBody > .fstages {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 
 .f3d {
@@ -3923,3 +3988,839 @@ header.is-scrolled {
   }
 }
 
+/* ==========================================================================
+   18. Sub-page light theme
+   Predominantly white sub-pages whose content bands alternate with black
+   bands (dark hero → light → dark → light …). Everything is scoped under
+   .nbPage (and .nbBlogIndex for the journal list) so the home page, which
+   shares .nbBlog / .nbCta / .nbForm, is left completely untouched.
+   ========================================================================== */
+.nbPage {
+  background: var(--nb-paper);
+  color: #111;
+}
+
+/* Keep the image overlays reading as solid black now that the page base
+   behind them is light. */
+.nbPage .nbPageHero {
+  background: #070707;
+}
+.nbPage .nbPostHead {
+  background: #0a0a0c;
+}
+
+/* --- About — hero(dark) story(light) values(dark) timeline(light)
+       global(dark) facility(light) ---------------------------------------- */
+.nbPage .nbAboutStory {
+  background: var(--nb-paper);
+}
+.nbPage .nbAboutCopy h2 {
+  color: #0b0b0b;
+}
+.nbPage .nbAboutCopy h2 span {
+  -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
+}
+.nbPage .nbAboutCopy p {
+  color: #3a3a3a;
+}
+.nbPage .nbAboutTags span {
+  border-color: var(--nb-hair-d);
+  color: #5a5a5a;
+}
+.nbPage .nbAboutFilm {
+  border-color: var(--nb-hair-d);
+  background: #e3e3de;
+}
+
+.nbPage .nbValues {
+  background: #0a0a0c;
+  color: var(--white);
+}
+.nbPage .nbValuesHead h2 {
+  color: var(--white);
+}
+.nbPage .nbValuesHead h2 span {
+  -webkit-text-stroke-color: rgba(244, 244, 241, 0.5);
+}
+.nbPage .nbValue {
+  background: #0e0e12;
+  border-color: var(--nb-hair);
+}
+.nbPage .nbValue:hover {
+  box-shadow: 0 26px 54px rgba(0, 0, 0, 0.5);
+}
+.nbPage .nbValue h3 {
+  color: var(--white);
+}
+.nbPage .nbValue p {
+  color: #9a9a9a;
+}
+
+.nbPage .nbTimeline {
+  background: var(--nb-paper);
+}
+.nbPage .nbTimelineHead h2 {
+  color: #0b0b0b;
+}
+.nbPage .nbTimelineHead h2 span {
+  -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
+}
+.nbPage .nbLine {
+  border-top-color: var(--nb-hair-d);
+}
+.nbPage .nbLineItem {
+  border-right-color: var(--nb-hair-d);
+}
+.nbPage .nbLineYear {
+  color: #0b0b0b;
+}
+.nbPage .nbLineBody h3 {
+  color: #0b0b0b;
+}
+.nbPage .nbLineBody p {
+  color: #5a5a5a;
+}
+
+.nbPage .nbGlobal {
+  background: #0a0a0c;
+  color: var(--white);
+}
+.nbPage .nbGlobalCopy h2 {
+  color: var(--white);
+}
+.nbPage .nbGlobalCopy h2 span {
+  -webkit-text-stroke-color: rgba(244, 244, 241, 0.5);
+}
+.nbPage .nbGlobalCopy p {
+  color: #9a9a9a;
+}
+.nbPage .nbGlobalShot {
+  border-color: var(--nb-hair);
+}
+.nbPage .nbGlobalStats {
+  border-top-color: var(--nb-hair);
+}
+.nbPage .nbGlobalStats b {
+  color: var(--white);
+}
+.nbPage .nbGlobalStats span {
+  color: #7c7c7c;
+}
+
+.nbPage .nbFacility {
+  background: var(--nb-paper);
+  border-top-color: var(--nb-hair-d);
+}
+.nbPage .nbFacilityInner figure {
+  border-color: var(--nb-hair-d);
+}
+
+/* --- Services — hero(dark) caps(light) service-lines(dark) band(light) -- */
+.nbPage .nbSvcCaps {
+  background: var(--nb-paper);
+  border-top-color: var(--nb-hair-d);
+}
+.nbPage .nbSvcCaps .nbSvcCap {
+  border-color: var(--nb-hair-d);
+}
+.nbPage .nbSvcCap b {
+  color: #0b0b0b;
+}
+.nbPage .nbSvcCap span {
+  color: #6a6a6a;
+}
+.nbPage .nbSvcList {
+  color: var(--white);
+}
+
+/* --- Products — hero(dark) catalogue(light) spares(dark) siemens(light) - */
+.nbPage .nbCatalogue {
+  background: var(--nb-paper);
+}
+.nbPage .nbCatalogueHead h2 {
+  color: #0b0b0b;
+}
+.nbPage .nbCatalogueHead h2 span {
+  -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
+}
+.nbPage .nbChips button {
+  border-color: var(--nb-hair-d);
+  color: #5a5a5a;
+}
+.nbPage .nbChips button:hover {
+  color: #0b0b0b;
+  border-color: rgba(10, 10, 12, 0.4);
+}
+.nbPage .nbSearch {
+  border-color: var(--nb-hair-d);
+  background: #fff;
+}
+.nbPage .nbSearch input {
+  color: #0b0b0b;
+}
+.nbPage .nbProd {
+  border-color: var(--nb-hair-d);
+  background: #fff;
+}
+.nbPage .nbProdBody h3 {
+  color: #0b0b0b;
+}
+.nbPage .nbProdBody p {
+  color: #5a5a5a;
+}
+.nbPage .nbProdFoot {
+  border-top-color: var(--nb-hair-d);
+}
+.nbPage .nbProdOut {
+  color: #0b0b0b;
+}
+.nbPage .nbProdTags em {
+  border-color: var(--nb-hair-d);
+  color: #6a6a6a;
+}
+.nbPage .nbEmpty {
+  color: #5a5a5a;
+}
+.nbPage .nbSpares {
+  color: var(--white);
+}
+
+/* --- Contact — hero(dark) form(light) offices(dark) --------------------- */
+.nbPage .nbContact {
+  background: var(--nb-paper);
+}
+.nbPage .nbContactAside h2 {
+  color: #0b0b0b;
+}
+.nbPage .nbContactAside h2 span {
+  -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
+}
+.nbPage .nbContactAside > p {
+  color: #3a3a3a;
+}
+.nbPage .nbChannel {
+  border-color: var(--nb-hair-d);
+  background: #fff;
+}
+.nbPage .nbChannel b {
+  color: #0b0b0b;
+}
+.nbPage .nbChannel small {
+  color: #5a5a5a;
+}
+
+.nbPage .nbOffices {
+  background: #0a0a0c;
+  color: var(--white);
+}
+.nbPage .nbOfficesHead h2 {
+  color: var(--white);
+}
+.nbPage .nbOfficesHead h2 span {
+  -webkit-text-stroke-color: rgba(244, 244, 241, 0.5);
+}
+.nbPage .nbOffice {
+  border-color: var(--nb-hair);
+  background: #0e0e12;
+}
+.nbPage .nbOffice h3 {
+  color: var(--white);
+}
+.nbPage .nbOffice p {
+  color: #9a9a9a;
+}
+.nbPage .nbOfficesShot {
+  border-color: var(--nb-hair);
+}
+
+/* --- Journal index — hero(dark) article list(light) -------------------- */
+.nbPage .nbBlogIndex {
+  background: var(--nb-paper);
+  border-top-color: var(--nb-hair-d);
+}
+.nbPage .nbBlogIndex .nbBlogHead h2 {
+  color: #0b0b0b;
+}
+.nbPage .nbBlogIndex .nbBlogHead h2 span {
+  -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
+}
+.nbPage .nbBlogIndex .nbBlogHead p {
+  color: #3a3a3a;
+}
+.nbPage .nbBlogIndex .nbBlogBar {
+  border-bottom-color: var(--nb-hair-d);
+}
+.nbPage .nbBlogIndex .nbBlogCount {
+  color: #5a5a5a;
+}
+.nbPage .nbBlogIndex .nbBlogMeta {
+  color: #6a6a6a;
+}
+.nbPage .nbBlogIndex .nbFeatLink {
+  border-color: var(--nb-hair-d);
+  background: #fff;
+}
+.nbPage .nbBlogIndex .nbFeatBody h2 {
+  color: #0b0b0b;
+}
+.nbPage .nbBlogIndex .nbFeatBody > p {
+  color: #5a5a5a;
+}
+.nbPage .nbBlogIndex .nbTagRow li {
+  border-color: var(--nb-hair-d);
+  color: #5a5a5a;
+}
+.nbPage .nbBlogIndex .nbBlogCard {
+  border-color: var(--nb-hair-d);
+  background: #fff;
+}
+.nbPage .nbBlogIndex .nbBlogBody h3 {
+  color: #0b0b0b;
+}
+.nbPage .nbBlogIndex .nbBlogBody p {
+  color: #5a5a5a;
+}
+.nbPage .nbBlogIndex .nbBlogEmpty {
+  color: #5a5a5a;
+}
+
+/* --- Journal article — dark header, light body, dark "more notes" ------- */
+.nbPage .nbBlog:not(.nbBlogIndex) {
+  color: var(--white);
+}
+.nbPage .nbPostLead {
+  color: #3a3a3a;
+}
+.nbPage .nbPostBody > p {
+  color: #5a5a5a;
+}
+.nbPage .nbPostH {
+  color: #0b0b0b;
+}
+.nbPage .nbPostUl li {
+  color: #5a5a5a;
+}
+.nbPage .nbPostQuote {
+  border-color: var(--nb-hair-d);
+  background: #fff;
+}
+.nbPage .nbPostQuote p {
+  color: #1c1c1c;
+}
+.nbPage .nbPostQuote cite {
+  color: #6a6a6a;
+}
+.nbPage .nbPostTableWrap {
+  border-color: var(--nb-hair-d);
+}
+.nbPage .nbPostTable th,
+.nbPage .nbPostTable td {
+  border-bottom-color: var(--nb-hair-d);
+}
+.nbPage .nbPostTable thead th {
+  background: #f0f0ec;
+  color: #5a5a5a;
+}
+.nbPage .nbPostTable tbody th {
+  color: #0b0b0b;
+}
+.nbPage .nbPostTable tbody td {
+  color: #5a5a5a;
+}
+.nbPage .nbPostBy {
+  border-top-color: var(--nb-hair-d);
+}
+.nbPage .nbPostBy div b {
+  color: #0b0b0b;
+}
+.nbPage .nbPostBy div span {
+  color: #6a6a6a;
+}
+
+
+/* --------------------------------------------------------------------------
+   19. Light bands - break up the run of dark sections on the landing page
+   -------------------------------------------------------------------------- */
+.statsBand.light {
+  --line: var(--nb-hair-d);
+  background: var(--nb-paper);
+  color: var(--nb-ink);
+}
+.statsBand.light .marquee {
+  background: rgba(237, 28, 36, 0.05);
+}
+.statsBand.light .mqItem {
+  color: #55534e;
+}
+.statsBand.light .statLabel {
+  color: var(--nb-ink);
+}
+.statsBand.light .statCell small {
+  color: #7d7d76;
+}
+
+.nbCases.light {
+  --nb-hair: var(--nb-hair-d);
+  background: var(--nb-paper);
+  color: var(--nb-ink);
+  border-top-color: var(--nb-hair-d);
+}
+.nbCases.light .nbCasesHead h2 {
+  color: #0b0b0b;
+}
+.nbCases.light .nbCasesHead h2 span {
+  -webkit-text-stroke: 1.6px rgba(11, 11, 11, 0.5);
+}
+.nbCases.light .nbCasesHead p {
+  color: #55534e;
+}
+.nbCases.light .nbCase {
+  background: #fff;
+}
+.nbCases.light .nbCase:hover {
+  border-color: rgba(237, 28, 36, 0.45);
+  box-shadow: 0 26px 54px rgba(11, 11, 11, 0.12);
+}
+.nbCases.light .nbCaseBody h3 {
+  color: #0b0b0b;
+}
+.nbCases.light .nbCaseBody > p {
+  color: #55534e;
+}
+.nbCases.light .nbCaseMetrics span {
+  color: #7d7d76;
+}
+
+.industries.light {
+  --line: var(--nb-hair-d);
+  background: var(--nb-paper);
+  color: var(--nb-ink);
+}
+.industries.light .industryTop p {
+  color: #55534e;
+}
+.industries.light .industryNo {
+  color: #8a8a83;
+}
+.industries.light .industryDesc {
+  color: #55534e;
+}
+
+.nbFaq.light {
+  --nb-hair: var(--nb-hair-d);
+  background: var(--nb-paper);
+  color: var(--nb-ink);
+  border-top-color: var(--nb-hair-d);
+}
+.nbFaq.light .nbFaqHead h2 {
+  color: #0b0b0b;
+}
+.nbFaq.light .nbFaqHead h2 span {
+  -webkit-text-stroke: 1.6px rgba(11, 11, 11, 0.5);
+}
+.nbFaq.light .nbFaqHead p {
+  color: #55534e;
+}
+.nbFaq.light .nbFaqItem {
+  background: #fff;
+}
+.nbFaq.light .nbFaqItem.is-open {
+  background: #fff;
+  box-shadow: 0 22px 48px rgba(11, 11, 11, 0.1);
+}
+.nbFaq.light .nbFaqQ {
+  color: #0b0b0b;
+}
+.nbFaq.light .nbFaqPlus i {
+  background: #2b2b2b;
+}
+.nbFaq.light .nbFaqA > p {
+  color: #52504b;
+}
+
+/* --------------------------------------------------------------------------
+   20. 01.8 factory — the working bay
+   Deliberately unpinned: the band scrolls with the page like every other
+   section. The station list is an accordion, and the 3D hall is completely
+   still until the reader drags it or picks a station — so the section costs
+   zero frames while the page is just sitting there.
+   -------------------------------------------------------------------------- */
+/* The 3D bay stretches to the height of the station list beside it, so the two
+   columns line up instead of leaving the model floating in dead space. */
+.factoryBody {
+  gap: 34px;
+  align-items: stretch;
+}
+.factoryBody > .f3d {
+  height: auto;
+  min-height: 460px;
+}
+/* stacked layout: the bay gets its own fixed height instead of matching a list
+   that now sits below it */
+@media (max-width: 900px) {
+  .factoryBody > .f3d {
+    height: 340px;
+    min-height: 0;
+  }
+}
+
+/* the station rows behave like buttons in everything but markup */
+.fstage {
+  border-left: 2px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+.fstage.active {
+  border-left-color: #ed1c24;
+}
+.fstage .fbar i {
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* small stamp while the second load phase streams in behind the first: the bay
+   is already live, this just admits that the furniture is still arriving */
+.f3dStamp {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  padding: 6px 10px;
+  background: rgba(10, 10, 12, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.55);
+  font: 800 9px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .factoryBody {
+    gap: 24px;
+  }
+  .fstage p {
+    max-width: 100%;
+  }
+}
+@media (max-width: 640px) {
+  .factoryPin {
+    padding: 78px 5vw 68px;
+  }
+  .fstage {
+    padding: 13px 15px;
+  }
+  .fstage h3 {
+    font-size: 16px;
+  }
+  .fmetric b {
+    font-size: 21px;
+  }
+  .factoryHint {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fstage,
+  .fstage p,
+  .fstage .fbar i {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   21. Journal reading page — reading progress, table of contents, anchors,
+       share actions
+   -------------------------------------------------------------------------- */
+.nbPostProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 210;
+  pointer-events: none;
+}
+.nbPostProgress i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--red), var(--red2));
+  box-shadow: 0 0 14px rgba(237, 28, 36, 0.45);
+  transition: width 0.12s linear;
+}
+
+.nbPostH {
+  scroll-margin-top: 110px;
+}
+
+.nbPostToc {
+  margin: 0 0 42px;
+  padding: 24px 26px;
+  border: 1px solid var(--nb-hair-d);
+  border-left: 2px solid var(--red);
+  border-radius: 3px;
+  background: #f6f6f2;
+}
+.nbPostToc > p {
+  margin: 0 0 16px;
+  font: 700 10px/1 var(--nb-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.nbPostToc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 11px;
+  counter-reset: toc;
+}
+.nbPostToc li {
+  counter-increment: toc;
+}
+.nbPostToc a {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  color: #33322e;
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.nbPostToc a::before {
+  content: counter(toc, decimal-leading-zero);
+  flex: none;
+  font: 700 10px/1 var(--nb-mono);
+  color: #a2a29a;
+}
+.nbPostToc a:hover {
+  color: var(--red);
+}
+
+.nbPostShare {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 44px 0 0;
+}
+.nbPostShareLabel {
+  margin-right: 4px;
+  font: 700 10px/1 var(--nb-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8a8a82;
+}
+.nbPostShare a,
+.nbPostShare button {
+  padding: 9px 16px;
+  border: 1px solid var(--nb-hair-d);
+  border-radius: 999px;
+  background: #fff;
+  color: #33322e;
+  font: 600 12px/1 var(--nb-mono);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.nbPostShare a:hover,
+.nbPostShare button:hover {
+  color: #fff;
+  background: var(--red);
+  border-color: var(--red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nbPostProgress i {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   22. Floating contact widget (WhatsApp / call / email)
+   -------------------------------------------------------------------------- */
+.nbWidget {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+.nbWidgetFab {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(237, 28, 36, 0.35);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.nbWidgetFab svg {
+  width: 24px;
+  height: 24px;
+}
+.nbWidgetFab:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: var(--red2);
+}
+.nbWidgetPing {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.35;
+  animation: nbPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes nbPing {
+  75%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.nbWidgetPanel {
+  width: min(320px, calc(100vw - 32px));
+  background: #0e0e12;
+  border: 1px solid var(--nb-hair);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  animation: nbWidgetIn 0.22s ease both;
+}
+@keyframes nbWidgetIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.nbWidgetHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.nbWidgetHead p {
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+.nbWidgetClose {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: 1px solid var(--nb-hair);
+  background: #16161a;
+  color: #9a9a9a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.nbWidgetClose svg {
+  width: 13px;
+  height: 13px;
+}
+.nbWidgetClose:hover {
+  color: #fff;
+}
+.nbWidgetText {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #8b8b8b;
+  margin-bottom: 14px;
+}
+.nbWidgetLinks {
+  display: grid;
+  gap: 8px;
+}
+.nbWidgetLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 13px;
+  border-radius: 11px;
+  border: 1px solid var(--nb-hair);
+  background: #131318;
+  transition: transform 0.18s ease, border-color 0.18s ease,
+    background 0.18s ease;
+}
+.nbWidgetLink:hover {
+  transform: translateY(-1px);
+}
+.nbWidgetLink i {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nbWidgetLink i svg {
+  width: 17px;
+  height: 17px;
+}
+.nbWidgetLink span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.nbWidgetLink b {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+}
+.nbWidgetLink small {
+  font-size: 10.5px;
+  color: #8b8b8b;
+}
+.nbWidgetLink.is-wa i {
+  background: rgba(37, 211, 102, 0.14);
+  color: #25d366;
+}
+.nbWidgetLink.is-wa:hover {
+  border-color: rgba(37, 211, 102, 0.4);
+}
+.nbWidgetLink.is-call i {
+  background: rgba(237, 28, 36, 0.16);
+  color: var(--red2);
+}
+.nbWidgetLink.is-call:hover {
+  border-color: rgba(237, 28, 36, 0.45);
+}
+.nbWidgetLink.is-mail i {
+  background: rgba(234, 67, 53, 0.14);
+  color: #ea4335;
+}
+.nbWidgetLink.is-mail:hover {
+  border-color: rgba(234, 67, 53, 0.4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nbWidgetPanel {
+    animation: none;
+  }
+  .nbWidgetPing {
+    animation: none;
+    opacity: 0;
+  }
+  .nbWidgetFab,
+  .nbWidgetLink {
+    transition: none;
+  }
+}

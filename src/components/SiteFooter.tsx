@@ -83,6 +83,12 @@ export default function SiteFooter() {
             <a className="nbFootMail" href="mailto:contact@negbuy.com">
               contact@negbuy.com
             </a>
+            <a className="nbFootMailsub" href="mailto:contact@negbuygroup.com">
+              contact@negbuygroup.com
+            </a>
+            <a className="nbFootPhone" href="tel:+917011123269">
+              +91 70111 23269
+            </a>
             <p>Global feedstock · 24/7 emergency breakdown support</p>
             <Link className="nbFootCta" href="/contact">
               Request a quote <span aria-hidden="true">↗</span>

@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type {
   Group,
   Mesh,
   MeshStandardMaterial,
   Object3D,
   PerspectiveCamera,
+  PMREMGenerator,
   Scene,
   WebGLRenderer,
 } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three/examples/jsm/controls/OrbitControls.js";
+import { useRafLoop } from "@/hooks/useRafLoop";
 
 /* ------------------------------------------------------------------ *
  * Real 3D working area — the turbine assembly bay.
@@ -20,8 +22,12 @@ import type { OrbitControls as OrbitControlsImpl } from "three/examples/jsm/cont
  * around it. The crew and the hall props are CC0 models too — MakeHuman
  * based workers in real working poses, plus roller-shutter doors,
  * shelving, carts, drums and crates. Everything is light (512 px WebP +
- * meshopt) and lazy-loaded only when the section approaches the
- * viewport.
+ * meshopt), lazy-loaded only when the section approaches the viewport and
+ * landed in phases — engine and crew first, hall dressing behind them.
+ *
+ * Rendering is strictly on demand: the loop parks the moment the camera stops
+ * moving, so a still bay (the default) costs zero frames and the section never
+ * competes with the page for the main thread.
  * ------------------------------------------------------------------ */
 
 const BASE = "/models/factory";
@@ -99,38 +105,74 @@ const STATIONS: Station[] = [
 const HOME_POS: [number, number, number] = [7.8, 6.6, 6.4];
 const LOOK_AT: [number, number, number] = [0.1, 1.15, BAY_Z];
 
+/** every distinct model in the plan (13 in all — deduped, loaded once each) */
+const FILES = Array.from(new Set(PLAN.map((p) => p.file)));
+
+/**
+ * Load order: the engine lands first (0.4 MB — the bay is alive in a blink),
+ * then its crew, then the hall dressing streams in behind them. Nothing waits
+ * for the last crate before the first frame is drawn.
+ */
+const PHASES: string[][] = (() => {
+  const engine: string[] = FILES.filter((f) => f === "turbine.glb");
+  const crew: string[] = FILES.filter((f) => f.startsWith("worker-"));
+  const rest = FILES.filter((f) => !engine.includes(f) && !crew.includes(f));
+  return [engine, crew, rest];
+})();
+
+/** every instance the plan places, copies included — drives the load counter */
+const TOTAL_PIECES = PLAN.reduce((n, p) => n + 1 + (p.copies?.length ?? 0), 0);
+
+/** where the camera looks for each station, and how wide that shot sits */
+const BAY_FOCUS: [number, number, number][] = [
+  [0.05, 1.2, BAY_Z],
+  [-2.5, 1.05, -1.45],
+  [5.1, 0.95, -3.3],
+  [3.3, 1.05, -4.1],
+];
+const BAY_DIST = [12.9, 11.2, 10.8, 10.4];
+
 export default function Factory3D({
-  active,
+  bay,
   onPick,
-  progress,
 }: {
-  active: { current: number };
+  /** active station, owned by the section — the camera eases across to it */
+  bay: number;
   onPick: (i: number) => void;
-  progress?: { current: number };
 }) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const mountRef = useRef<HTMLDivElement | null>(null);
   const labelRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const apiRef = useRef<{ zoom: (k: number) => void; reset: () => void } | null>(null);
-  const autoRef = useRef(true);
-  const activeRef = useRef(active);
-  const progressRef = useRef(progress);
+  /** auto-spin is opt-in — the bay renders on demand and parks when it is still */
+  const autoRef = useRef(false);
+  const bayRef = useRef(bay);
+  /** installed by the scene builder; driven by useRafLoop while on screen */
+  const tickRef = useRef<(() => boolean) | null>(null);
 
   const [near, setNear] = useState(false);
-  const [auto, setAuto] = useState(true);
+  const [auto, setAuto] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [done, setDone] = useState(0);
+  const [loaded, setLoaded] = useState(0);
+
+  // The loop parks the moment the bay stops moving: 0 frames while the viewer
+  // is still, 0 frames off screen. Only a station pick, a drag, a toggle, a
+  // resize or scrolling back into view wakes it up again.
+  const frame = useCallback(() => tickRef.current?.() ?? true, []);
+  const kick = useRafLoop(mountRef, frame);
 
   useEffect(() => {
-    activeRef.current = active;
-    progressRef.current = progress;
-  }, [active, progress]);
+    bayRef.current = bay;
+    kick();
+  }, [bay, kick]);
 
   useEffect(() => {
     autoRef.current = auto;
-  }, [auto]);
+    kick();
+  }, [auto, kick]);
 
   /* ---- start loading only when the section gets close ------------------ */
   useEffect(() => {
@@ -160,34 +202,39 @@ export default function Factory3D({
     if (!mount) return;
 
     let disposed = false;
-    let raf = 0;
     let renderer: WebGLRenderer | null = null;
     let scene: Scene | null = null;
     let camera: PerspectiveCamera | null = null;
     let controls: OrbitControlsImpl | null = null;
     let observer: ResizeObserver | null = null;
     let teardown: (() => void) | null = null;
-    /** user zoom multiplier applied on top of the scroll-driven camera dolly */
+    let pmrem: PMREMGenerator | null = null;
+    /** user zoom multiplier applied on top of the station dolly */
     let zoom = 1;
 
     (async () => {
       try {
         const THREE = await import("three");
-        const [{ GLTFLoader }, { OrbitControls }, { MeshoptDecoder }, { RGBELoader }] =
+        const [{ GLTFLoader }, { OrbitControls }, { MeshoptDecoder }, { RoomEnvironment }] =
           await Promise.all([
             import("three/examples/jsm/loaders/GLTFLoader.js"),
             import("three/examples/jsm/controls/OrbitControls.js"),
             import("three/examples/jsm/libs/meshopt_decoder.module.js"),
-            import("three/examples/jsm/loaders/RGBELoader.js"),
+            import("three/examples/jsm/environments/RoomEnvironment.js"),
           ]);
         if (disposed) return;
 
         /* ---------- renderer ---------- */
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        // "lite" = phones / small screens: the bay is fill-rate bound, so drop
+        // antialiasing, cap the pixel ratio and skip shadows entirely there.
+        // The bay only renders while it is moving, so the cap is about how
+        // heavy a single frame is, not how often one is drawn.
+        const lite = window.innerWidth < 820;
+        renderer = new THREE.WebGLRenderer({ antialias: !lite, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1 : 1.25));
         renderer.setSize(mount.clientWidth || 1, mount.clientHeight || 1, false);
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.shadowMap.enabled = !lite;
+        renderer.shadowMap.type = THREE.PCFShadowMap;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.06;
         const canvas = renderer.domElement;
@@ -222,25 +269,16 @@ export default function Factory3D({
         controls.update();
         canvas.style.touchAction = "pan-y";
 
-        /* ---------- studio environment ---------- */
-        const pmrem = new THREE.PMREMGenerator(renderer);
-        try {
-          const hdr = await new RGBELoader().loadAsync("/models/env-studio.hdr");
-          if (disposed) return;
-          const env = pmrem.fromEquirectangular(hdr);
-          scene.environment = env.texture;
-          scene.environmentIntensity = 0.55;
-          hdr.dispose();
-        } catch {
-          /* keep the default lighting if the HDR is unavailable */
-        }
-        pmrem.dispose();
+        /* ---------- studio environment (procedural — zero network cost) --- */
+        pmrem = new THREE.PMREMGenerator(renderer);
+        scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+        scene.environmentIntensity = 0.5;
 
         /* ---------- lights ---------- */
         const key = new THREE.DirectionalLight(0xffffff, 2.1);
         key.position.set(7.5, 11, 5);
-        key.castShadow = true;
-        key.shadow.mapSize.set(2048, 2048);
+        key.castShadow = !lite;
+        key.shadow.mapSize.set(1024, 1024);
         key.shadow.camera.left = -13;
         key.shadow.camera.right = 13;
         key.shadow.camera.top = 13;
@@ -375,53 +413,75 @@ export default function Factory3D({
           return holder;
         };
 
-        const cache = new Map<string, Group>();
-        let n = 0;
-
+        // De-duplicate the plan by file, then load it in two phases: the engine
+        // and its crew first, the hall dressing behind them. The first frame is
+        // drawn as soon as the crew lands instead of waiting for the last prop.
+        const drops = new Map<string, Set<string>>();
+        const heights = new Map<string, number | undefined>();
         for (const item of PLAN) {
-          let proto = cache.get(item.file);
-          if (!proto) {
-            const gltf = await loader.loadAsync(`${BASE}/${item.file}`);
+          const set = drops.get(item.file) ?? new Set<string>();
+          for (const name of item.drop ?? []) set.add(name);
+          drops.set(item.file, set);
+          if (!heights.has(item.file)) heights.set(item.file, item.height);
+        }
+
+        const cache = new Map<string, Group>();
+        /** which files are already standing on the floor */
+        const standing = new Set<string>();
+        const pieceCount = () =>
+          PLAN.reduce((n, p) => n + (standing.has(p.file) ? 1 + (p.copies?.length ?? 0) : 0), 0);
+
+        const loadFile = async (file: string) => {
+          try {
+            const gltf = await loader.loadAsync(`${BASE}/${file}`);
             if (disposed) return;
             const root = gltf.scene;
-            for (const name of item.drop ?? []) {
+            for (const name of drops.get(file) ?? []) {
               const node = root.getObjectByName(name);
               if (node) node.removeFromParent();
             }
             root.traverse((o) => {
               const m = o as Mesh;
               if (!m.isMesh) return;
-              m.castShadow = true;
-              m.receiveShadow = true;
+              m.castShadow = !lite;
+              m.receiveShadow = !lite;
               const mat = m.material as MeshStandardMaterial;
               if (mat && "envMapIntensity" in mat) mat.envMapIntensity = 1;
             });
-            proto = ground(root, item.height);
-            cache.set(item.file, proto);
+            cache.set(file, ground(root, heights.get(file)));
+          } catch {
+            // One missing prop must never take the whole bay down.
           }
+        };
 
-          const inst = proto.clone(true);
-          inst.position.set(...item.pos);
-          inst.rotation.y = item.ry ?? 0;
-          scene.add(inst);
+        const place = (list: string[]) => {
+          const world = scene;
+          if (!world) return;
+          for (const item of PLAN) {
+            if (!list.includes(item.file)) continue;
+            const proto = cache.get(item.file);
+            if (!proto) continue;
 
-          for (const c of item.copies ?? []) {
-            const cc = proto.clone(true);
-            cc.position.set(...c.pos);
-            cc.rotation.y = c.ry ?? 0;
-            scene.add(cc);
+            const inst = proto.clone(true);
+            inst.position.set(...item.pos);
+            inst.rotation.y = item.ry ?? 0;
+            world.add(inst);
+
+            for (const c of item.copies ?? []) {
+              const cc = proto.clone(true);
+              cc.position.set(...c.pos);
+              cc.rotation.y = c.ry ?? 0;
+              world.add(cc);
+            }
+            standing.add(item.file);
           }
-
-          n += 1;
-          if (!disposed) setDone(n);
-        }
-
-        if (disposed) return;
+        };
 
         /* ---------- controls exposed to the toolbar ---------- */
         apiRef.current = {
           zoom: (k) => {
             zoom = Math.min(1.9, Math.max(0.55, zoom * k));
+            kick();
           },
           reset: () => {
             if (!camera || !controls) return;
@@ -429,6 +489,7 @@ export default function Factory3D({
             camera.position.set(...HOME_POS);
             controls.target.set(...LOOK_AT);
             controls.update();
+            kick();
           },
         };
 
@@ -440,6 +501,8 @@ export default function Factory3D({
           renderer.setSize(w, h, false);
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
+          // the buffer just changed shape — draw it again and re-seat the tags
+          kick();
         };
         if (typeof ResizeObserver !== "undefined") {
           observer = new ResizeObserver(resize);
@@ -447,34 +510,72 @@ export default function Factory3D({
         }
         window.addEventListener("resize", resize);
 
-        setReady(true);
+        /* ---------- wake the loop on interaction -------------------------- */
+        // The bay is static by default, so nothing renders unless the reader
+        // touches it: a drag (or the wheel) wakes the loop until it settles again.
+        let dragging = false;
+        const onDown = () => {
+          dragging = true;
+          kick();
+        };
+        const onMove = () => {
+          if (dragging) kick();
+        };
+        const onUp = () => {
+          dragging = false;
+          kick();
+        };
+        canvas.addEventListener("pointerdown", onDown);
+        canvas.addEventListener("pointermove", onMove);
+        canvas.addEventListener("wheel", kick, { passive: true });
+        window.addEventListener("pointerup", onUp);
 
-        /* ---------- loop ---------- */
+        /* ---------- loop (wakes on demand, parks the moment it settles) --- */
         const clock = new THREE.Clock();
         const tmp = new THREE.Vector3();
         const dir = new THREE.Vector3();
+        const focus = new THREE.Vector3();
+        /** true until the first tick after a park, so timing gaps are ignored */
+        let fresh = true;
 
-        const tick = () => {
-          raf = requestAnimationFrame(tick);
-          if (!renderer || !scene || !camera || !controls) return;
-          const dt = Math.min(0.05, clock.getDelta());
+        // Nothing that casts a shadow ever moves, so the map is re-baked only
+        // when a phase lands on the floor — never per frame.
+        renderer.shadowMap.autoUpdate = false;
+        renderer.shadowMap.needsUpdate = true;
 
-          controls.autoRotate = autoRef.current;
+        tickRef.current = () => {
+          if (!renderer || !scene || !camera || !controls) return true;
+          // `fresh` marks the first tick after the loop parked: the gap since the
+          // last frame can be minutes, so it starts a normal frame instead of
+          // teleporting the camera. Mid-animation the delta is capped at 0.25 s,
+          // which keeps the glide the same length in *time* on a slow device
+          // instead of dragging it out for hundreds of frames.
+          const raw = clock.getDelta();
+          const dt = fresh ? 1 / 60 : Math.min(0.25, raw);
+          fresh = false;
 
-          // scroll-linked dolly: the bay pulls closer as the line runs
-          const pr = Math.min(1, Math.max(0, progressRef.current?.current ?? 0));
-          const want = (12.9 - pr * 2.9) * zoom;
+          // pick a station and the camera eases across the hall to it; the orbit
+          // direction is kept, so the shot can never end up inside a wall
+          const b = Math.max(0, Math.min(BAY_FOCUS.length - 1, Math.round(bayRef.current || 0)));
+          focus.set(...BAY_FOCUS[b]);
+          controls.target.lerp(focus, Math.min(1, dt * 2.8));
+          // 10 cm of slop is invisible at this distance and lets the ease end
+          // promptly instead of creeping for another hundred frames
+          if (controls.target.distanceToSquared(focus) < 1e-2) controls.target.copy(focus);
+
+          const want = BAY_DIST[b] * zoom;
           dir.copy(camera.position).sub(controls.target);
           const cur = dir.length();
-          dir.setLength(cur + (want - cur) * Math.min(1, dt * 3));
+          const next = cur + (want - cur) * Math.min(1, dt * 3.8);
+          dir.setLength(Math.abs(next - want) < 0.01 ? want : next);
           camera.position.copy(controls.target).add(dir);
 
-          controls.update();
+          controls.autoRotate = autoRef.current;
+          const moved = controls.update(dt);
           renderer.render(scene, camera);
 
           const w = mount.clientWidth;
           const h = mount.clientHeight;
-          const act = activeRef.current?.current ?? 0;
           for (let i = 0; i < STATIONS.length; i++) {
             const el = labelRefs.current[i];
             if (!el) continue;
@@ -490,13 +591,46 @@ export default function Factory3D({
               const py = Math.min(h - 26, Math.max(26, (-tmp.y * 0.5 + 0.5) * h));
               el.style.transform = `translate(-50%, -50%) translate(${px}px, ${py}px)`;
             }
-            el.classList.toggle("on", i === act);
+            el.classList.toggle("on", i === b);
           }
+
+          // settled → hand the thread straight back to the page
+          if (moved || autoRef.current) return false;
+          fresh = true;
+          return true;
         };
-        tick();
+
+        /* ---------- land the bay in phases: engine, crew, dressing -------- */
+        // The engine lands first so the bay is alive in a blink, then its crew,
+        // then the hall dressing streams in behind them. Nothing waits for the
+        // last crate before the first frame is drawn.
+        for (const phase of PHASES) {
+          if (!phase.length) continue;
+          await Promise.all(
+            phase.map(async (file) => {
+              await loadFile(file);
+              if (!disposed) setLoaded((n) => n + 1);
+            })
+          );
+          if (disposed) return;
+          place(phase);
+          if (!disposed) {
+            setDone(pieceCount());
+            setReady(true);
+          }
+          // re-bake the (static) shadow map once for the new geometry
+          renderer.shadowMap.needsUpdate = true;
+          kick();
+        }
+
+        if (!disposed) setDone(TOTAL_PIECES);
 
         teardown = () => {
           window.removeEventListener("resize", resize);
+          window.removeEventListener("pointerup", onUp);
+          canvas.removeEventListener("pointerdown", onDown);
+          canvas.removeEventListener("pointermove", onMove);
+          canvas.removeEventListener("wheel", kick);
           observer?.disconnect();
         };
       } catch {
@@ -506,9 +640,10 @@ export default function Factory3D({
 
     return () => {
       disposed = true;
-      cancelAnimationFrame(raf);
+      tickRef.current = null;
       teardown?.();
       controls?.dispose();
+      pmrem?.dispose();
       if (scene) {
         scene.traverse((o) => {
           const m = o as Mesh;
@@ -525,7 +660,7 @@ export default function Factory3D({
         renderer.domElement.remove();
       }
     };
-  }, [near]);
+  }, [near, kick]);
 
   return (
     <div className="f3d" ref={hostRef}>
@@ -535,19 +670,24 @@ export default function Factory3D({
         <div className="f3dLoad">
           <span className="f3dSpin" aria-hidden="true" />
           <b>Building the 3D floor</b>
-          <span>{done > 0 ? `${done} / ${PLAN.length} pieces placed` : "loading models…"}</span>
+          <span>{done > 0 ? `${done} / ${TOTAL_PIECES} pieces placed` : "loading models…"}</span>
         </div>
+      )}
+      {ready && !failed && done < TOTAL_PIECES && (
+        <span className="f3dStamp" aria-hidden="true">
+          Assembling {loaded}/{FILES.length}
+        </span>
       )}
       {failed && (
         <div className="f3dLoad">
           <b>3D view unavailable</b>
-          <span>Switch to the live scene view.</span>
+          <span>Reload the page or open it in a browser with WebGL enabled.</span>
         </div>
       )}
 
       <span className="f3dLive" aria-hidden="true">
         <i />
-        Live 3D floor
+        3D floor
       </span>
 
       {STATIONS.map((s, i) => (

@@ -45,6 +45,7 @@ export default function TurbineCursor() {
     let targetTilt = 0;
     let tilt = 0;
     let frame = 0;
+    let running = false;
     let visible = false;
 
     const onMove = (e: MouseEvent) => {
@@ -57,6 +58,7 @@ export default function TurbineCursor() {
       const dx = e.clientX - lastX;
       lastX = e.clientX;
       targetTilt = Math.max(-16, Math.min(16, dx * 1.6));
+      kick();
     };
 
     const onLeave = () => {
@@ -118,6 +120,28 @@ export default function TurbineCursor() {
       y += (my - y) * 0.24;
       tilt += (targetTilt - tilt) * 0.14;
       dot.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${tilt.toFixed(2)}deg)`;
+
+      // Converged? Stop the loop entirely — an idle page should cost no frames
+      // at all. The next pointer movement kicks it straight back into life.
+      if (
+        Math.abs(mx - x) < 0.08 &&
+        Math.abs(my - y) < 0.08 &&
+        Math.abs(targetTilt - tilt) < 0.02
+      ) {
+        x = mx;
+        y = my;
+        tilt = targetTilt;
+        dot.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${tilt.toFixed(2)}deg)`;
+        running = false;
+        return;
+      }
+
+      frame = requestAnimationFrame(render);
+    };
+
+    const kick = () => {
+      if (running) return;
+      running = true;
       frame = requestAnimationFrame(render);
     };
 
@@ -125,7 +149,7 @@ export default function TurbineCursor() {
     window.addEventListener("mousedown", onDown, { passive: true });
     document.addEventListener("mouseover", onOver, { passive: true });
     document.documentElement.addEventListener("mouseleave", onLeave);
-    frame = requestAnimationFrame(render);
+    kick();
 
     return () => {
       window.removeEventListener("mousemove", onMove);
