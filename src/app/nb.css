@@ -307,21 +307,23 @@
   gap: 10px;
   margin-top: 26px;
   padding: 15px 26px;
-  border-radius: 2px;
+  border: 2px solid #0b1220;
+  border-radius: 4px;
   background: var(--red);
   color: #fff;
-  font: 700 11.5px/1 var(--nb-mono);
-  letter-spacing: 0.13em;
+  font: 800 11.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  box-shadow: 5px 5px 0 #0b1220;
   transform: skewX(-8deg);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
 }
 .nbBtn > * {
   transform: skewX(8deg);
 }
 .nbBtn:hover {
-  transform: skewX(-8deg) translateY(-3px);
-  box-shadow: 0 16px 36px rgba(237, 28, 36, 0.4);
+  transform: skewX(-8deg) translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #0b1220;
   background: #d41a22;
 }
 
@@ -1287,23 +1289,24 @@
 .nbSubmit {
   margin-top: 4px;
   padding: 16px 28px;
-  border: 0;
-  border-radius: 3px;
+  border: 2px solid #0b1220;
+  border-radius: 4px;
   background: var(--red);
   color: #fff;
-  font: 700 12px/1 var(--nb-mono);
+  font: 800 12px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
+  box-shadow: 5px 5px 0 #0b1220;
   transform: skewX(-8deg);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
 }
 .nbSubmit > * {
   transform: skewX(8deg);
 }
 .nbSubmit:hover {
-  transform: skewX(-8deg) translateY(-3px);
-  box-shadow: 0 18px 38px rgba(237, 28, 36, 0.42);
+  transform: skewX(-8deg) translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #0b1220;
   background: #d41a22;
 }
 .nbFormNote {
@@ -2846,23 +2849,24 @@
   align-items: center;
   margin-top: clamp(36px, 4.5vw, 56px);
   padding: 16px 30px;
+  border: 2px solid #0b1220;
   border-radius: 4px;
-  background: linear-gradient(135deg, var(--red), #c4121a);
+  background: var(--red);
   color: #fff;
-  font: 700 11px/1 var(--nb-mono);
+  font: 800 11px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: 0 8px 24px rgba(237, 28, 36, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 5px 5px 0 #0b1220;
   transform: skewX(-8deg);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 .nbBlogAll > * {
   transform: skewX(8deg);
 }
 .nbBlogAll:hover {
-  transform: skewX(-8deg) translateY(-3px);
-  box-shadow: 0 14px 36px rgba(237, 28, 36, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: skewX(-8deg) translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #0b1220;
 }
 .nbBlogEmpty {
   margin: 0;

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
-import TurbineCursor from "@/components/TurbineCursor";
 import ContactWidget from "@/components/ContactWidget";
 import { SITE } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
@@ -78,7 +77,6 @@ export default function RootLayout({
         {children}
         <SiteFooter />
         <ContactWidget />
-        <TurbineCursor />
       </body>
     </html>
   );
