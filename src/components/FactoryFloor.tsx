@@ -1,7 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Factory3D from "./Factory3D";
+import dynamic from "next/dynamic";
+import FactorySpin from "./FactorySpin";
+
+/**
+ * The live WebGL bay is kept behind a flag as a fallback. It is dynamically
+ * imported, so its three.js bundle only loads if the flag is flipped — the
+ * baked 360° spin above never touches it. Flip to false to fall back to the
+ * real-time engine without touching anything else.
+ */
+const USE_SPIN = true;
+const Factory3D = dynamic(() => import("./Factory3D"), { ssr: false });
 
 const FSTAGES = [
   {
@@ -67,12 +77,16 @@ export default function FactoryFloor() {
         </div>
         <p className="factorySub">
           One engine on the cradle, four trades around it, the hoist overhead.
-          Drag the model to orbit the hall, or pick a station and the camera
-          walks down the line with you.
+          Drag the bay to spin it through a full turn, or pick a station and the
+          shot cuts down the line with you.
         </p>
 
         <div className="factoryBody show3d">
-          <Factory3D bay={bay} onPick={setBay} />
+          {USE_SPIN ? (
+            <FactorySpin bay={bay} onPick={setBay} />
+          ) : (
+            <Factory3D bay={bay} onPick={setBay} />
+          )}
 
           {/* STATIONS — accordion copy, one bay per row */}
           <div className="fstages">
@@ -105,7 +119,7 @@ export default function FactoryFloor() {
               </div>
             ))}
             <div className="factoryHint">
-              Drag the bay to orbit · pick a station to move the camera
+              Drag the bay to spin · pick a station to move the shot
             </div>
           </div>
         </div>

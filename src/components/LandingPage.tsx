@@ -320,7 +320,6 @@ export default function LandingPage() {
             {INDUSTRIES.map((industry) => (
               <a
                 className="industry reveal"
-                className="industry reveal"
                 key={industry.no}
                 aria-label={`${industry.name} — ${industry.description}`}
               >

@@ -1244,120 +1244,6 @@ footer {
   background: linear-gradient(to top, rgba(5, 5, 5, 0.92) 22%, rgba(5, 5, 5, 0.25) 55%, rgba(237, 28, 36, 0.12));
 }
 
-/* ===== End Turbine cursor ===== */
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 26px;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-  will-change: transform;
-  transform-origin: 0 0;
-  mix-blend-mode: difference;
-}
-.tcArrow {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 26px;
-  display: block;
-}
-.tcArrow path {
-  fill: #fff;
-}
-.tc-ring {
-  position: absolute;
-  left: 7px;
-  top: 7px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  border: 1.6px solid #fff;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.8);
-  transition: opacity 0.25s, transform 0.25s;
-}
-.tc-cursor.tc-link .tc-ring {
-  opacity: 0.9;
-  transform: translate(-50%, -50%) scale(1);
-}
-.tc-cursor.tc-kick .tcArrow {
-  animation: tcArrowKick 0.26s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-@keyframes tcArrowKick {
-  0% { transform: scale(1) rotate(0deg); }
-  40% { transform: scale(1.24) rotate(-7deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
-.tc-cursor.tc-kick .tc-ring {
-  animation: tcRingKick 0.4s ease-out;
-}
-@keyframes tcRingKick {
-  0% { transform: translate(-50%, -50%) scale(0.7); opacity: 0.95; }
-  100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
-}
-.tc-ripples {
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
-}
-.tc-ripple {
-  position: fixed;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-.tc-drop {
-  position: absolute;
-  left: -3px;
-  top: -3px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #7dd3fc;
-  box-shadow: 0 0 12px rgba(125, 211, 252, 0.9);
-  animation: tcDrop 0.5s ease-in forwards;
-}
-@keyframes tcDrop {
-  from { transform: scale(1.6); opacity: 1; }
-  to { transform: scale(0.4); opacity: 0.6; }
-}
-.tc-wave {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  border: 2px solid rgba(125, 211, 252, 0.85);
-  animation: tcWave 1s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-}
-.tc-wave.w2 { animation-delay: 0.1s; border-color: rgba(237, 28, 36, 0.55); }
-.tc-wave.w3 { animation-delay: 0.2s; border-color: rgba(255, 255, 255, 0.4); }
-@keyframes tcWave {
-  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.95; }
-  100% { transform: translate(-50%, -50%) scale(9); opacity: 0; }
-}
-.tc-splash {
-  position: absolute;
-  left: -2px;
-  top: -2px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #bae6fd;
-  animation: tcSplash 0.7s ease-out forwards;
-}
-@keyframes tcSplash {
-  from { transform: translate(0, 0) scale(1); opacity: 1; }
-  to { transform: translate(var(--sx), var(--sy)) scale(0.2); opacity: 0; }
-}
 
 /* ===== Works scroll: 3D turbine + oil ===== */
 .worksScroll {
@@ -1826,7 +1712,6 @@ footer {
   .worksCardGrid { grid-template-columns: 1fr; }
   .engineBase { display: none; }
   .stages { min-height: 380px; }
-  .tc-cursor, .tc-ripples { display: none; }
 }
 /* ===== Factory floor: the working bay (unpinned — scrolls like any band) ===== */
 .factoryScroll { position: relative; background: #0b0b0c; }

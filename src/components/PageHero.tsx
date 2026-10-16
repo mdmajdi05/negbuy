@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 
 interface PageHeroProps {
   index: string;
@@ -19,7 +19,6 @@ export default function PageHero({
   lead,
   image,
   imageAlt,
-  backHref = "/",
   backLabel = "Home",
   stats,
 }: PageHeroProps) {

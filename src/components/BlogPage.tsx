@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import { MACHINE } from "@/lib/media";

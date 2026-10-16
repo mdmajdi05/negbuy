@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import { POSTS_SORTED, formatPostDate } from "@/lib/posts";
 
 /** Home-page journal strip: the three newest field notes. */
@@ -28,7 +28,7 @@ export default function BlogTeaser() {
             <svg viewBox="0 0 12 12" aria-hidden="true">
               <path d="M1 6h9M7 3l3 3-3 3" />
             </svg>
-          </Link>
+          </span>
         </div>
 
         <div className="nbBlogGrid">
@@ -59,7 +59,7 @@ export default function BlogTeaser() {
                     </svg>
                   </span>
                 </div>
-              </Link>
+              </span>
             </article>
           ))}
         </div>

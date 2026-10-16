@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
+
 import CtaForm from "./CtaForm";
 import { SITE, whatsappUrl } from "@/lib/site";
 import {
@@ -232,7 +232,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
         <header className="nbPostHead">
           <div className="nbPostHeadInner">
             <nav className="nbCrumb" aria-label="Breadcrumb">
-              <span /">Home</span>
+              <span>Home</span>
               <i aria-hidden="true">/</i>
               <span>Journal</span>
               <i aria-hidden="true">/</i>
@@ -381,7 +381,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 <b>{post.author}</b>
                 <span>{post.role} — NEGBUY Group</span>
               </div>
-              <span className="nbBtn" /contact">
+              <span className="nbBtn">
                 Talk to the desk
                 <svg viewBox="0 0 12 12" aria-hidden="true">
                   <path d="M1 6h9M7 3l3 3-3 3" />
@@ -400,7 +400,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                   Send a part number or a fault note — our engineers reply
                   within 24 hours.
                 </p>
-                <span className="nbBtn" /contact">
+                <span className="nbBtn">
                   Request a quote
                   <svg viewBox="0 0 12 12" aria-hidden="true">
                     <path d="M1 6h9M7 3l3 3-3 3" />

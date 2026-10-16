@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import Reveal from "./Reveal";
@@ -71,7 +71,7 @@ export default function AboutPage() {
             </div>
             <span className="nbBtn">
               Work with us <span aria-hidden="true">↗</span>
-            </Link>
+            </span>
           </div>
 
           <CompanyFilm />
