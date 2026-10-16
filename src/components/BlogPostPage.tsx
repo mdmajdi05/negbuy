@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
+import Link from "next/link";
 import CtaForm from "./CtaForm";
 import { SITE, whatsappUrl } from "@/lib/site";
 import {
@@ -173,7 +173,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
         <section className="nbBlog">
           <div className="nbBlogInner">
             <p className="nbBlogEmpty">
-              That article has moved. <span>Back to the journal</span>
+              That article has moved. <Link href="/blog">Back to the journal</Link>
             </p>
           </div>
         </section>
@@ -232,9 +232,9 @@ export default function BlogPostPage({ slug }: { slug: string }) {
         <header className="nbPostHead">
           <div className="nbPostHeadInner">
             <nav className="nbCrumb" aria-label="Breadcrumb">
-              <span>Home</span>
+              <Link href="/">Home</Link>
               <i aria-hidden="true">/</i>
-              <span>Journal</span>
+              <Link href="/blog">Journal</Link>
               <i aria-hidden="true">/</i>
               <span>{post.category}</span>
             </nav>
@@ -333,7 +333,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 <ol>
                   {headings.map((h) => (
                     <li key={h.id}>
-                        {h.text}
+                      <a href={`#${h.id}`}>{h.text}</a>
                     </li>
                   ))}
                 </ol>
@@ -381,12 +381,12 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 <b>{post.author}</b>
                 <span>{post.role} — NEGBUY Group</span>
               </div>
-              <span className="nbBtn">
+              <Link className="nbBtn" href="/contact">
                 Talk to the desk
                 <svg viewBox="0 0 12 12" aria-hidden="true">
                   <path d="M1 6h9M7 3l3 3-3 3" />
                 </svg>
-              </span>
+              </Link>
             </div>
           </div>
 
@@ -400,12 +400,12 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                   Send a part number or a fault note — our engineers reply
                   within 24 hours.
                 </p>
-                <span className="nbBtn">
+                <Link className="nbBtn" href="/contact">
                   Request a quote
                   <svg viewBox="0 0 12 12" aria-hidden="true">
                     <path d="M1 6h9M7 3l3 3-3 3" />
                   </svg>
-                </span>
+                </Link>
               </div>
 
               <div className="nbSideCard">
@@ -413,11 +413,11 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 <ul className="nbSideList">
                   {more.map((p) => (
                     <li key={p.slug}>
-                      <span>
+                      <Link href={`/blog/${p.slug}`}>
                         <span>{p.category}</span>
                         <b>{p.title}</b>
                         <small>{p.read} min read</small>
-                      </span>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -459,7 +459,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 data-rv-delay={(i % 3) * 80}
                 key={p.slug}
               >
-                <span className="nbBlogCardLink">
+                <Link className="nbBlogCardLink" href={`/blog/${p.slug}`}>
                   <div className="nbBlogShot">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.cover} alt={p.coverAlt} loading="lazy" decoding="async" />
@@ -480,17 +480,17 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                       </svg>
                     </span>
                   </div>
-                </span>
+                </Link>
               </article>
             ))}
           </div>
 
-          <span className="nbBtn nbBlogAll">
+          <Link className="nbBtn nbBlogAll" href="/blog">
             All articles
             <svg viewBox="0 0 12 12" aria-hidden="true">
               <path d="M1 6h9M7 3l3 3-3 3" />
             </svg>
-          </span>
+          </Link>
         </div>
       </section>
 

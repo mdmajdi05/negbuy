@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 
 interface PageHeroProps {
   index: string;
@@ -19,6 +19,7 @@ export default function PageHero({
   lead,
   image,
   imageAlt,
+  backHref = "/",
   backLabel = "Home",
   stats,
 }: PageHeroProps) {
@@ -32,7 +33,7 @@ export default function PageHero({
 
       <div className="nbPageHeroInner">
         <nav className="nbCrumb" aria-label="Breadcrumb">
-          <span>{backLabel}</span>
+          <Link href={backHref}>{backLabel}</Link>
           <i aria-hidden="true">/</i>
           <span>{kicker}</span>
         </nav>

@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import Reveal from "./Reveal";
@@ -163,9 +163,9 @@ export default function ServicesPage() {
                   <li key={b}>{b}</li>
                 ))}
               </ul>
-              <span className="nbBtn">
+              <Link className="nbBtn" href="/contact">
                 Discuss this service <span aria-hidden="true">↗</span>
-              </span>
+              </Link>
             </div>
           </article>
         ))}

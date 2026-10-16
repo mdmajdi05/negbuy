@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import Reveal from "./Reveal";
@@ -69,9 +69,9 @@ export default function AboutPage() {
               <span>EPC</span>
               <span>Global feedstock</span>
             </div>
-            <span className="nbBtn">
+            <Link className="nbBtn" href="/contact">
               Work with us <span aria-hidden="true">↗</span>
-            </span>
+            </Link>
           </div>
 
           <CompanyFilm />

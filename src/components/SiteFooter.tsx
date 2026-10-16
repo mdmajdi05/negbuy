@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import Link from "next/link";
 import { OFFICES, SITE } from "@/lib/site";
 
 const COLUMNS = [
@@ -72,7 +72,7 @@ export default function SiteFooter() {
               <ul>
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <span>{link.label}</span>
+                    <Link href={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -91,9 +91,9 @@ export default function SiteFooter() {
               {SITE.phone}
             </a>
             <p>Global feedstock · 24/7 emergency breakdown support</p>
-            <span className="nbFootCta">
+            <Link className="nbFootCta" href="/contact">
               Request a quote <span aria-hidden="true">↗</span>
-            </span>
+            </Link>
           </div>
         </div>
 

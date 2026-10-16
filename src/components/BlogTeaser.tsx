@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 import { POSTS_SORTED, formatPostDate } from "@/lib/posts";
 
 /** Home-page journal strip: the three newest field notes. */
@@ -23,12 +23,12 @@ export default function BlogTeaser() {
             </p>
           </div>
 
-          <span className="nbBtn nbBlogAll">
+          <Link className="nbBtn nbBlogAll nbBlogAllTop" href="/blog">
             All articles
             <svg viewBox="0 0 12 12" aria-hidden="true">
               <path d="M1 6h9M7 3l3 3-3 3" />
             </svg>
-          </span>
+          </Link>
         </div>
 
         <div className="nbBlogGrid">
@@ -38,7 +38,7 @@ export default function BlogTeaser() {
               data-rv-delay={(i % 3) * 80}
               key={p.slug}
             >
-              <span className="nbBlogCardLink">
+              <Link className="nbBlogCardLink" href={`/blog/${p.slug}`}>
                 <div className="nbBlogShot">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p.cover} alt={p.coverAlt} loading="lazy" decoding="async" />
@@ -59,7 +59,7 @@ export default function BlogTeaser() {
                     </svg>
                   </span>
                 </div>
-              </span>
+              </Link>
             </article>
           ))}
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
+import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import { OEM, SECTOR, PLANT, MACHINE } from "@/lib/media";
@@ -214,9 +214,9 @@ export default function ProductsPage() {
               <li>SGT-400 · SGT-500 · SGT-600</li>
               <li>SGT-700 · SGT-750 · SGT-800</li>
             </ul>
-            <span className="nbBtn">
+            <Link className="nbBtn" href="/contact">
               Request availability <span aria-hidden="true">↗</span>
-            </span>
+            </Link>
           </div>
         </div>
       </section>

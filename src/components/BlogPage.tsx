@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import { MACHINE } from "@/lib/media";
@@ -66,7 +66,7 @@ export default function BlogPage() {
 
           {lead && (
             <article className="nbFeat rv">
-              <span className="nbFeatLink">
+              <Link className="nbFeatLink" href={`/blog/${lead.slug}`}>
                 <figure className="nbFeatShot">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -100,7 +100,7 @@ export default function BlogPage() {
                     </svg>
                   </span>
                 </div>
-              </span>
+              </Link>
             </article>
           )}
 
@@ -111,7 +111,7 @@ export default function BlogPage() {
                 data-rv-delay={(i % 3) * 80}
                 key={p.slug}
               >
-                <span className="nbBlogCardLink">
+                <Link className="nbBlogCardLink" href={`/blog/${p.slug}`}>
                   <div className="nbBlogShot">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.cover} alt={p.coverAlt} loading="lazy" decoding="async" />
@@ -132,7 +132,7 @@ export default function BlogPage() {
                       </svg>
                     </span>
                   </div>
-                </span>
+                </Link>
               </article>
             ))}
           </div>

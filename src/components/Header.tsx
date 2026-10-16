@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -76,7 +76,7 @@ export default function Header() {
       />
 
       <header className={`siteHeader${scrolled ? " is-scrolled" : ""}`}>
-        <span className="logo" aria-label="NEGBUY home">
+        <Link className="logo" href="/" aria-label="NEGBUY home">
           <Image
             src="/header-logo.png"
             alt="NEGBUY"
@@ -85,7 +85,7 @@ export default function Header() {
             sizes="120px"
             priority
           />
-        </span>
+        </Link>
 
         <nav
           id="primary-navigation"
@@ -93,8 +93,9 @@ export default function Header() {
           aria-label="Primary"
         >
           {NAV_LINKS.map((link) => (
-            <span
+            <Link
               key={link.href}
+              href={link.href}
               data-label={link.label}
               className={isActive(link.href) ? "active" : ""}
               onClick={() => setOpen(false)}
@@ -103,15 +104,15 @@ export default function Header() {
               <span className="navLabel">{link.label}</span>
               <i className="navUnder" aria-hidden="true" />
               <i className="navDot" aria-hidden="true" />
-            </span>
+            </Link>
           ))}
-          <span className="contact" onClick={() => setOpen(false)}>
+          <Link className="contact" href="/contact" onClick={() => setOpen(false)}>
             <span className="ctaText">Get a quote</span>
             <svg className="ctaArrow" viewBox="0 0 12 12" aria-hidden="true">
               <path d="M1 6h9M7 3l3 3-3 3" />
             </svg>
             <i className="ctaShine" aria-hidden="true" />
-          </span>
+          </Link>
         </nav>
 
         <button
