@@ -66,7 +66,7 @@ export default function BlogPage() {
 
           {lead && (
             <article className="nbFeat rv">
-              <Link className="nbFeatLink" href={`/blog/${lead.slug}`}>
+              <span className="nbFeatLink">
                 <figure className="nbFeatShot">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -100,7 +100,7 @@ export default function BlogPage() {
                     </svg>
                   </span>
                 </div>
-              </Link>
+              </span>
             </article>
           )}
 
@@ -111,7 +111,7 @@ export default function BlogPage() {
                 data-rv-delay={(i % 3) * 80}
                 key={p.slug}
               >
-                <Link className="nbBlogCardLink" href={`/blog/${p.slug}`}>
+                <span className="nbBlogCardLink">
                   <div className="nbBlogShot">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.cover} alt={p.coverAlt} loading="lazy" decoding="async" />
@@ -132,7 +132,7 @@ export default function BlogPage() {
                       </svg>
                     </span>
                   </div>
-                </Link>
+                </span>
               </article>
             ))}
           </div>

@@ -76,7 +76,7 @@ export default function Header() {
       />
 
       <header className={`siteHeader${scrolled ? " is-scrolled" : ""}`}>
-        <Link className="logo" href="/" aria-label="NEGBUY home">
+        <span className="logo" /" aria-label="NEGBUY home">
           <Image
             src="/header-logo.png"
             alt="NEGBUY"
@@ -93,7 +93,7 @@ export default function Header() {
           aria-label="Primary"
         >
           {NAV_LINKS.map((link) => (
-            <Link
+            <span
               key={link.href}
               href={link.href}
               data-label={link.label}
@@ -106,7 +106,7 @@ export default function Header() {
               <i className="navDot" aria-hidden="true" />
             </Link>
           ))}
-          <Link className="contact" href="/contact" onClick={() => setOpen(false)}>
+          <span className="contact" /contact" onClick={() => setOpen(false)}>
             <span className="ctaText">Get a quote</span>
             <svg className="ctaArrow" viewBox="0 0 12 12" aria-hidden="true">
               <path d="M1 6h9M7 3l3 3-3 3" />

@@ -23,7 +23,7 @@ export default function BlogTeaser() {
             </p>
           </div>
 
-          <Link className="nbBtn nbBlogAll nbBlogAllTop" href="/blog">
+          <span className="nbBtn nbBlogAll">
             All articles
             <svg viewBox="0 0 12 12" aria-hidden="true">
               <path d="M1 6h9M7 3l3 3-3 3" />
@@ -38,7 +38,7 @@ export default function BlogTeaser() {
               data-rv-delay={(i % 3) * 80}
               key={p.slug}
             >
-              <Link className="nbBlogCardLink" href={`/blog/${p.slug}`}>
+              <span className="nbBlogCardLink">
                 <div className="nbBlogShot">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p.cover} alt={p.coverAlt} loading="lazy" decoding="async" />

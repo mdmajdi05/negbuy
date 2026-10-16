@@ -173,7 +173,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
         <section className="nbBlog">
           <div className="nbBlogInner">
             <p className="nbBlogEmpty">
-              That article has moved. <Link href="/blog">Back to the journal</Link>
+              That article has moved. <span>Back to the journal</span>
             </p>
           </div>
         </section>
@@ -232,9 +232,9 @@ export default function BlogPostPage({ slug }: { slug: string }) {
         <header className="nbPostHead">
           <div className="nbPostHeadInner">
             <nav className="nbCrumb" aria-label="Breadcrumb">
-              <Link href="/">Home</Link>
+              <span /">Home</span>
               <i aria-hidden="true">/</i>
-              <Link href="/blog">Journal</Link>
+              <span>Journal</span>
               <i aria-hidden="true">/</i>
               <span>{post.category}</span>
             </nav>
@@ -333,7 +333,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 <ol>
                   {headings.map((h) => (
                     <li key={h.id}>
-                      <a href={`#${h.id}`}>{h.text}</a>
+                        {h.text}
                     </li>
                   ))}
                 </ol>
@@ -381,12 +381,12 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 <b>{post.author}</b>
                 <span>{post.role} — NEGBUY Group</span>
               </div>
-              <Link className="nbBtn" href="/contact">
+              <span className="nbBtn" /contact">
                 Talk to the desk
                 <svg viewBox="0 0 12 12" aria-hidden="true">
                   <path d="M1 6h9M7 3l3 3-3 3" />
                 </svg>
-              </Link>
+              </span>
             </div>
           </div>
 
@@ -400,12 +400,12 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                   Send a part number or a fault note — our engineers reply
                   within 24 hours.
                 </p>
-                <Link className="nbBtn" href="/contact">
+                <span className="nbBtn" /contact">
                   Request a quote
                   <svg viewBox="0 0 12 12" aria-hidden="true">
                     <path d="M1 6h9M7 3l3 3-3 3" />
                   </svg>
-                </Link>
+                </span>
               </div>
 
               <div className="nbSideCard">
@@ -413,11 +413,11 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 <ul className="nbSideList">
                   {more.map((p) => (
                     <li key={p.slug}>
-                      <Link href={`/blog/${p.slug}`}>
+                      <span>
                         <span>{p.category}</span>
                         <b>{p.title}</b>
                         <small>{p.read} min read</small>
-                      </Link>
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -459,7 +459,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 data-rv-delay={(i % 3) * 80}
                 key={p.slug}
               >
-                <Link className="nbBlogCardLink" href={`/blog/${p.slug}`}>
+                <span className="nbBlogCardLink">
                   <div className="nbBlogShot">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.cover} alt={p.coverAlt} loading="lazy" decoding="async" />
@@ -480,17 +480,17 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                       </svg>
                     </span>
                   </div>
-                </Link>
+                </span>
               </article>
             ))}
           </div>
 
-          <Link className="nbBtn nbBlogAll" href="/blog">
+          <span className="nbBtn nbBlogAll">
             All articles
             <svg viewBox="0 0 12 12" aria-hidden="true">
               <path d="M1 6h9M7 3l3 3-3 3" />
             </svg>
-          </Link>
+          </span>
         </div>
       </section>
 

@@ -69,7 +69,7 @@ export default function AboutPage() {
               <span>EPC</span>
               <span>Global feedstock</span>
             </div>
-            <Link className="nbBtn" href="/contact">
+            <span className="nbBtn">
               Work with us <span aria-hidden="true">↗</span>
             </Link>
           </div>

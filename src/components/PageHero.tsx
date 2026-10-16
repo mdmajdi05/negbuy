@@ -33,7 +33,7 @@ export default function PageHero({
 
       <div className="nbPageHeroInner">
         <nav className="nbCrumb" aria-label="Breadcrumb">
-          <Link href={backHref}>{backLabel}</Link>
+          <span>{backLabel}</span>
           <i aria-hidden="true">/</i>
           <span>{kicker}</span>
         </nav>

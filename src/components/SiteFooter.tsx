@@ -72,7 +72,7 @@ export default function SiteFooter() {
               <ul>
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <span href={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -91,7 +91,7 @@ export default function SiteFooter() {
               {SITE.phone}
             </a>
             <p>Global feedstock · 24/7 emergency breakdown support</p>
-            <Link className="nbFootCta" href="/contact">
+            <span className="nbFootCta" /contact">
               Request a quote <span aria-hidden="true">↗</span>
             </Link>
           </div>

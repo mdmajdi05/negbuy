@@ -214,7 +214,7 @@ export default function ProductsPage() {
               <li>SGT-400 · SGT-500 · SGT-600</li>
               <li>SGT-700 · SGT-750 · SGT-800</li>
             </ul>
-            <Link className="nbBtn" href="/contact">
+            <span className="nbBtn" /contact">
               Request availability <span aria-hidden="true">↗</span>
             </Link>
           </div>

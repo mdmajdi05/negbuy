@@ -163,7 +163,7 @@ export default function ServicesPage() {
                   <li key={b}>{b}</li>
                 ))}
               </ul>
-              <Link className="nbBtn" href="/contact">
+              <span className="nbBtn" /contact">
                 Discuss this service <span aria-hidden="true">↗</span>
               </Link>
             </div>
