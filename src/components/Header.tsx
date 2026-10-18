@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
+import { SITE } from "@/lib/site";
 
 const NAV_LINKS = [
   { href: "/", label: "Home", index: "01" },
@@ -76,20 +78,24 @@ export default function Header() {
       />
 
       <header className={`siteHeader${scrolled ? " is-scrolled" : ""}`}>
-        <Link className="logo" href="/" aria-label="NEGBUY home">
-          <Image
-            src="/header-logo.png"
-            alt="NEGBUY"
-            width={659}
-            height={302}
-            sizes="120px"
-            priority
-          />
-        </Link>
+        {/* Group 1 — logo (apna tile) */}
+        <div className="hGroup hGroupLogo">
+          <Link className="logo" href="/" aria-label="NEGBUY home">
+            <Image
+              src="/header-logo.png"
+              alt="NEGBUY"
+              width={659}
+              height={302}
+              sizes="120px"
+              priority
+            />
+          </Link>
+        </div>
 
+        {/* Group 2 — navbar (apna glass pill) */}
         <nav
           id="primary-navigation"
-          className={`nav${open ? " open" : ""}`}
+          className={`hGroup hGroupNav nav${open ? " open" : ""}`}
           aria-label="Primary"
         >
           {NAV_LINKS.map((link) => (
@@ -115,20 +121,36 @@ export default function Header() {
           </Link>
         </nav>
 
-        <button
-          type="button"
-          className={`menu${open ? " open" : ""}`}
-          ref={buttonRef}
-          aria-expanded={open}
-          aria-controls="primary-navigation"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="menuLines" aria-hidden="true">
-            <i />
-            <i />
-          </span>
-        </button>
+        {/* Group 3 — phone number + light/dark + menu (apna glass pill) */}
+        <div className="hGroup hActions">
+          <a
+            className="phoneTile"
+            href={SITE.phoneHref}
+            aria-label={`Call NEGBUY at ${SITE.phone}`}
+          >
+            <svg className="phoneIcon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" />
+            </svg>
+            <span className="phoneNum">{SITE.phone}</span>
+          </a>
+
+          <ThemeToggle />
+
+          <button
+            type="button"
+            className={`menu${open ? " open" : ""}`}
+            ref={buttonRef}
+            aria-expanded={open}
+            aria-controls="primary-navigation"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span className="menuLines" aria-hidden="true">
+              <i />
+              <i />
+            </span>
+          </button>
+        </div>
       </header>
     </>
   );
