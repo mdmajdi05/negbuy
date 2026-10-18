@@ -7,7 +7,6 @@ import { SITE } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 import "./nb.css";
-import "./theme.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -63,15 +62,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} overflow-x-hidden`}>
-        {/* Theme (light/dark) — pehle paint se pehle html par lag jaata hai,
-            isliye light mode me dark flash nahi hota. Key: "nb-theme"
-            (ThemeToggle button isi ko update karta hai). */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              'try{var t=localStorage.getItem("nb-theme");document.documentElement.dataset.theme=t==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}',
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={organizationSchema()}
