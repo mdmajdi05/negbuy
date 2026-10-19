@@ -10,6 +10,7 @@ import {
 
 const STAGES = [
   {
+    no: "01",
     tag: "STAGE 01 / INTAKE",
     title: "AIR INTAKE",
     desc: "Giant inlet guides pull 800kg of air per second into the compressor. Rotor spools up, inlet vanes adjust angle live.",
@@ -18,6 +19,7 @@ const STAGES = [
     bar: 22,
   },
   {
+    no: "02",
     tag: "STAGE 02 / COMPRESSION + OIL",
     title: "OIL PRESSURE",
     desc: "Lube-oil skids push ISO VG-46 oil at 8 bar through bearings. Watch the amber oil line pulse — cooling + lubrication in one loop.",
@@ -26,6 +28,7 @@ const STAGES = [
     bar: 55,
   },
   {
+    no: "03",
     tag: "STAGE 03 / COMBUSTION",
     title: "IGNITION CORE",
     desc: "Compressed air meets fuel. 1,400°C flame held inside the liner while the casing stays cool — the hottest controlled fire in industry.",
@@ -34,6 +37,7 @@ const STAGES = [
     bar: 82,
   },
   {
+    no: "04",
     tag: "STAGE 04 / POWER OUT",
     title: "POWER OUTPUT",
     desc: "Exhaust expands through power turbine stages. Shaft torque becomes megawatts feeding the grid, ships and plants.",
@@ -41,6 +45,13 @@ const STAGES = [
     unit: "MW OUTPUT",
     bar: 100,
   },
+];
+
+const NOTES = [
+  { cls: "n1", label: "INLET", value: "800 kg/s" },
+  { cls: "n2", label: "OIL LOOP", value: "8 bar" },
+  { cls: "n3", label: "COMBUSTOR", value: "1,400°C" },
+  { cls: "n4", label: "EXHAUST", value: "42.6 MW" },
 ];
 
 const CARDS = [
@@ -80,12 +91,14 @@ const CARDS = [
 
 export default function TurbineWorks() {
   const sectionRef = useRef<HTMLElement>(null);
-  const fanRef = useRef<HTMLDivElement>(null);
-  const engineRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const fanRef = useRef<HTMLImageElement>(null);
+  const orbitRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const oilRef = useRef<HTMLDivElement>(null);
-  const stageEls = useRef<(HTMLDivElement | null)[]>([]);
+  const stageEls = useRef<(HTMLLIElement | null)[]>([]);
   const progressRef = useRef<HTMLDivElement>(null);
+  const readoutRef = useRef<HTMLSpanElement>(null);
 
   const currentRef = useRef(0);
 
@@ -93,7 +106,7 @@ export default function TurbineWorks() {
     const sec = sectionRef.current;
     if (!sec) return true;
 
-    const target = sectionProgress(sec);
+    const target = sectionProgress(trackRef.current ?? sec);
     const next = easeTo(
       currentRef.current,
       target,
@@ -101,36 +114,37 @@ export default function TurbineWorks() {
     );
     currentRef.current = next;
 
-    // 3D engine reacts to scroll: spins up, tilts, heats up
+    // real turbine reacts to scroll: the fan spools up, orbit + heat follow
     if (fanRef.current) {
-      const spins = 40 + next * 1400;
-      fanRef.current.style.transform = `rotateZ(${spins}deg)`;
+      const spins = next * 1080;
+      fanRef.current.style.transform = `rotate(${spins}deg) scale(${
+        1 + next * 0.03
+      })`;
     }
-    if (engineRef.current) {
-      engineRef.current.style.transform = `rotateX(${52 - next * 22}deg) rotateZ(${-12 + next * 34}deg) scale(${1 + next * 0.12})`;
+    if (orbitRef.current) {
+      orbitRef.current.style.transform = `rotate(${next * -55}deg)`;
     }
     if (glowRef.current) {
       const heat = next;
-      glowRef.current.style.opacity = String(0.25 + heat * 0.75);
-      glowRef.current.style.transform = `translate(-50%,-50%) scale(${0.8 + heat * 0.9})`;
-      glowRef.current.style.filter = `blur(${18 - heat * 8}px) hue-rotate(${-heat * 24}deg)`;
+      glowRef.current.style.opacity = String(0.28 + heat * 0.62);
+      glowRef.current.style.transform = `translate(-50%,-50%) scale(${
+        0.74 + heat * 0.42
+      })`;
     }
     if (oilRef.current) {
-      oilRef.current.style.setProperty("--oil-speed", `${0.6 + next * 3}s`);
-      oilRef.current.style.opacity = String(0.55 + next * 0.45);
+      oilRef.current.style.setProperty("--iw-spin", `${0.9 + next * 3}s`);
+      oilRef.current.style.opacity = String(0.5 + next * 0.5);
     }
 
-    // stage text crossfade
-    const idx = Math.min(
-      STAGES.length - 1,
-      Math.floor(next * STAGES.length)
-    );
+    // stage list: highlight the active row
+    const idx = Math.min(STAGES.length - 1, Math.floor(next * STAGES.length));
     stageEls.current.forEach((el, i) => {
       if (!el) return;
-      const active = i === idx;
-      el.classList.toggle("active", active);
-      el.setAttribute("aria-hidden", active ? "false" : "true");
+      el.classList.toggle("active", i === idx);
     });
+    if (readoutRef.current) {
+      readoutRef.current.textContent = String(idx + 1).padStart(2, "0");
+    }
     if (progressRef.current) {
       progressRef.current.style.transform = `scaleX(${next})`;
     }
@@ -142,112 +156,116 @@ export default function TurbineWorks() {
 
   return (
     <section
-      className="worksScroll"
+      className="iwScroll"
+      id="inside-machine"
       ref={sectionRef}
       aria-label="How turbines work — oil supply and power stages"
     >
-      <div className="worksPin">
-        <div className="worksGrid" aria-hidden="true" />
-        <div className="worksHead">
-          <div className="kicker">01.5 / Inside the machine</div>
-          <h2>
-            WATCH A TURBINE
-            <br />
-            <span>BREATHE + BURN.</span>
-          </h2>
-          <p>
-            Scroll — the rotor spools up, oil starts flowing and the core heats
-            to full power. A live cutaway of what NEGBUY supplies and services.
-          </p>
-        </div>
+      {/* PINNED STAGE — scroll distance lives on .iwTrack */}
+      <div className="iwTrack" ref={trackRef}>
+        <div className="iwPin">
+          <div className="iwGrid" aria-hidden="true" />
 
-        <div className="worksBody">
-          {/* 3D ENGINE */}
-          <div className="engineWrap" aria-hidden="true">
-            <div className="engineGlow" ref={glowRef} />
-            <div className="engine3d" ref={engineRef}>
-              <div className="casing c1" />
-              <div className="casing c2" />
-              <div className="casing c3" />
-              <div className="fan" ref={fanRef}>
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className="fanBlade"
-                    style={{
-                      transform: `translate(-50%,-100%) rotate(${i * 30}deg)`,
-                    }}
-                  />
+          <div className="iwInner">
+            <header className="iwHead">
+              <div className="iwHeadCopy">
+                <div className="kicker">01.5 / Inside the machine</div>
+                <h2>
+                  WATCH A TURBINE
+                  <br />
+                  <span>BREATHE + BURN.</span>
+                </h2>
+              </div>
+              <p className="iwLead">
+                Scroll — the rotor spools up, oil starts flowing and the core
+                heats to full power. A live look at the machines NEGBUY supplies
+                and services.
+              </p>
+            </header>
+
+            <div className="iwBody">
+              {/* REAL TURBINE — transparent GE90 fan cut-out */}
+              <figure className="iwVisual">
+                <div className="iwGlow" ref={glowRef} aria-hidden="true" />
+                <div className="iwOrbit" ref={orbitRef} aria-hidden="true" />
+                <span className="iwAxis x" aria-hidden="true" />
+                <span className="iwAxis y" aria-hidden="true" />
+
+                <div className="iwFan" aria-hidden="true">
+                  <div className="iwFanSpin">
+                    <img
+                      className="iwFanImg"
+                      ref={fanRef}
+                      src="/real/ge90-fan.webp"
+                      alt=""
+                      draggable={false}
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="iwHub">
+                    <i />
+                  </span>
+                </div>
+
+                <span className="iwArc" ref={oilRef} aria-hidden="true" />
+
+                {NOTES.map((n) => (
+                  <span className={`iwNote ${n.cls}`} key={n.cls}>
+                    <b>
+                      <i /> {n.label}
+                    </b>
+                    <small>{n.value}</small>
+                  </span>
                 ))}
-              </div>
-              <div className="shaft" />
-              <div className="flame f1" />
-              <div className="flame f2" />
-              <div className="flame f3" />
-              {/* oil pipe looping around casing */}
-              <div className="oilPipe" ref={oilRef}>
-                <i className="oilFlow" />
-                <i className="oilFlow d2" />
-                <b className="oilDot o1" />
-                <b className="oilDot o2" />
-                <b className="oilDot o3" />
-              </div>
-              {/* steam / exhaust particles */}
-              {Array.from({ length: 10 }).map((_, i) => (
-                <span key={i} className={`puff p${i + 1}`} />
-              ))}
-            </div>
-            <div className="engineBase">
-              <span>
-                <i /> INLET
-              </span>
-              <span>
-                <i /> OIL LOOP
-              </span>
-              <span>
-                <i /> COMBUSTOR
-              </span>
-              <span>
-                <i /> EXHAUST
-              </span>
-            </div>
-          </div>
+              </figure>
 
-          {/* STAGES */}
-          <div className="stages">
-            {STAGES.map((s, i) => (
-              <div
-                key={s.tag}
-                ref={(el) => {
-                  stageEls.current[i] = el;
-                }}
-                className={`stage${i === 0 ? " active" : ""}`}
-              >
-                <div className="stageTag">{s.tag}</div>
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-                <div className="metric">
-                  <b>{s.metric}</b>
-                  <small>{s.unit}</small>
-                </div>
-                <div className="bar">
-                  <i style={{ width: `${s.bar}%` }} />
-                </div>
-              </div>
-            ))}
-            <div className="worksProgress">
-              <div className="worksProgressTrack">
-                <div className="worksProgressFill" ref={progressRef} />
-              </div>
-              <span>SCROLL TO SPOOL UP</span>
+              {/* STAGE LIST */}
+              <ol className="iwStages">
+                {STAGES.map((s, i) => (
+                  <li
+                    key={s.tag}
+                    ref={(el) => {
+                      stageEls.current[i] = el;
+                    }}
+                    className={`iwStage${i === 0 ? " active" : ""}`}
+                  >
+                    <span className="iwStageNo">{s.no}</span>
+                    <div className="iwStageBody">
+                      <span className="iwStageTag">{s.tag}</span>
+                      <h3>{s.title}</h3>
+                      <p>{s.desc}</p>
+                      <div className="iwBar">
+                        <i style={{ width: `${s.bar}%` }} />
+                      </div>
+                    </div>
+                    <div className="iwStageMetric">
+                      <b>{s.metric}</b>
+                      <small>{s.unit}</small>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
+
+            <div className="iwProgress">
+              <span className="iwProgressNo">
+                <b ref={readoutRef}>01</b> / 04
+              </span>
+              <div className="iwProgressTrack">
+                <div className="iwProgressFill" ref={progressRef} />
+              </div>
+              <em>SCROLL TO SPOOL UP</em>
+            </div>
+            <p className="iwCredit">
+              Turbine photo — GE90 fan, Wikimedia Commons / CC BY-SA 2.0
+            </p>
           </div>
         </div>
       </div>
 
-      {/* IMAGE CARDS */}
-      <div className="worksCards">
-        <div className="worksCardsHead reveal">
+      {/* FIELD WORK CARDS — normal flow, after the pinned track */}
+      <div className="iwCards">
+        <div className="iwCardsHead reveal">
           <div className="kicker">Field work / Oil + Turbines</div>
           <h2>
             REAL MACHINES.
@@ -255,19 +273,17 @@ export default function TurbineWorks() {
             REAL SITES.
           </h2>
         </div>
-        <div className="worksCardGrid">
+        <div className="iwCardGrid">
           {CARDS.map((c) => (
-            <article key={c.no} className="worksCard reveal">
-              <div className="worksImg">
-                {/* plain img to avoid next-image domain config */}
+            <article key={c.no} className="iwCard reveal">
+              <div className="iwShot">
                 <img src={c.img} alt={c.alt} loading="lazy" />
-                <span className="worksShine" aria-hidden="true" />
-                <span className="worksNo">{c.no}</span>
+                <span className="iwNo">{c.no}</span>
               </div>
-              <div className="worksCardText">
+              <div className="iwCardBody">
                 <h3>{c.title}</h3>
                 <p>{c.desc}</p>
-                <div className="worksStat">
+                <div className="iwStat">
                   <i aria-hidden="true" />
                   {c.stat}
                 </div>
