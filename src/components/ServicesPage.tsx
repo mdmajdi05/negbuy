@@ -2,6 +2,7 @@ import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
 import Reveal from "./Reveal";
+import RelatedPages from "./RelatedPages";
 import { SERVICE, SECTOR, PLANT, MACHINE, OEM } from "@/lib/media";
 
 const SERVICES = [
@@ -183,7 +184,8 @@ export default function ServicesPage() {
             <p>
               Certified engineers and technicians on site, at your port or in
               our workshop — with the tooling, spares and paperwork to finish
-              the job.
+              the job. Sourcing the parts? Browse the{" "}
+              <Link href="/products">turbine spares catalogue</Link>.
             </p>
           </div>
           <div className="nbSvcBandGrid">
@@ -205,6 +207,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <RelatedPages exclude="services" />
 
       <CtaForm />
     </div>

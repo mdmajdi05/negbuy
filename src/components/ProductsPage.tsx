@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
+import RelatedPages from "./RelatedPages";
 import { OEM, SECTOR, PLANT, MACHINE } from "@/lib/media";
 import { useReveal } from "@/hooks/useReveal";
 
@@ -172,7 +173,8 @@ export default function ProductsPage() {
             </h2>
             <p>
               A global feedstock of turbine spares, held and matched so an
-              unplanned outage becomes a planned repair.
+              unplanned outage becomes a planned repair — backed by our{" "}
+              <Link href="/services#turbine">turbine overhaul teams</Link>.
             </p>
           </div>
           <div className="nbSparesGrid">
@@ -220,6 +222,8 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
+
+      <RelatedPages exclude="products" />
 
       <CtaForm />
     </div>

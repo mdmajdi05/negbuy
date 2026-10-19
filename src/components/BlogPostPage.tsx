@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import CtaForm from "./CtaForm";
+import RelatedPages from "./RelatedPages";
 import { SITE, whatsappUrl } from "@/lib/site";
 import {
   POSTS_SORTED,
@@ -493,6 +494,8 @@ export default function BlogPostPage({ slug }: { slug: string }) {
           </Link>
         </div>
       </section>
+
+      <RelatedPages exclude="blog" />
 
       <CtaForm />
     </div>

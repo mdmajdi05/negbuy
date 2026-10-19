@@ -14,6 +14,7 @@ import BlogTeaser from "./BlogTeaser";
 import Testimonials from "./Testimonials";
 import FaqSection from "./FaqSection";
 import CtaForm from "./CtaForm";
+import RelatedPages from "./RelatedPages";
 import { useReveal } from "@/hooks/useReveal";
 import { SECTOR, SERVICE } from "@/lib/media";
 import {
@@ -337,6 +338,8 @@ export default function LandingPage() {
         <BlogTeaser />
 
         <FaqSection />
+
+        <RelatedPages />
 
         <CtaForm />
       </main>

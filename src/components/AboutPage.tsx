@@ -4,6 +4,7 @@ import CtaForm from "./CtaForm";
 import Reveal from "./Reveal";
 import CompanyFilm from "./CompanyFilm";
 import GroupCompanies from "./GroupCompanies";
+import RelatedPages from "./RelatedPages";
 import { PLANT, MACHINE, SECTOR, SERVICE, SHOP } from "@/lib/media";
 
 const VALUES = [
@@ -54,7 +55,9 @@ export default function AboutPage() {
               the parts, engineering and field support they need to keep
               producing. We work across turbines, energy, oil &amp; gas, marine,
               electrical, automation, EV and solar — always with the same
-              promise: genuine, traceable, on time.
+              promise: genuine, traceable, on time. Explore our{" "}
+              <Link href="/products">turbine parts &amp; systems</Link> and{" "}
+              <Link href="/services">service lines</Link>.
             </p>
             <p>
               Our engineers read a nameplate, a part number or a photograph and
@@ -183,6 +186,8 @@ export default function AboutPage() {
           </figure>
         </div>
       </section>
+
+      <RelatedPages exclude="about" />
 
       <CtaForm />
     </div>

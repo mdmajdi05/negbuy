@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import PageHero from "./PageHero";
+import RelatedPages from "./RelatedPages";
 import { PLANT, SECTOR, SHOP } from "@/lib/media";
 import { OFFICES, SITE, whatsappUrl } from "@/lib/site";
 import { useReveal } from "@/hooks/useReveal";
@@ -243,6 +244,8 @@ export default function ContactPage() {
           </figure>
         </div>
       </section>
+
+      <RelatedPages exclude="contact" />
     </div>
   );
 }

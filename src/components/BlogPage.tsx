@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import PageHero from "./PageHero";
 import CtaForm from "./CtaForm";
+import RelatedPages from "./RelatedPages";
 import { MACHINE } from "@/lib/media";
 import {
   POSTS_SORTED,
@@ -144,6 +145,8 @@ export default function BlogPage() {
           )}
         </div>
       </section>
+
+      <RelatedPages exclude="blog" />
 
       <CtaForm />
     </div>
