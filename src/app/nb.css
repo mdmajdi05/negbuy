@@ -2884,7 +2884,7 @@
   position: relative;
   padding: clamp(120px, 10vw, 160px) 5vw 48px;
   overflow: hidden;
-  background: linear-gradient(160deg, #222226 0%, #26262a114 40%, #1c1c20 100%);
+  background: linear-gradient(160deg, #222226 0%, #26262a 40%, #1c1c20 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .nbPostHead::before {
@@ -4174,7 +4174,7 @@
   background: #1a1a1e;
 }
 .nbPage .nbPostHead {
-  background: linear-gradient(160deg, #222226 0%, #26262a114 40%, #1c1c20 100%);
+  background: linear-gradient(160deg, #222226 0%, #26262a 40%, #1c1c20 100%);
 }
 
 /* --- About — hero(dark) story(light) values(dark) timeline(light)
