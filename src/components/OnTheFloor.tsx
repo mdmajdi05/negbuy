@@ -11,7 +11,7 @@ import {
 
 const FRAMES = [
   {
-    img: SHOP.mapna1,
+    img: SHOP.nacelleUnload,
     kicker: "Assembly hall",
     title: "HEAVY ASSEMBLY",
     copy: "Rotors, casings and skids married up under overhead cranes — torque logged fastener by fastener.",
@@ -19,7 +19,7 @@ const FRAMES = [
     statLabel: "crane capacity",
   },
   {
-    img: SHOP.weldShop,
+    img: SHOP.cutMetal,
     kicker: "Fabrication",
     title: "PRECISION WELD",
     copy: "WPS-qualified welders, certified procedures and dye-penetrant checks on every critical seam.",
