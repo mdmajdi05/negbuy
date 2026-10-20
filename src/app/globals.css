@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --black: #070707;
-  --black2: #111111;
+  --black: #1a1a1e;
+  --black2: #26262a;
   --red: #ed1c24;
   --red2: #ff3038;
   --white: #f4f4f1;
@@ -27,7 +27,7 @@ html {
 }
 
 body {
-  background: var(--black);
+  background: #1a1a1e;
   color: var(--white);
   font-family: Inter, Arial, sans-serif;
   overflow-x: hidden;
@@ -60,7 +60,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(5, 6, 9, 0.76);
+  background: rgba(26, 26, 30, 0.76);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -74,7 +74,7 @@ img {
   width: 90%;
   height: 66px;
   border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(7, 7, 9, 0.9);
+  background: rgba(30, 30, 34, 0.9);
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 .scrollProgress {
@@ -316,7 +316,9 @@ img {
   position: sticky;
   top: 0;
   overflow: hidden;
-  background: #050505;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(237, 28, 36, 0.06) 0%, transparent 60%),
+    linear-gradient(145deg, #1c1c20 0%, #18181c 30%, #202024 50%, #151518 75%, #1a1a1e 100%);
   isolation: isolate;
 }
 /* depth + bottom legibility vignette (sits behind the content layers) */
@@ -327,15 +329,15 @@ img {
   z-index: 5;
   pointer-events: none;
   background:
-    radial-gradient(130% 85% at 50% 42%, transparent 52%, rgba(0, 0, 0, 0.5) 100%),
-    linear-gradient(to top, rgba(5, 5, 5, 0.82), transparent 34%);
+    radial-gradient(130% 85% at 50% 42%, transparent 48%, rgba(15, 15, 18, 0.6) 100%),
+    linear-gradient(to top, rgba(18, 18, 20, 0.85), transparent 38%);
 }
 .grid {
   position: absolute;
   inset: -30%;
-  opacity: 0.18;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  opacity: 0.22;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 100px 100px;
   transform: perspective(700px) rotateX(65deg) translateY(18%);
   -webkit-mask-image: radial-gradient(72% 66% at 50% 45%, #000 32%, transparent 78%);
@@ -467,7 +469,7 @@ img {
   width: 10%;
   height: 46%;
   transform-origin: 50% 100%;
-  background: linear-gradient(90deg, #171717, #8c8c8c 45%, #ed1c24 50%, #222 80%);
+  background: linear-gradient(90deg, #303034, #8c8c8c 45%, #ed1c24 50%, #222 80%);
   clip-path: polygon(43% 0, 70% 8%, 100% 100%, 50% 86%, 0 100%, 30% 8%);
   opacity: 0.92;
 }
@@ -497,7 +499,7 @@ img {
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff, #777 43%, #151515 70%);
+  background: radial-gradient(circle at 35% 30%, #fff, #777 43%, #2c2c30 70%);
   box-shadow: 0 0 50px rgba(237, 28, 36, 0.3);
   z-index: 4;
 }
@@ -508,7 +510,7 @@ img {
   padding: 16px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-left: 2px solid var(--red);
-  background: rgba(8, 8, 8, 0.62);
+  background: rgba(24, 24, 26, 0.62);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   opacity: 0;
@@ -578,13 +580,13 @@ img {
 }
 .light {
   background: #efefeb;
-  color: #111;
+  color: #26262a;
 }
 .dark {
-  background: #0b0b0b;
+  background: #1e1e22;
 }
 .charcoal {
-  background: #121212;
+  background: #222226;
 }
 .sectionInner {
   max-width: 1400px;
@@ -630,7 +632,7 @@ img {
 
 .serviceSection {
   min-height: 180vh;
-  background: #0a0a0a;
+  background: linear-gradient(180deg, #1c1c20 0%, #18181c 50%, #1e1e22 100%);
   padding: 150px 5vw;
   position: relative;
   overflow: hidden;
@@ -664,7 +666,7 @@ img {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #151515;
+  background: #2c2c30;
 }
 .serviceCard .visual {
   position: absolute;
@@ -704,7 +706,7 @@ img {
 }
 .serviceCard:nth-child(4) .visual {
   background: radial-gradient(circle at 35% 35%, rgba(237, 28, 36, 0.42), transparent 25%),
-    linear-gradient(135deg, #222, #070707);
+    linear-gradient(135deg, #222, #1a1a1e);
 }
 .cardText {
   position: absolute;
@@ -752,7 +754,7 @@ img {
 
 .industries {
   min-height: 130vh;
-  background: #080808;
+  background: linear-gradient(180deg, #1a1a1e 0%, #161619 50%, #1c1c20 100%);
   padding: 150px 5vw;
   overflow: hidden;
 }
@@ -822,7 +824,7 @@ img {
 .industry:hover .industryDesc,
 .industry:focus-visible .industryNo,
 .industry:focus-visible .industryDesc {
-  color: #111;
+  color: #26262a;
 }
 
 .redSection {
@@ -878,7 +880,7 @@ img {
 
 footer {
   padding: 55px 5vw;
-  background: #050505;
+  background: linear-gradient(180deg, #1a1a1e 0%, #161619 100%);
   border-top: 1px solid var(--line);
 }
 .footerGrid {
@@ -962,7 +964,7 @@ footer {
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: 0 30px 60px rgba(20, 20, 22, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
   .nav.open > a {
     padding: 15px 16px;
@@ -1241,7 +1243,7 @@ footer {
 .serviceCard .visualShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(5, 5, 5, 0.92) 22%, rgba(5, 5, 5, 0.25) 55%, rgba(237, 28, 36, 0.12));
+  background: linear-gradient(to top, rgba(20, 20, 22, 0.92) 22%, rgba(20, 20, 22, 0.25) 55%, rgba(237, 28, 36, 0.12));
 }
 
 
@@ -1285,15 +1287,15 @@ footer {
   background:
     radial-gradient(58% 52% at 22% 38%, rgba(237, 28, 36, 0.08), transparent 62%),
     linear-gradient(180deg, #f8f8f5 0%, #f3f3ee 100%);
-  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+  border-bottom: 1px solid rgba(40, 40, 44, 0.12);
 }
 .iwGrid {
   position: absolute;
   inset: 0;
   pointer-events: none;
   opacity: 0.55;
-  background-image: linear-gradient(rgba(17, 17, 17, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(40, 40, 44, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40, 40, 44, 0.05) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 .iwInner {
@@ -1385,7 +1387,7 @@ footer {
   position: absolute;
   inset: -13px;
   border-radius: 50%;
-  border: 1px dashed rgba(17, 17, 17, 0.14);
+  border: 1px dashed rgba(40, 40, 44, 0.14);
 }
 .iwOrbit::after {
   content: "";
@@ -1403,7 +1405,7 @@ footer {
   z-index: 2;
   border-radius: 50%;
   overflow: hidden;
-  background: #121214;
+  background: #28282c;
   box-shadow: 0 34px 64px -20px rgba(17, 17, 17, 0.55),
     0 0 0 1px rgba(17, 17, 17, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
@@ -1471,7 +1473,7 @@ footer {
 .iwAxis {
   position: absolute;
   z-index: 1;
-  background: rgba(17, 17, 17, 0.1);
+  background: rgba(40, 40, 44, 0.1);
   pointer-events: none;
 }
 .iwAxis.x {
@@ -1602,7 +1604,7 @@ footer {
 .iwBar {
   height: 3px;
   width: min(220px, 100%);
-  background: rgba(17, 17, 17, 0.12);
+  background: rgba(40, 40, 44, 0.12);
   overflow: hidden;
 }
 .iwBar i {
@@ -1652,7 +1654,7 @@ footer {
 .iwProgressTrack {
   flex: 1;
   height: 2px;
-  background: rgba(17, 17, 17, 0.14);
+  background: rgba(40, 40, 44, 0.14);
   overflow: hidden;
 }
 .iwProgressFill {
@@ -1708,7 +1710,7 @@ footer {
 .iwCard {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(17, 17, 17, 0.12);
+  border: 1px solid rgba(40, 40, 44, 0.12);
   border-radius: 6px;
   background: #ffffff;
   overflow: hidden;
@@ -1719,7 +1721,7 @@ footer {
 .iwCard:hover {
   transform: translateY(-8px);
   border-color: rgba(237, 28, 36, 0.4);
-  box-shadow: 0 32px 64px -12px rgba(17, 17, 17, 0.14);
+  box-shadow: 0 32px 64px -12px rgba(40, 40, 44, 0.14);
 }
 .iwShot {
   position: relative;
@@ -1743,7 +1745,7 @@ footer {
   top: 12px;
   left: 12px;
   padding: 5px 9px;
-  border: 1px solid rgba(17, 17, 17, 0.14);
+  border: 1px solid rgba(40, 40, 44, 0.14);
   border-radius: 2px;
   background: rgba(244, 244, 239, 0.92);
   font-family: var(--nb-mono, ui-monospace, Menlo, Consolas, monospace);
@@ -1777,7 +1779,7 @@ footer {
   align-items: center;
   gap: 8px;
   padding-top: 12px;
-  border-top: 1px solid rgba(17, 17, 17, 0.12);
+  border-top: 1px solid rgba(40, 40, 44, 0.12);
   font-family: var(--nb-mono, ui-monospace, Menlo, Consolas, monospace);
   font-size: 9.5px;
   letter-spacing: 0.13em;
@@ -1876,16 +1878,16 @@ footer {
   }
 }
 /* ===== Factory floor: the working bay (unpinned — scrolls like any band) ===== */
-.factoryScroll { position: relative; background: #0b0b0c; }
-.factoryPin { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 104px 5vw 96px; background: radial-gradient(circle at 70% 20%, rgba(237,28,36,0.12), transparent 55%), radial-gradient(circle at 15% 80%, rgba(255,157,27,0.08), transparent 50%), #0b0b0c; }
+.factoryScroll { position: relative; background: linear-gradient(180deg, #1e1e22 0%, #1a1a1e 50%, #1c1c20 100%); }
+.factoryPin { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 104px 5vw 96px; background: radial-gradient(circle at 70% 20%, rgba(237,28,36,0.12), transparent 55%), radial-gradient(circle at 15% 80%, rgba(255,157,27,0.08), transparent 50%), #1c1c20; }
 .factoryHead { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: end; gap: 28px; }
 .factoryHead h2 { font-size: clamp(44px, 6.5vw, 100px); line-height: 0.82; letter-spacing: -0.09em; font-weight: 900; }
 .factoryHead h2 span { color: transparent; -webkit-text-stroke: 1px #fff; }
 .factorySub { position: relative; z-index: 2; max-width: 1400px; margin: 12px auto 0; width: 100%; color: #888; font-size: 12px; line-height: 1.7; max-width: 1400px; }
 .factoryBody { position: relative; z-index: 2; max-width: 1400px; margin: 30px auto 0; width: 100%; display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 40px; align-items: start; }
-.factoryScene { position: relative; height: 440px; border: 1px solid rgba(255,255,255,0.12); background: linear-gradient(to bottom, #141417 0 58%, #0e0e10 58% 100%); overflow: hidden; perspective: 900px; }
+.factoryScene { position: relative; height: 440px; border: 1px solid rgba(255,255,255,0.12); background: linear-gradient(to bottom, #3c3c40 0 58%, #1e1e22 58% 100%); overflow: hidden; perspective: 900px; }
 .shed { position: absolute; inset: 0; }
-.shedRoof { position: absolute; top: 0; left: 0; right: 0; height: 26px; background: repeating-linear-gradient(90deg, #232327 0 46px, #19191d 46px 52px); border-bottom: 2px solid #ed1c24; }
+.shedRoof { position: absolute; top: 0; left: 0; right: 0; height: 26px; background: repeating-linear-gradient(90deg, #3a3a3e 0 46px, #323236 46px 52px); border-bottom: 2px solid #ed1c24; }
 .shedWall { position: absolute; top: 26px; left: 0; right: 0; height: 200px; background: linear-gradient(to bottom, #1b1b1f, #131316); border-bottom: 1px solid rgba(255,255,255,0.08); }
 .negbSign { --glow: 0.35; position: absolute; left: 50%; top: 26px; transform: translateX(-50%); font-size: clamp(52px, 7vw, 110px); font-weight: 900; letter-spacing: -0.06em; line-height: 0.9; color: #f4f4f1; text-shadow: 0 0 calc(30px * var(--glow)) rgba(237,28,36,0.8); white-space: nowrap; text-align: center; }
 .negbSign b { color: #ed1c24; font-weight: 900; }
@@ -1894,19 +1896,19 @@ footer {
 .shedWindows i { width: 54px; height: 30px; background: linear-gradient(to bottom, rgba(125,211,252,0.28), rgba(125,211,252,0.08)); border: 1px solid rgba(255,255,255,0.14); animation: winGlow 3s ease-in-out infinite; }
 .shedWindows i:nth-child(2n) { animation-delay: 0.6s; } .shedWindows i:nth-child(3n) { animation-delay: 1.2s; }
 @keyframes winGlow { 50% { background: linear-gradient(to bottom, rgba(255,157,27,0.35), rgba(255,157,27,0.1)); } }
-.stack { position: absolute; top: -6px; width: 26px; height: 90px; background: linear-gradient(90deg, #2a2a2e, #17171a); border: 1px solid rgba(255,255,255,0.12); }
+.stack { position: absolute; top: -6px; width: 26px; height: 90px; background: linear-gradient(90deg, #3c3c40, #303034); border: 1px solid rgba(255,255,255,0.12); }
 .stack.s1 { left: 7%; } .stack.s2 { right: 9%; }
 .smoke { position: absolute; left: 50%; top: -8px; width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.4); opacity: 0; animation: smokeUp 3.2s linear infinite; }
 .smoke.m2 { animation-delay: 1s; } .smoke.m3 { animation-delay: 2s; }
 @keyframes smokeUp { 0% { transform: translate(-50%,0) scale(0.6); opacity: 0; } 20% { opacity: 0.55; } 100% { transform: translate(-30px,-110px) scale(2.6); opacity: 0; } }
-.craneRail { position: absolute; top: 120px; left: 0; right: 0; height: 6px; background: repeating-linear-gradient(90deg, #facc15 0 18px, #111 18px 36px); opacity: 0.85; }
+.craneRail { position: absolute; top: 120px; left: 0; right: 0; height: 6px; background: repeating-linear-gradient(90deg, #facc15 0 18px, #26262a 18px 36px); opacity: 0.85; }
 .crane { position: absolute; top: 126px; left: 50%; width: 90px; will-change: transform; }
 .craneCab { width: 90px; height: 22px; background: linear-gradient(#ed1c24, #8f1015); border: 1px solid rgba(255,255,255,0.25); }
 .craneHook { width: 3px; height: 56px; background: #888; margin: 0 auto; position: relative; }
 .craneHook::after { content: ""; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); width: 22px; height: 16px; border: 3px solid #facc15; border-top: none; border-radius: 0 0 8px 8px; }
 .robot { position: absolute; bottom: 96px; width: 90px; }
 .robot.r1 { left: 12%; } .robot.r2 { right: 14%; }
-.rbase { position: absolute; bottom: -34px; left: 50%; transform: translateX(-50%); width: 64px; height: 34px; background: linear-gradient(#333, #111); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px 6px 0 0; }
+.rbase { position: absolute; bottom: -34px; left: 50%; transform: translateX(-50%); width: 64px; height: 34px; background: linear-gradient(#333, #26262a); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px 6px 0 0; }
 .armA { position: absolute; bottom: 0; left: 50%; width: 16px; height: 110px; margin-left: -8px; background: linear-gradient(90deg, #3a3a3f, #151517); border: 1px solid rgba(255,255,255,0.22); border-radius: 8px; transform-origin: 50% 92%; will-change: transform; }
 .armB { position: absolute; top: -8px; left: 50%; width: 13px; height: 86px; margin-left: -6.5px; background: linear-gradient(90deg, #ed1c24, #7a0e12); border: 1px solid rgba(255,255,255,0.25); border-radius: 7px; transform-origin: 50% 12%; will-change: transform; }
 .claw { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; will-change: transform; }
@@ -1920,7 +1922,7 @@ footer {
 .spark.k1 { --r: -1; } .spark.k2 { --r: 1; } .spark.k3 { --r: -0.6; } .spark.k4 { --r: 0.8; } .spark.k5 { --r: -1.3; } .spark.k6 { --r: 1.2; } .spark.k7 { --r: -0.3; } .spark.k8 { --r: 0.4; } .spark.k9 { --r: -0.9; } .spark.k10 { --r: 0.6; } .spark.k11 { --r: -1.1; } .spark.k12 { --r: 1; }
 .belt { position: absolute; bottom: 40px; left: 0; right: 0; height: 56px; overflow: hidden; }
 .beltTrack { --belt-speed: 1.4s; display: flex; gap: 14px; padding: 0 20px; width: max-content; will-change: transform; }
-.crate { width: 110px; height: 46px; flex: 0 0 auto; background: linear-gradient(#2b2b30, #17171a); border: 1px solid rgba(255,255,255,0.22); border-top: 3px solid #ed1c24; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; animation: crateBob var(--belt-speed) ease-in-out infinite; }
+.crate { width: 110px; height: 46px; flex: 0 0 auto; background: linear-gradient(#3e3e42, #303034); border: 1px solid rgba(255,255,255,0.22); border-top: 3px solid #ed1c24; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; animation: crateBob var(--belt-speed) ease-in-out infinite; }
 @keyframes crateBob { 50% { transform: translateY(-3px); } }
 .crateBrand { font-size: 13px; font-weight: 900; letter-spacing: -0.02em; color: #fff; } .crateBrand b { color: #ed1c24; }
 .crateNo { font-size: 8px; letter-spacing: 0.2em; color: #888; }
@@ -1942,13 +1944,13 @@ footer {
 .fbar { margin-top: 10px; height: 3px; background: #222; overflow: hidden; }
 .fbar i { display: block; height: 100%; background: linear-gradient(90deg, #ed1c24, #facc15); }
 .factoryHint { margin-top: 4px; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #5f5f5f; }
-.factoryCards { padding: 90px 5vw 130px; background: #0e0e10; border-top: 1px solid var(--line); }
+.factoryCards { padding: 90px 5vw 130px; background: linear-gradient(180deg, #1c1c20 0%, #18181c 100%); border-top: 1px solid var(--line); }
 .factoryCardsHead { max-width: 1400px; margin: 0 auto 40px; }
 .factoryCardsHead h2 { font-size: clamp(48px, 7vw, 110px); line-height: 0.82; letter-spacing: -0.09em; }
 .factoryCardGrid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.factoryCard { background: #161618; border: 1px solid var(--line); overflow: hidden; transition: transform 0.5s cubic-bezier(0.2,0.7,0.2,1), border-color 0.3s; }
+.factoryCard { background: #2e2e32; border: 1px solid var(--line); overflow: hidden; transition: transform 0.5s cubic-bezier(0.2,0.7,0.2,1), border-color 0.3s; }
 .factoryCard:hover { transform: translateY(-8px) rotateX(3deg); border-color: rgba(250,204,21,0.5); }
-.factoryImg { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #000; }
+.factoryImg { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #26262a; }
 .factoryImg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transform: scale(1.02); transition: transform 0.7s; filter: saturate(0.9) contrast(1.05); }
 .factoryCard:hover .factoryImg img { transform: scale(1.12); }
 .factoryShine { position: absolute; top: 0; left: -70%; width: 55%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent); transform: skewX(-18deg); transition: left 0.7s; }
@@ -1963,13 +1965,13 @@ footer {
 @media (max-width: 640px) { .factoryCardGrid { grid-template-columns: 1fr; } .robot.r1 { left: 4%; } .robot.r2 { right: 6%; } }
 @media (prefers-reduced-motion: reduce) { .beltBase, .crate, .smoke, .spark, .shedWindows i { animation: none; } }
 /* ===== Factory floor REAL v2 � cinematic scene ===== */
-.factoryPinReal { background: radial-gradient(circle at 70% 10%, rgba(237,28,36,0.14), transparent 55%), #070708; }
+.factoryPinReal { background: radial-gradient(circle at 70% 10%, rgba(237,28,36,0.14), transparent 55%), #18181c; }
 
-.factoryCards { background: linear-gradient(to bottom, #101013, #0a0a0c); }
+.factoryCards { background: linear-gradient(to bottom, #1e1e22, #1a1a1e); }
 .factoryCard { border-radius: 6px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
 
 /* ===== Stats band: marquee + counters ===== */
-.statsBand { background: #08080a; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
+.statsBand { background: #1e1e22; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
 .marquee { border-bottom: 1px solid var(--line); padding: 18px 0; overflow: hidden; background: rgba(237,28,36,0.04); }
 .marqueeTrack { display: flex; width: max-content; animation: mqMove 28s linear infinite; }
 .marqueeHalf { display: flex; }

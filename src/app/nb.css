@@ -4,8 +4,8 @@
    ========================================================================== */
 
 :root {
-  --nb-ink: #0a0a0c;
-  --nb-ink2: #101014;
+  --nb-ink: #1c1c20;
+  --nb-ink2: #26262a;
   --nb-paper: #efefeb;
   --nb-paper2: #e6e6e0;
   --nb-hair: rgba(255, 255, 255, 0.12);
@@ -65,7 +65,7 @@
     border-color 0.35s ease, box-shadow 0.35s ease;
 }
 .siteHeader.is-scrolled {
-  background: rgba(7, 7, 7, 0.82);
+  background: rgba(30, 30, 34, 0.82);
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   border-color: var(--nb-hair);
@@ -109,7 +109,7 @@
 .nbFooter {
   position: relative;
   overflow: hidden;
-  background: #050506;
+  background: #1a1a1e;
   border-top: 1px solid var(--nb-hair);
   color: #9a9a9a;
 }
@@ -352,7 +352,7 @@
       180deg,
       rgba(7, 7, 7, 0.78) 0%,
       rgba(7, 7, 7, 0.9) 62%,
-      #070707 100%
+      #1a1a1e 100%
     ),
     radial-gradient(
       90% 70% at 82% 10%,
@@ -447,7 +447,7 @@
   border-radius: 3px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  background: #111;
+  background: #26262a;
 }
 .nbPageHeroFig img {
   width: 100%;
@@ -475,7 +475,7 @@
    -------------------------------------------------------------------------- */
 .nbFloor {
   position: relative;
-  background: #08080a;
+  background: #1e1e22;
   border-top: 1px solid var(--nb-hair);
   border-bottom: 1px solid var(--nb-hair);
 }
@@ -533,7 +533,7 @@
   grid-template-rows: 1.25fr 1fr;
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0d0d10;
+  background: #222226;
   overflow: hidden;
   opacity: 0.5;
   transform: scale(0.97);
@@ -650,7 +650,7 @@
    -------------------------------------------------------------------------- */
 .nbTrust {
   background: var(--nb-paper);
-  color: #111;
+  color: #26262a;
   padding: clamp(64px, 8vw, 118px) 5vw;
 }
 .nbTrustInner {
@@ -672,7 +672,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbTrustHead h2 span {
   color: transparent;
@@ -708,13 +708,13 @@
   border-right: 0;
 }
 .nbCert:hover {
-  background: #0b0b0b;
+  background: #1e1e22;
 }
 .nbCert b {
   font-size: clamp(16px, 1.7vw, 21px);
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: #0b0b0b;
+  color: #1e1e22;
   transition: color 0.3s ease;
 }
 .nbCert span {
@@ -784,7 +784,7 @@
   transition: color 0.3s ease;
 }
 .nbBrandItem:hover {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 @keyframes nb-marquee {
   to {
@@ -801,7 +801,7 @@
    7. Case studies
    -------------------------------------------------------------------------- */
 .nbCases {
-  background: #0a0a0c;
+  background: #1c1c20;
   padding: clamp(70px, 9vw, 132px) 5vw;
   border-top: 1px solid var(--nb-hair);
 }
@@ -841,7 +841,7 @@
 .nbCase {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
   overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
     border-color 0.4s ease;
@@ -868,7 +868,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(8, 8, 10, 0.1), rgba(8, 8, 10, 0.82));
+  background: linear-gradient(180deg, rgba(24, 24, 26, 0.1), rgba(24, 24, 26, 0.82));
 }
 .nbCaseNo {
   position: absolute;
@@ -937,7 +937,7 @@
    -------------------------------------------------------------------------- */
 .nbQuotes {
   background: var(--nb-paper);
-  color: #111;
+  color: #26262a;
   padding: clamp(64px, 8vw, 120px) 5vw;
 }
 .nbQuotesInner {
@@ -955,7 +955,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbQuotesHead h2 span {
   color: transparent;
@@ -1009,7 +1009,7 @@
 .nbQuote footer b {
   font-size: 13.5px;
   font-weight: 800;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbQuote footer span {
   font-size: 12px;
@@ -1032,7 +1032,7 @@
    9. FAQ
    -------------------------------------------------------------------------- */
 .nbFaq {
-  background: #0a0a0c;
+  background: #1c1c20;
   padding: clamp(70px, 9vw, 130px) 5vw;
   border-top: 1px solid var(--nb-hair);
 }
@@ -1071,13 +1071,13 @@
 .nbFaqItem {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
   overflow: hidden;
   transition: border-color 0.3s ease, background 0.3s ease;
 }
 .nbFaqItem.is-open {
   border-color: rgba(237, 28, 36, 0.5);
-  background: #111116;
+  background: #26262a;
 }
 .nbFaqQ {
   width: 100%;
@@ -1154,7 +1154,7 @@
   position: relative;
   overflow: hidden;
   background: var(--red);
-  color: #111;
+  color: #26262a;
   padding: clamp(64px, 8vw, 118px) 5vw;
 }
 .nbCtaGlow {
@@ -1186,7 +1186,7 @@
   line-height: 0.9;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbCtaCopy > p {
   margin: 0 0 22px;
@@ -1212,7 +1212,7 @@
 .nbCtaPoints b {
   min-width: 62px;
   font: 900 16px/1 var(--nb-mono);
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbCtaMail {
   display: inline-flex;
@@ -1220,8 +1220,8 @@
   gap: 8px;
   font-size: 15px;
   font-weight: 800;
-  color: #0b0b0b;
-  border-bottom: 2px solid #0b0b0b;
+  color: #1e1e22;
+  border-bottom: 2px solid #1e1e22;
   padding-bottom: 3px;
   transition: gap 0.25s ease;
 }
@@ -1232,7 +1232,7 @@
 .nbForm {
   position: relative;
   padding: clamp(24px, 3vw, 38px);
-  background: #0b0b0d;
+  background: #1e1e22;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   display: grid;
@@ -1262,7 +1262,7 @@
 .nbField textarea {
   width: 100%;
   padding: 13px 14px;
-  background: #101014;
+  background: #26262a;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 3px;
   color: var(--white);
@@ -1284,7 +1284,7 @@
 .nbField textarea:focus {
   outline: none;
   border-color: var(--red);
-  background: #141419;
+  background: #2a2a2e;
 }
 .nbSubmit {
   margin-top: 4px;
@@ -1367,7 +1367,7 @@
 .nbCatalogue,
 .nbSpares {
   padding: clamp(66px, 8vw, 118px) 5vw;
-  background: #0a0a0c;
+  background: #1c1c20;
 }
 .nbSpares {
   border-top: 1px solid var(--nb-hair);
@@ -1435,7 +1435,7 @@
   padding: 10px 14px;
   border: 1px solid var(--nb-hair);
   border-radius: 40px;
-  background: #0e0e12;
+  background: #242428;
 }
 .nbSearch span {
   color: var(--red);
@@ -1460,7 +1460,7 @@
 .nbProd {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1494,7 +1494,7 @@
   left: 12px;
   font: 800 11px/1 var(--nb-mono);
   letter-spacing: 0.08em;
-  color: #0b0b0b;
+  color: #1e1e22;
   opacity: 0.45;
 }
 .nbProdCat {
@@ -1503,7 +1503,7 @@
   right: 12px;
   padding: 4px 8px;
   border-radius: 2px;
-  background: rgba(11, 11, 11, 0.82);
+  background: rgba(34, 34, 38, 0.82);
   color: #fff;
   font: 700 8.5px/1 var(--nb-mono);
   letter-spacing: 0.1em;
@@ -1608,7 +1608,7 @@
 .nbSpare {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
   overflow: hidden;
   transition: transform 0.4s ease, border-color 0.4s ease;
 }
@@ -1645,7 +1645,7 @@
 .nbSiemens {
   padding: clamp(66px, 8vw, 118px) 5vw;
   background: var(--nb-paper);
-  color: #111;
+  color: #26262a;
 }
 .nbSiemensInner {
   display: grid;
@@ -1672,7 +1672,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbSiemensCopy p {
   margin: 0 0 20px;
@@ -1705,7 +1705,7 @@
    12. Services page
    -------------------------------------------------------------------------- */
 .nbSvcCaps {
-  background: #0a0a0c;
+  background: #1c1c20;
   border-top: 1px solid var(--nb-hair);
 }
 .nbSvcCapsInner {
@@ -1738,7 +1738,7 @@
   color: #7c7c7c;
 }
 .nbSvcList {
-  background: #101014;
+  background: #26262a;
   background-image: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
 }
 .nbSvc {
@@ -1845,7 +1845,7 @@
 }
 .nbSvcBand {
   background: var(--nb-paper);
-  color: #111;
+  color: #26262a;
   padding: clamp(64px, 8vw, 118px) 5vw;
 }
 .nbSvcBandInner {
@@ -1863,7 +1863,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbSvcBandCopy h2 span {
   color: transparent;
@@ -1908,7 +1908,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #fff;
-  background: linear-gradient(transparent, rgba(11, 11, 11, 0.82));
+  background: linear-gradient(transparent, rgba(34, 34, 38, 0.82));
 }
 .nbSvcBand .kicker {
   color: var(--red);
@@ -1924,12 +1924,12 @@
 .nbTeam,
 .nbFacility {
   padding: clamp(64px, 8vw, 116px) 5vw;
-  background: #0a0a0c;
+  background: #1c1c20;
 }
 .nbValues,
 .nbGlobal {
   background: var(--nb-paper);
-  color: #111;
+  color: #26262a;
 }
 .nbAboutInner,
 .nbValuesInner,
@@ -1961,7 +1961,7 @@
 }
 .nbValuesHead h2,
 .nbGlobalCopy h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbAboutCopy h2 span,
 .nbTimelineHead h2 span,
@@ -2007,7 +2007,7 @@
   overflow: hidden;
   border: 1px solid var(--nb-hair);
   aspect-ratio: 4 / 3;
-  background: #111;
+  background: #26262a;
 }
 .nbAboutFilm video {
   width: 100%;
@@ -2086,7 +2086,7 @@
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.015em;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbValue p {
   margin: 0;
@@ -2173,7 +2173,7 @@
   font-size: clamp(20px, 2.2vw, 30px);
   font-weight: 900;
   letter-spacing: -0.03em;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbGlobalStats span {
   display: block;
@@ -2191,7 +2191,7 @@
 .nbMember {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
   overflow: hidden;
   transition: transform 0.4s ease, border-color 0.4s ease;
 }
@@ -2202,7 +2202,7 @@
 .nbMemberShot {
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #17171c;
+  background: #303034;
 }
 .nbMemberShot img {
   width: 100%;
@@ -2273,7 +2273,7 @@
    -------------------------------------------------------------------------- */
 .nbContact {
   padding: clamp(64px, 8vw, 116px) 5vw;
-  background: #0a0a0c;
+  background: #1c1c20;
 }
 .nbContactInner {
   max-width: 1500px;
@@ -2313,7 +2313,7 @@
   padding: 18px 20px;
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 .nbChannel:hover {
@@ -2339,7 +2339,7 @@
 .nbOffices {
   padding: clamp(64px, 8vw, 116px) 5vw;
   background: var(--nb-paper);
-  color: #111;
+  color: #26262a;
 }
 .nbOfficesInner {
   max-width: 1500px;
@@ -2356,7 +2356,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbOfficesHead h2 span {
   color: transparent;
@@ -2382,7 +2382,7 @@
   font-size: 20px;
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbOffice b {
   display: block;
@@ -2417,7 +2417,7 @@
   bottom: 16px;
   padding: 8px 13px;
   border-radius: 2px;
-  background: rgba(11, 11, 11, 0.82);
+  background: rgba(34, 34, 38, 0.82);
   color: #fff;
   font: 700 10px/1 var(--nb-mono);
   letter-spacing: 0.13em;
@@ -2456,7 +2456,7 @@
 .nbGroupContact a {
   font-size: 15px;
   font-weight: 700;
-  color: #0b0b0b;
+  color: #1e1e22;
   border-bottom: 1px solid var(--red);
   padding-bottom: 2px;
   transition: color 0.2s ease;
@@ -2508,7 +2508,7 @@
    -------------------------------------------------------------------------- */
 .nbBlog {
   position: relative;
-  background: linear-gradient(180deg, #0a0a0c 0%, #0e0e11 50%, #0a0a0c 100%);
+  background: linear-gradient(180deg, #1c1c20 0%, #0e0e11 50%, #1c1c20 100%);
   padding: clamp(80px, 10vw, 150px) 5vw;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -2609,7 +2609,7 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
   overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
     border-color 0.4s ease;
@@ -2639,7 +2639,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(8, 8, 10, 0) 32%, rgba(8, 8, 10, 0.62));
+  background: linear-gradient(180deg, rgba(24, 24, 26, 0) 32%, rgba(24, 24, 26, 0.62));
 }
 .nbFeatTag,
 .nbFeatCat {
@@ -2659,7 +2659,7 @@
 }
 .nbFeatCat {
   right: 14px;
-  background: rgba(8, 8, 10, 0.66);
+  background: rgba(24, 24, 26, 0.66);
   border: 1px solid var(--nb-hair);
   color: #dcdcdc;
 }
@@ -2713,7 +2713,7 @@
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 12px;
-  background: linear-gradient(165deg, #121216 0%, #0d0d10 100%);
+  background: linear-gradient(165deg, #121216 0%, #222226 100%);
   overflow: hidden;
   transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
     border-color 0.4s ease, box-shadow 0.4s ease;
@@ -2763,7 +2763,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 10, 12, 0.05) 0%, rgba(10, 10, 12, 0.55) 100%);
+  background: linear-gradient(180deg, rgba(26, 26, 28, 0.05) 0%, rgba(26, 26, 28, 0.55) 100%);
 }
 .nbBlogCat {
   position: absolute;
@@ -2772,7 +2772,7 @@
   bottom: 14px;
   padding: 6px 10px;
   border-radius: 4px;
-  background: rgba(10, 10, 12, 0.7);
+  background: rgba(26, 26, 28, 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2884,7 +2884,7 @@
   position: relative;
   padding: clamp(120px, 10vw, 160px) 5vw 48px;
   overflow: hidden;
-  background: linear-gradient(160deg, #0d0d10 0%, #111114 40%, #0a0a0c 100%);
+  background: linear-gradient(160deg, #222226 0%, #26262a114 40%, #1c1c20 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .nbPostHead::before {
@@ -3048,7 +3048,7 @@
   border: 1px solid var(--nb-hair);
   border-left: 2px solid var(--red);
   border-radius: 3px;
-  background: #0e0e12;
+  background: #242428;
 }
 .nbPostQuote p {
   margin: 0 0 12px;
@@ -3083,7 +3083,7 @@
   font-size: 13.5px;
 }
 .nbPostTable thead th {
-  background: #0d0d11;
+  background: #222226;
   font: 700 10px/1 var(--nb-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -3196,7 +3196,7 @@
   min-height: clamp(430px, 64vh, 740px);
   overflow: hidden;
   border-top: 1px solid var(--nb-hair);
-  background: #08080a;
+  background: #1e1e22;
 }
 .nbReelVideo {
   position: absolute;
@@ -3229,7 +3229,7 @@
   padding: 8px 13px;
   border: 1px solid var(--nb-hair);
   border-radius: 40px;
-  background: rgba(6, 7, 9, 0.6);
+  background: rgba(22, 23, 25, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font: 700 9.5px/1 var(--nb-mono);
@@ -3314,7 +3314,7 @@
   padding: 14px 22px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
-  background: rgba(10, 11, 15, 0.55);
+  background: rgba(26, 27, 31, 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: #fff;
@@ -3933,7 +3933,7 @@
   background:
     radial-gradient(circle at 62% 24%, rgba(237, 28, 36, 0.16), transparent 58%),
     radial-gradient(circle at 16% 78%, rgba(255, 157, 27, 0.07), transparent 52%),
-    #0a0a0c;
+    #1c1c20;
   box-shadow:
     0 40px 90px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(0, 0, 0, 0.6),
@@ -3961,7 +3961,7 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  background: #0a0a0c;
+  background: #1c1c20;
   text-align: center;
   padding: 20px;
 }
@@ -4000,7 +4000,7 @@
   align-items: center;
   gap: 7px;
   padding: 6px 10px;
-  background: rgba(10, 10, 12, 0.72);
+  background: rgba(26, 26, 28, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.14);
   color: rgba(255, 255, 255, 0.78);
   font: 800 9px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -4054,7 +4054,7 @@
 .f3dTag {
   white-space: nowrap;
   padding: 5px 9px;
-  background: rgba(10, 10, 12, 0.78);
+  background: rgba(26, 26, 28, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.16);
   color: rgba(255, 255, 255, 0.8);
   font: 800 9px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -4104,7 +4104,7 @@
   appearance: none;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(10, 10, 12, 0.72);
+  background: rgba(26, 26, 28, 0.72);
   color: rgba(255, 255, 255, 0.76);
   border-radius: 3px;
   padding: 7px 10px;
@@ -4165,16 +4165,16 @@
    ========================================================================== */
 .nbPage {
   background: var(--nb-paper);
-  color: #111;
+  color: #26262a;
 }
 
 /* Keep the image overlays reading as solid black now that the page base
    behind them is light. */
 .nbPage .nbPageHero {
-  background: #070707;
+  background: #1a1a1e;
 }
 .nbPage .nbPostHead {
-  background: linear-gradient(160deg, #0d0d10 0%, #111114 40%, #0a0a0c 100%);
+  background: linear-gradient(160deg, #222226 0%, #26262a114 40%, #1c1c20 100%);
 }
 
 /* --- About — hero(dark) story(light) values(dark) timeline(light)
@@ -4183,7 +4183,7 @@
   background: var(--nb-paper);
 }
 .nbPage .nbAboutCopy h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbAboutCopy h2 span {
   -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
@@ -4201,7 +4201,7 @@
 }
 
 .nbPage .nbValues {
-  background: #0a0a0c;
+  background: #1c1c20;
   color: var(--white);
 }
 .nbPage .nbValuesHead h2 {
@@ -4211,7 +4211,7 @@
   -webkit-text-stroke-color: rgba(244, 244, 241, 0.5);
 }
 .nbPage .nbValue {
-  background: #0e0e12;
+  background: #242428;
   border-color: var(--nb-hair);
 }
 .nbPage .nbValue:hover {
@@ -4228,7 +4228,7 @@
   background: var(--nb-paper);
 }
 .nbPage .nbTimelineHead h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbTimelineHead h2 span {
   -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
@@ -4240,17 +4240,17 @@
   border-right-color: var(--nb-hair-d);
 }
 .nbPage .nbLineYear {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbLineBody h3 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbLineBody p {
   color: #5a5a5a;
 }
 
 .nbPage .nbGlobal {
-  background: #0a0a0c;
+  background: #1c1c20;
   color: var(--white);
 }
 .nbPage .nbGlobalCopy h2 {
@@ -4292,7 +4292,7 @@
   border-color: var(--nb-hair-d);
 }
 .nbPage .nbSvcCap b {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbSvcCap span {
   color: #6a6a6a;
@@ -4306,7 +4306,7 @@
   background: var(--nb-paper);
 }
 .nbPage .nbCatalogueHead h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbCatalogueHead h2 span {
   -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
@@ -4316,7 +4316,7 @@
   color: #5a5a5a;
 }
 .nbPage .nbChips button:hover {
-  color: #0b0b0b;
+  color: #1e1e22;
   border-color: rgba(10, 10, 12, 0.4);
 }
 .nbPage .nbSearch {
@@ -4324,14 +4324,14 @@
   background: #fff;
 }
 .nbPage .nbSearch input {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbProd {
   border-color: var(--nb-hair-d);
   background: #fff;
 }
 .nbPage .nbProdBody h3 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbProdBody p {
   color: #5a5a5a;
@@ -4340,7 +4340,7 @@
   border-top-color: var(--nb-hair-d);
 }
 .nbPage .nbProdOut {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbProdTags em {
   border-color: var(--nb-hair-d);
@@ -4358,7 +4358,7 @@
   background: var(--nb-paper);
 }
 .nbPage .nbContactAside h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbContactAside h2 span {
   -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
@@ -4371,14 +4371,14 @@
   background: #fff;
 }
 .nbPage .nbChannel b {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbChannel small {
   color: #5a5a5a;
 }
 
 .nbPage .nbOffices {
-  background: #0a0a0c;
+  background: #1c1c20;
   color: var(--white);
 }
 .nbPage .nbOfficesHead h2 {
@@ -4389,7 +4389,7 @@
 }
 .nbPage .nbOffice {
   border-color: var(--nb-hair);
-  background: #0e0e12;
+  background: #242428;
 }
 .nbPage .nbOffice h3 {
   color: var(--white);
@@ -4407,7 +4407,7 @@
   border-top-color: var(--nb-hair-d);
 }
 .nbPage .nbBlogIndex .nbBlogHead h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbBlogIndex .nbBlogHead h2 span {
   -webkit-text-stroke-color: rgba(11, 11, 11, 0.5);
@@ -4429,7 +4429,7 @@
   background: #fff;
 }
 .nbPage .nbBlogIndex .nbFeatBody h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbBlogIndex .nbFeatBody > p {
   color: #5a5a5a;
@@ -4443,7 +4443,7 @@
   background: #fff;
 }
 .nbPage .nbBlogIndex .nbBlogBody h3 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbBlogIndex .nbBlogBody p {
   color: #5a5a5a;
@@ -4463,7 +4463,7 @@
   color: #5a5a5a;
 }
 .nbPage .nbPostH {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbPostUl li {
   color: #5a5a5a;
@@ -4490,7 +4490,7 @@
   color: #5a5a5a;
 }
 .nbPage .nbPostTable tbody th {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbPostTable tbody td {
   color: #5a5a5a;
@@ -4499,7 +4499,7 @@
   border-top-color: var(--nb-hair-d);
 }
 .nbPage .nbPostBy div b {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbPage .nbPostBy div span {
   color: #6a6a6a;
@@ -4534,7 +4534,7 @@
   border-top-color: var(--nb-hair-d);
 }
 .nbCases.light .nbCasesHead h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbCases.light .nbCasesHead h2 span {
   -webkit-text-stroke: 1.6px rgba(11, 11, 11, 0.5);
@@ -4550,7 +4550,7 @@
   box-shadow: 0 26px 54px rgba(11, 11, 11, 0.12);
 }
 .nbCases.light .nbCaseBody h3 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbCases.light .nbCaseBody > p {
   color: #55534e;
@@ -4581,7 +4581,7 @@
   border-top-color: var(--nb-hair-d);
 }
 .nbFaq.light .nbFaqHead h2 {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbFaq.light .nbFaqHead h2 span {
   -webkit-text-stroke: 1.6px rgba(11, 11, 11, 0.5);
@@ -4597,7 +4597,7 @@
   box-shadow: 0 22px 48px rgba(11, 11, 11, 0.1);
 }
 .nbFaq.light .nbFaqQ {
-  color: #0b0b0b;
+  color: #1e1e22;
 }
 .nbFaq.light .nbFaqPlus i {
   background: #2b2b2b;
@@ -4652,7 +4652,7 @@
   right: 12px;
   z-index: 3;
   padding: 6px 10px;
-  background: rgba(10, 10, 12, 0.72);
+  background: rgba(26, 26, 28, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.55);
   font: 800 9px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -4716,7 +4716,7 @@
   width: min(100%, 1500px);
   margin: 0 auto;
   padding: clamp(48px, 6vw, 84px) 5vw clamp(76px, 8vw, 112px);
-  color: #111;
+  color: #26262a;
 }
 .nbPostRailSticky,
 .nbPostSideSticky {
@@ -4872,7 +4872,7 @@
 .nbSideCard.is-desk {
   display: grid;
   gap: 9px;
-  background: #101013;
+  background: #26262a;
   border-color: rgba(255, 255, 255, 0.12);
 }
 .nbSideCard.is-desk .nbSideKicker {
@@ -5111,7 +5111,7 @@
 }
 .nbWidgetPanel {
   width: min(320px, calc(100vw - 32px));
-  background: #0e0e12;
+  background: #242428;
   border: 1px solid var(--nb-hair);
   border-radius: 14px;
   padding: 18px;
@@ -5144,7 +5144,7 @@
   height: 26px;
   border-radius: 7px;
   border: 1px solid var(--nb-hair);
-  background: #16161a;
+  background: #2e2e32;
   color: #9a9a9a;
   display: flex;
   align-items: center;
@@ -5247,7 +5247,7 @@
 /* ===== Related pages (internal cross-linking) ===== */
 .nbRelated {
   padding: clamp(66px, 8vw, 118px) 5vw;
-  background: #0a0a0c;
+  background: #1c1c20;
   border-top: 1px solid var(--nb-hair);
 }
 .nbRelatedInner {
@@ -5281,13 +5281,13 @@
   position: relative;
   display: block;
   padding: 30px 26px 34px;
-  background: #0c0c0f;
+  background: #202024;
   color: #e9e9ee;
   text-decoration: none;
   transition: background 0.3s;
 }
 .nbRelatedCard:hover {
-  background: #141419;
+  background: #2a2a2e;
 }
 .nbRelatedNo {
   position: absolute;
