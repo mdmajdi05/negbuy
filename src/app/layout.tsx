@@ -7,7 +7,6 @@ import { SITE } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 import "./nb.css";
-import "./light.css";
 
 const inter = Inter({
   subsets: ["latin"],
