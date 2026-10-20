@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --black: #e2e2de;
+  --black: #e8e8e3;
   --black2: #d6d6d1;
   --ink: #16161a;
-  --paper: #e2e2de;
+  --paper: #e8e8e3;
   --red: #ed1c24;
   --red2: #ff3038;
   --white: #f4f4f1;
@@ -29,7 +29,7 @@ html {
 }
 
 body {
-  background: #fdfdfb;
+  background: #dededa;
   color: var(--ink);
   font-family: Inter, Arial, sans-serif;
   overflow-x: hidden;
@@ -319,7 +319,7 @@ img {
   top: 0;
   overflow: hidden;
   background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(237, 28, 36, 0.06) 0%, transparent 60%),
-    linear-gradient(145deg, #fdfdfb 0%, #fdfdfb 30%, #fdfdfb 50%, #fdfdfb 75%, #fdfdfb 100%);
+    linear-gradient(158deg, #f4f4f0 0%, #ebebe7 46%, #e3e3df 100%);
   isolation: isolate;
 }
 /* depth + bottom legibility vignette (sits behind the content layers) */
@@ -329,8 +329,7 @@ img {
   inset: 0;
   z-index: 5;
   pointer-events: none;
-  background: radial-gradient(130% 85% at 50% 42%, transparent 48%, rgba(15, 15, 18, 0.6) 100%),
-    linear-gradient(to top, rgba(18, 18, 20, 0.85), transparent 38%);
+  background: radial-gradient(128% 82% at 52% 40%, transparent 52%, rgba(20, 20, 22, 0.13) 100%);
 }
 .grid {
   position: absolute;
@@ -583,10 +582,10 @@ img {
   color: #26262a;
 }
 .dark {
-  background: #fdfdfb;
+  background: #dededa;
 }
 .charcoal {
-  background: #fdfdfb;
+  background: #dededa;
 }
 .sectionInner {
   max-width: 1400px;
@@ -632,7 +631,7 @@ img {
 
 .serviceSection {
   min-height: 180vh;
-  background: linear-gradient(180deg, #fdfdfb 0%, #fdfdfb 50%, #fdfdfb 100%);
+  background: linear-gradient(180deg, #dededa 0%, #fdfdfb 50%, #fdfdfb 100%);
   padding: 150px 5vw;
   position: relative;
   overflow: hidden;
@@ -666,7 +665,7 @@ img {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #fdfdfb;
+  background: #f9f9f6;
 }
 .serviceCard .visual {
   position: absolute;
@@ -754,7 +753,7 @@ img {
 
 .industries {
   min-height: 130vh;
-  background: linear-gradient(180deg, #fdfdfb 0%, #fdfdfb 50%, #fdfdfb 100%);
+  background: linear-gradient(180deg, #dededa 0%, #fdfdfb 50%, #fdfdfb 100%);
   padding: 150px 5vw;
   overflow: hidden;
 }
@@ -880,7 +879,7 @@ img {
 
 footer {
   padding: 55px 5vw;
-  background: linear-gradient(180deg, #fdfdfb 0%, #fdfdfb 100%);
+  background: linear-gradient(180deg, #dededa 0%, #fdfdfb 100%);
   border-top: 1px solid var(--line);
 }
 .footerGrid {
@@ -1283,7 +1282,7 @@ footer {
   overflow: hidden;
   padding: 112px 5vw 72px;
   background: radial-gradient(58% 52% at 22% 38%, rgba(237, 28, 36, 0.08), transparent 62%),
-    linear-gradient(180deg, #f8f8f5 0%, #f3f3ee 100%);
+    linear-gradient(180deg, #dededa 0%, #f3f3ee 100%);
   border-bottom: 1px solid rgba(40, 40, 44, 0.12);
 }
 .iwGrid {
@@ -1876,7 +1875,7 @@ footer {
 }
 /* ===== Factory floor: the working bay (unpinned — scrolls like any band) ===== */
 .factoryScroll { position: relative; background: linear-gradient(180deg, #fdfdfb 0%, #fdfdfb 50%, #fdfdfb 100%); }
-.factoryPin { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 104px 5vw 96px; background: radial-gradient(circle at 70% 20%, rgba(237,28,36,0.12), transparent 55%), radial-gradient(circle at 15% 80%, rgba(255,157,27,0.08), transparent 50%), #fdfdfb; }
+.factoryPin { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 104px 5vw 96px; background: radial-gradient(circle at 70% 20%, rgba(237,28,36,0.12), transparent 55%), radial-gradient(circle at 15% 80%, rgba(255,157,27,0.08), transparent 50%), #dededa; }
 .factoryHead { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: end; gap: 28px; }
 .factoryHead h2 { font-size: clamp(44px, 6.5vw, 100px); line-height: 0.82; letter-spacing: -0.09em; font-weight: 900; }
 .factoryHead h2 span { color: transparent; -webkit-text-stroke: 1px #fff; }
@@ -1941,13 +1940,13 @@ footer {
 .fbar { margin-top: 10px; height: 3px; background: #222; overflow: hidden; }
 .fbar i { display: block; height: 100%; background: linear-gradient(90deg, #ed1c24, #facc15); }
 .factoryHint { margin-top: 4px; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #5a5a5a; }
-.factoryCards { padding: 90px 5vw 130px; background: linear-gradient(180deg, #fdfdfb 0%, #fdfdfb 100%); border-top: 1px solid var(--line); }
+.factoryCards { padding: 90px 5vw 130px; background: linear-gradient(180deg, #dededa 0%, #fdfdfb 100%); border-top: 1px solid var(--line); }
 .factoryCardsHead { max-width: 1400px; margin: 0 auto 40px; }
 .factoryCardsHead h2 { font-size: clamp(48px, 7vw, 110px); line-height: 0.82; letter-spacing: -0.09em; }
 .factoryCardGrid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.factoryCard { background: #fdfdfb; border: 1px solid var(--line); overflow: hidden; transition: transform 0.5s cubic-bezier(0.2,0.7,0.2,1), border-color 0.3s; }
+.factoryCard { background: #f9f9f6; border: 1px solid var(--line); overflow: hidden; transition: transform 0.5s cubic-bezier(0.2,0.7,0.2,1), border-color 0.3s; }
 .factoryCard:hover { transform: translateY(-8px) rotateX(3deg); border-color: rgba(250,204,21,0.5); }
-.factoryImg { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #fdfdfb; }
+.factoryImg { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #f9f9f6; }
 .factoryImg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transform: scale(1.02); transition: transform 0.7s; filter: saturate(0.9) contrast(1.05); }
 .factoryCard:hover .factoryImg img { transform: scale(1.12); }
 .factoryShine { position: absolute; top: 0; left: -70%; width: 55%; height: 100%; background: linear-gradient(100deg, transparent, rgba(0, 0, 0, 0.35), transparent); transform: skewX(-18deg); transition: left 0.7s; }
@@ -1964,7 +1963,7 @@ footer {
 /* ===== Factory floor REAL v2 � cinematic scene ===== */
 .factoryPinReal { background: radial-gradient(circle at 70% 10%, rgba(237,28,36,0.14), transparent 55%), #fdfdfb; }
 
-.factoryCards { background: linear-gradient(to bottom, #fdfdfb, #fdfdfb); }
+.factoryCards { background: linear-gradient(to bottom, #dededa, #fdfdfb); }
 .factoryCard { border-radius: 6px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
 
 /* ===== Stats band: marquee + counters ===== */

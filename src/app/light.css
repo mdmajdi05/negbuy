@@ -7,35 +7,38 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   21.1 Hero — real industrial photograph behind a light gray wash
+   21.1 Hero — the turbine hall photograph, duotone-blended into the page
+   The photo is multiplied onto the gray base rather than veiled under a
+   white wash, so it reads as part of the design instead of a faded ghost.
    -------------------------------------------------------------------------- */
-.pin {
-  background:
-    linear-gradient(100deg, rgba(242, 242, 238, 0.97) 0%, rgba(242, 242, 238, 0.9) 42%, rgba(242, 242, 238, 0.5) 72%, rgba(242, 242, 238, 0.34) 100%),
-    linear-gradient(180deg, rgba(242, 242, 238, 0.6), rgba(242, 242, 238, 0.86)),
-    url("/oem/wm-hall-bankside.jpg") center / cover no-repeat;
+/* the turbine hall, multiplied into the gray and faded in from the right */
+.pin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/oem/wm-hall-bankside.jpg") center / cover no-repeat;
+  filter: grayscale(1) contrast(1.08) brightness(1.06);
+  mix-blend-mode: multiply;
+  opacity: 0.42;
+  -webkit-mask-image: linear-gradient(100deg, transparent 26%, rgba(0, 0, 0, 0.35) 52%, #000 78%);
+  mask-image: linear-gradient(100deg, transparent 26%, rgba(0, 0, 0, 0.35) 52%, #000 78%);
+  pointer-events: none;
 }
 /* the perspective grid now reads as a light-gray floor */
 .grid {
-  opacity: 0.3;
-  background-image: linear-gradient(rgba(20, 20, 22, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(20, 20, 22, 0.07) 1px, transparent 1px);
-}
-/* vignette becomes a soft light falloff instead of a dark one */
-.pin::after {
-  background:
-    radial-gradient(130% 85% at 50% 42%, transparent 46%, rgba(20, 20, 22, 0.16) 100%),
-    linear-gradient(to top, rgba(226, 226, 222, 0.9), transparent 42%);
+  opacity: 0.32;
+  background-image: linear-gradient(rgba(20, 20, 22, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 20, 22, 0.06) 1px, transparent 1px);
 }
 .redGlow {
-  background: radial-gradient(circle, rgba(237, 28, 36, 0.14), rgba(237, 28, 36, 0.05) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(237, 28, 36, 0.07), rgba(237, 28, 36, 0.03) 40%, transparent 70%);
 }
 .heroCopy h1 {
   color: var(--ink);
-  text-shadow: 0 0 70px rgba(255, 255, 255, 0.5);
 }
 .heroCopy h1 .outline {
-  -webkit-text-stroke: 1.5px rgba(22, 22, 26, 0.55);
+  -webkit-text-stroke: 1.5px rgba(22, 22, 26, 0.5);
 }
 .heroDescription {
   color: #4c4c49;
@@ -164,7 +167,7 @@
   background:
     radial-gradient(circle at 70% 10%, rgba(237, 28, 36, 0.1), transparent 55%),
     radial-gradient(circle at 15% 80%, rgba(255, 157, 27, 0.08), transparent 50%),
-    #fdfdfb;
+    #dededa;
 }
 .factoryHead h2 {
   color: var(--ink);
@@ -237,7 +240,7 @@
 }
 .nbBlogCard {
   border-color: rgba(20, 20, 22, 0.1);
-  background: linear-gradient(165deg, #fdfdfb 0%, #f4f4f0 100%);
+  background: linear-gradient(165deg, #f9f9f6 0%, #f9f9f6 100%);
   box-shadow: 0 6px 20px rgba(20, 20, 22, 0.05);
 }
 .nbBlogCard:hover {
@@ -299,7 +302,7 @@
   color: var(--ink);
 }
 .nbPostQuote {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbPostQuote p {
@@ -309,7 +312,7 @@
   color: #6f6f69;
 }
 .nbPostTable thead th {
-  background: #f0f0ec;
+  background: #f9f9f6;
   color: #5a5a5a;
 }
 .nbPostTable tbody th {
@@ -350,7 +353,7 @@
   color: #4c4c49;
 }
 .nbFrame {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
   box-shadow: 0 6px 20px rgba(20, 20, 22, 0.05);
 }
@@ -395,7 +398,7 @@
   color: #4c4c49;
 }
 .nbCase {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
   box-shadow: 0 6px 20px rgba(20, 20, 22, 0.05);
 }
@@ -418,7 +421,7 @@
   background: linear-gradient(180deg, rgba(14, 14, 16, 0.04), rgba(14, 14, 16, 0.78));
 }
 .nbFaq {
-  background: #fdfdfb;
+  background: #dededa;
 }
 .nbFaqHead h2 {
   color: var(--ink);
@@ -430,11 +433,11 @@
   color: #4c4c49;
 }
 .nbFaqItem {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbFaqItem.is-open {
-  background: #f7f7f3;
+  background: #f9f9f6;
   border-color: rgba(237, 28, 36, 0.4);
 }
 .nbFaqQ {
@@ -447,7 +450,7 @@
   background: #8a8a84;
 }
 .nbTrust {
-  background: #f4f4f0;
+  background: #dededa;
 }
 .nbTrustHead h2 {
   color: var(--ink);
@@ -460,13 +463,13 @@
 }
 .nbCertGrid {
   border-color: rgba(20, 20, 22, 0.12);
-  background: #fdfdfb;
+  background: #f9f9f6;
 }
 .nbCert {
   border-right-color: rgba(20, 20, 22, 0.12);
 }
 .nbCert:hover {
-  background: #f7f7f3;
+  background: #f9f9f6;
 }
 .nbCert:hover b {
   color: var(--ink);
@@ -549,7 +552,7 @@
   filter: grayscale(0.55) contrast(1.02);
 }
 .nbPageHeroBg span {
-  background: linear-gradient(180deg, rgba(250, 250, 247, 0.9) 0%, rgba(244, 244, 240, 0.94) 62%, #fdfdfb 100%),
+  background: linear-gradient(180deg, rgba(250, 250, 247, 0.9) 0%, rgba(244, 244, 240, 0.94) 62%, #dededa 100%),
     radial-gradient(90% 70% at 82% 10%, rgba(237, 28, 36, 0.1), transparent 60%);
 }
 .nbPageHeroCopy h1 {
@@ -575,7 +578,7 @@
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbRelated {
-  background: #fdfdfb;
+  background: #dededa;
   border-top-color: rgba(20, 20, 22, 0.12);
 }
 .nbRelatedHead h2 {
@@ -589,11 +592,11 @@
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbRelatedCard {
-  background: #fdfdfb;
+  background: #f9f9f6;
   color: var(--ink);
 }
 .nbRelatedCard:hover {
-  background: #f4f4f0;
+  background: #f9f9f6;
 }
 .nbRelatedNo {
   color: #9a9a94;
@@ -614,7 +617,7 @@
   color: var(--ink);
 }
 .nbWidgetClose {
-  background: #f0f0ec;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.14);
   color: #55554f;
 }
@@ -625,7 +628,7 @@
   color: #4c4c49;
 }
 .nbWidgetLink {
-  background: #f4f4f0;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbWidgetLink b {
@@ -635,7 +638,7 @@
   color: #6f6f69;
 }
 .nbForm {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.14);
   box-shadow: 0 40px 80px rgba(20, 20, 22, 0.16);
 }
@@ -643,7 +646,7 @@
   color: #5a5a5a;
 }
 .nbField textarea {
-  background: #f4f4f0;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.14);
   color: var(--ink);
 }
@@ -651,7 +654,7 @@
   color: #8a8a84;
 }
 .nbField textarea:focus {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: var(--red);
 }
 .nbFormNote {
@@ -685,7 +688,7 @@
   color: #4c4c49;
 }
 .nbSpare {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
   box-shadow: 0 6px 20px rgba(20, 20, 22, 0.05);
 }
@@ -713,14 +716,14 @@
   border-color: rgba(20, 20, 22, 0.4);
 }
 .nbSearch {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.14);
 }
 .nbSearch input {
   color: var(--ink);
 }
 .nbProd {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
   box-shadow: 0 6px 20px rgba(20, 20, 22, 0.05);
 }
@@ -744,7 +747,7 @@
   color: #55554f;
 }
 .nbSvcCaps {
-  background: #fdfdfb;
+  background: #dededa;
   border-top-color: rgba(20, 20, 22, 0.12);
 }
 .nbSvcCap {
@@ -757,18 +760,18 @@
   color: #6f6f69;
 }
 .nbSvcList {
-  background: #f4f4f0;
+  background: #dededa;
   background-image: linear-gradient(180deg, rgba(20, 20, 22, 0.03) 0%, transparent 100%);
 }
 .nbFacility {
-  background: #fdfdfb;
+  background: #dededa;
   border-top-color: rgba(20, 20, 22, 0.12);
 }
 .nbFacilityInner figure {
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbContact {
-  background: #f4f4f0;
+  background: #dededa;
 }
 .nbContactAside h2 {
   color: var(--ink);
@@ -780,7 +783,7 @@
   color: #4c4c49;
 }
 .nbChannel {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbChannel b {
@@ -790,7 +793,7 @@
   color: #4c4c49;
 }
 .nbOffices {
-  background: #fdfdfb;
+  background: #dededa;
 }
 .nbOfficesHead h2 {
   color: var(--ink);
@@ -799,7 +802,7 @@
   -webkit-text-stroke: 1.6px rgba(22, 22, 26, 0.4);
 }
 .nbOffice {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
   box-shadow: 0 6px 20px rgba(20, 20, 22, 0.05);
 }
@@ -813,7 +816,7 @@
   border-color: rgba(20, 20, 22, 0.12);
 }
 .nbMember {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.12);
   box-shadow: 0 6px 20px rgba(20, 20, 22, 0.05);
 }
@@ -896,7 +899,7 @@
   color: #20201d;
 }
 .nbSideCard.is-desk {
-  background: #fdfdfb;
+  background: #f9f9f6;
   border-color: rgba(20, 20, 22, 0.14);
 }
 .nbSideCard.is-desk .nbSideKicker {
