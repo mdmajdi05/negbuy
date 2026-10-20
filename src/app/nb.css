@@ -4,11 +4,13 @@
    ========================================================================== */
 
 :root {
+  --ink: #16161a;
+  --paper: #e2e2de;
   --nb-ink: #1c1c20;
   --nb-ink2: #26262a;
   --nb-paper: #efefeb;
   --nb-paper2: #e6e6e0;
-  --nb-hair: rgba(255, 255, 255, 0.12);
+  --nb-hair: rgba(20, 20, 22, 0.14);
   --nb-hair-d: rgba(10, 10, 12, 0.16);
   --nb-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
@@ -71,7 +73,7 @@
   border-color: var(--nb-hair);
 }
 .nav a.active {
-  color: var(--white);
+  color: var(--ink);
 }
 .nav a.active .navDot {
   opacity: 1;
@@ -109,9 +111,9 @@
 .nbFooter {
   position: relative;
   overflow: hidden;
-  background: #1a1a1e;
+  background: #fdfdfb;
   border-top: 1px solid var(--nb-hair);
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbFootMark {
   position: absolute;
@@ -119,7 +121,7 @@
   right: -3vw;
   font: 900 clamp(90px, 22vw, 340px) / 0.8 Inter, sans-serif;
   letter-spacing: -0.05em;
-  color: rgba(255, 255, 255, 0.028);
+  color: rgba(0, 0, 0, 0.028);
   pointer-events: none;
   user-select: none;
 }
@@ -145,7 +147,7 @@
   max-width: 34ch;
   font-size: 13px;
   line-height: 1.7;
-  color: #8f8f8f;
+  color: #5a5a5a;
 }
 .nbFootCerts {
   display: flex;
@@ -158,7 +160,7 @@
   border-radius: 2px;
   font: 700 9px/1 var(--nb-mono);
   letter-spacing: 0.14em;
-  color: #bdbdbd;
+  color: #16161a;
 }
 .nbFootCol h4,
 .nbFootContact h4,
@@ -190,14 +192,14 @@
   padding: 16px;
   border: 1px solid var(--nb-hair);
   border-radius: 8px;
-  color: #929292;
+  color: #5a5a5a;
   font-size: 11px;
   font-style: normal;
   line-height: 1.55;
 }
 .nbFootOffice strong {
   margin-bottom: 2px;
-  color: #f0f0ec;
+  color: #16161a;
   font-size: 12px;
 }
 .nbFootOffice span:first-of-type {
@@ -216,19 +218,19 @@
 }
 .nbFootCol a {
   font-size: 13px;
-  color: #a4a4a4;
+  color: #5a5a5a;
   transition: color 0.2s ease, transform 0.2s ease;
   display: inline-block;
 }
 .nbFootCol a:hover {
-  color: var(--white);
+  color: var(--ink);
   transform: translateX(4px);
 }
 .nbFootMail {
   display: inline-block;
   font-size: 17px;
   font-weight: 700;
-  color: var(--white);
+  color: var(--ink);
   letter-spacing: -0.01em;
   border-bottom: 1px solid var(--red);
   padding-bottom: 3px;
@@ -237,20 +239,20 @@
   display: inline-block;
   margin-top: 12px;
   font-size: 13px;
-  color: #a4a4a4;
+  color: #5a5a5a;
   border-bottom: 1px solid var(--nb-hair);
   padding-bottom: 2px;
   transition: color 0.2s ease;
 }
 .nbFootMailsub:hover {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbFootPhone {
   display: inline-block;
   margin-top: 14px;
   font: 700 15px/1 var(--nb-mono);
   letter-spacing: 0.02em;
-  color: var(--white);
+  color: var(--ink);
   transition: color 0.2s ease;
 }
 .nbFootPhone:hover {
@@ -260,7 +262,7 @@
   margin: 16px 0 20px;
   font-size: 12.5px;
   line-height: 1.65;
-  color: #8f8f8f;
+  color: #5a5a5a;
   max-width: 30ch;
 }
 .nbFootCta {
@@ -292,7 +294,7 @@
   font: 600 10px/1.4 var(--nb-mono);
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: #5e5e5e;
+  color: #5a5a5a;
 }
 
 /* --------------------------------------------------------------------------
@@ -352,7 +354,7 @@
       180deg,
       rgba(7, 7, 7, 0.78) 0%,
       rgba(7, 7, 7, 0.9) 62%,
-      #1a1a1e 100%
+      #fdfdfb 100%
     ),
     radial-gradient(
       90% 70% at 82% 10%,
@@ -374,10 +376,10 @@
   font: 700 10px/1 var(--nb-mono);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #6f6f6f;
+  color: #5a5a5a;
 }
 .nbCrumb a {
-  color: #b8b8b8;
+  color: #16161a;
   transition: color 0.2s ease;
 }
 .nbCrumb a:hover {
@@ -388,7 +390,7 @@
   font-style: normal;
 }
 .nbCrumb span {
-  color: #e6e6e6;
+  color: #16161a;
 }
 .nbPageHeroGrid {
   display: grid;
@@ -403,7 +405,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPageHeroCopy h1 span:nth-child(2) {
   color: transparent;
@@ -414,7 +416,7 @@
   max-width: 56ch;
   font-size: clamp(14px, 1.25vw, 16.5px);
   line-height: 1.66;
-  color: #b2b2b2;
+  color: #5a5a5a;
 }
 .nbPageHeroStats {
   list-style: none;
@@ -430,7 +432,7 @@
   font-size: clamp(20px, 2.2vw, 30px);
   font-weight: 900;
   letter-spacing: -0.03em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPageHeroStats span {
   display: block;
@@ -438,7 +440,7 @@
   font: 600 9.5px/1.3 var(--nb-mono);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #7c7c7c;
+  color: #5a5a5a;
 }
 .nbPageHeroFig {
   position: relative;
@@ -447,7 +449,7 @@
   border-radius: 3px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  background: #26262a;
+  background: #fdfdfb;
 }
 .nbPageHeroFig img {
   width: 100%;
@@ -475,7 +477,7 @@
    -------------------------------------------------------------------------- */
 .nbFloor {
   position: relative;
-  background: #1e1e22;
+  background: #fdfdfb;
   border-top: 1px solid var(--nb-hair);
   border-bottom: 1px solid var(--nb-hair);
 }
@@ -503,7 +505,7 @@
   line-height: 0.9;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbFloorHead h2 span {
   color: transparent;
@@ -514,7 +516,7 @@
   max-width: 40ch;
   font-size: 13.5px;
   line-height: 1.65;
-  color: #9a9a9a;
+  color: #5a5a5a;
   text-align: right;
 }
 .nbFloorViewport {
@@ -533,7 +535,7 @@
   grid-template-rows: 1.25fr 1fr;
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #222226;
+  background: #fdfdfb;
   overflow: hidden;
   opacity: 0.5;
   transform: scale(0.97);
@@ -585,13 +587,13 @@
   font-weight: 900;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbFrameBody p {
   margin: 0;
   font-size: 12.5px;
   line-height: 1.6;
-  color: #9a9a9a;
+  color: #5a5a5a;
   flex: 1;
 }
 .nbFrameStat {
@@ -611,7 +613,7 @@
   font: 600 9px/1.3 var(--nb-mono);
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: #7c7c7c;
+  color: #5a5a5a;
 }
 .nbFloorFoot {
   display: flex;
@@ -622,13 +624,13 @@
 .nbFloorCount {
   font: 700 11px/1 var(--nb-mono);
   letter-spacing: 0.14em;
-  color: #a8a8a8;
+  color: #5a5a5a;
 }
 .nbFloorBar {
   position: relative;
   flex: 1;
   height: 2px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.12);
   overflow: hidden;
 }
 .nbFloorBar i {
@@ -642,7 +644,7 @@
   font: 600 9.5px/1 var(--nb-mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #6a6a6a;
+  color: #5a5a5a;
 }
 
 /* --------------------------------------------------------------------------
@@ -708,7 +710,7 @@
   border-right: 0;
 }
 .nbCert:hover {
-  background: #1e1e22;
+  background: #fdfdfb;
 }
 .nbCert b {
   font-size: clamp(16px, 1.7vw, 21px);
@@ -721,22 +723,22 @@
   font: 700 10px/1.3 var(--nb-mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #6a6a6a;
+  color: #5a5a5a;
   transition: color 0.3s ease;
 }
 .nbCert small {
   font-size: 11.5px;
-  color: #969696;
+  color: #5a5a5a;
   transition: color 0.3s ease;
 }
 .nbCert:hover b {
-  color: #fff;
+  color: #1e1e22;
 }
 .nbCert:hover span {
   color: var(--red);
 }
 .nbCert:hover small {
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbBrandWrap {
   margin-top: clamp(34px, 4vw, 56px);
@@ -749,7 +751,7 @@
   font: 700 10px/1 var(--nb-mono);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #6a6a6a;
+  color: #5a5a5a;
 }
 .nbBrandMarquee {
   position: relative;
@@ -779,7 +781,7 @@
   font-size: clamp(15px, 1.7vw, 22px);
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: #b3b3b3;
+  color: #5a5a5a;
   white-space: nowrap;
   transition: color 0.3s ease;
 }
@@ -801,7 +803,7 @@
    7. Case studies
    -------------------------------------------------------------------------- */
 .nbCases {
-  background: #1c1c20;
+  background: #fdfdfb;
   padding: clamp(70px, 9vw, 132px) 5vw;
   border-top: 1px solid var(--nb-hair);
 }
@@ -820,7 +822,7 @@
   line-height: 0.9;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbCasesHead h2 span {
   color: transparent;
@@ -830,7 +832,7 @@
   margin: 0;
   font-size: 14.5px;
   line-height: 1.7;
-  color: #9d9d9d;
+  color: #5a5a5a;
   max-width: 52ch;
 }
 .nbCaseGrid {
@@ -841,7 +843,7 @@
 .nbCase {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
   overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
     border-color 0.4s ease;
@@ -899,13 +901,13 @@
   font-weight: 900;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbCaseBody > p {
   margin: 0 0 18px;
   font-size: 12.5px;
   line-height: 1.62;
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbCaseMetrics {
   list-style: none;
@@ -929,7 +931,7 @@
   font: 600 8.5px/1.3 var(--nb-mono);
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: #7c7c7c;
+  color: #5a5a5a;
 }
 
 /* --------------------------------------------------------------------------
@@ -1013,7 +1015,7 @@
 }
 .nbQuote footer span {
   font-size: 12px;
-  color: #7a7a7a;
+  color: #5a5a5a;
 }
 .nbQuote footer em {
   margin-top: 8px;
@@ -1032,7 +1034,7 @@
    9. FAQ
    -------------------------------------------------------------------------- */
 .nbFaq {
-  background: #1c1c20;
+  background: #fdfdfb;
   padding: clamp(70px, 9vw, 130px) 5vw;
   border-top: 1px solid var(--nb-hair);
 }
@@ -1051,7 +1053,7 @@
   line-height: 0.94;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbFaqHead h2 span {
   color: transparent;
@@ -1061,7 +1063,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 1.7;
-  color: #9a9a9a;
+  color: #5a5a5a;
   max-width: 40ch;
 }
 .nbFaqList {
@@ -1071,13 +1073,13 @@
 .nbFaqItem {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
   overflow: hidden;
   transition: border-color 0.3s ease, background 0.3s ease;
 }
 .nbFaqItem.is-open {
   border-color: rgba(237, 28, 36, 0.5);
-  background: #26262a;
+  background: #fdfdfb;
 }
 .nbFaqQ {
   width: 100%;
@@ -1089,7 +1091,7 @@
   border: 0;
   cursor: pointer;
   text-align: left;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbFaqNo {
   flex: none;
@@ -1141,7 +1143,7 @@
   padding: 0 22px;
   font-size: 13.5px;
   line-height: 1.72;
-  color: #a2a2a2;
+  color: #5a5a5a;
 }
 .nbFaqItem.is-open .nbFaqA > p {
   padding-bottom: 24px;
@@ -1232,7 +1234,7 @@
 .nbForm {
   position: relative;
   padding: clamp(24px, 3vw, 38px);
-  background: #1e1e22;
+  background: #fdfdfb;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   display: grid;
@@ -1255,17 +1257,17 @@
   font: 700 9.5px/1 var(--nb-mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #8a8a8a;
+  color: #5a5a5a;
 }
 .nbField input,
 .nbField select,
 .nbField textarea {
   width: 100%;
   padding: 13px 14px;
-  background: #26262a;
+  background: #fdfdfb;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 3px;
-  color: var(--white);
+  color: var(--ink);
   font-size: 13.5px;
   font-family: inherit;
   transition: border-color 0.2s ease, background 0.2s ease;
@@ -1277,14 +1279,14 @@
 }
 .nbField input::placeholder,
 .nbField textarea::placeholder {
-  color: #5e5e5e;
+  color: #5a5a5a;
 }
 .nbField input:focus,
 .nbField select:focus,
 .nbField textarea:focus {
   outline: none;
   border-color: var(--red);
-  background: #2a2a2e;
+  background: #fdfdfb;
 }
 .nbSubmit {
   margin-top: 4px;
@@ -1312,7 +1314,7 @@
 .nbFormNote {
   margin: 0;
   font-size: 11.5px;
-  color: #6f6f6f;
+  color: #5a5a5a;
 }
 .nbFormDone {
   padding: 14px 4px;
@@ -1333,13 +1335,13 @@
   margin: 0 0 10px;
   font-size: 20px;
   font-weight: 800;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbFormDone p {
   margin: 0 0 20px;
   font-size: 13px;
   line-height: 1.65;
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbFormDone a {
   color: var(--red);
@@ -1349,7 +1351,7 @@
   background: transparent;
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  color: #cfcfcf;
+  color: #16161a;
   font: 700 10.5px/1 var(--nb-mono);
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -1367,7 +1369,7 @@
 .nbCatalogue,
 .nbSpares {
   padding: clamp(66px, 8vw, 118px) 5vw;
-  background: #1c1c20;
+  background: #fdfdfb;
 }
 .nbSpares {
   border-top: 1px solid var(--nb-hair);
@@ -1388,7 +1390,7 @@
   line-height: 0.9;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbCatalogueHead h2 span {
   color: transparent;
@@ -1411,7 +1413,7 @@
   border: 1px solid var(--nb-hair);
   border-radius: 40px;
   background: transparent;
-  color: #a8a8a8;
+  color: #5a5a5a;
   font: 700 10.5px/1 var(--nb-mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1435,7 +1437,7 @@
   padding: 10px 14px;
   border: 1px solid var(--nb-hair);
   border-radius: 40px;
-  background: #242428;
+  background: #fdfdfb;
 }
 .nbSearch span {
   color: var(--red);
@@ -1445,7 +1447,7 @@
   flex: 1;
   background: none;
   border: 0;
-  color: var(--white);
+  color: var(--ink);
   font-size: 13px;
   font-family: inherit;
 }
@@ -1460,7 +1462,7 @@
 .nbProd {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1526,13 +1528,13 @@
   font-size: 19px;
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbProdBody p {
   margin: 0 0 16px;
   font-size: 12px;
   line-height: 1.55;
-  color: #979797;
+  color: #5a5a5a;
   flex: 1;
 }
 .nbProdFoot {
@@ -1546,7 +1548,7 @@
 .nbProdOut {
   font: 800 11px/1 var(--nb-mono);
   letter-spacing: 0.04em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbProdTags {
   display: flex;
@@ -1561,13 +1563,13 @@
   font: 600 8.5px/1 var(--nb-mono);
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #8d8d8d;
+  color: #5a5a5a;
   font-style: normal;
 }
 .nbEmpty {
   padding: 40px 0;
   text-align: center;
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbEmpty button {
   background: none;
@@ -1588,7 +1590,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbSparesHead h2 span {
   color: transparent;
@@ -1598,7 +1600,7 @@
   margin: 0;
   font-size: 14.5px;
   line-height: 1.7;
-  color: #9d9d9d;
+  color: #5a5a5a;
 }
 .nbSparesGrid {
   display: grid;
@@ -1608,7 +1610,7 @@
 .nbSpare {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
   overflow: hidden;
   transition: transform 0.4s ease, border-color 0.4s ease;
 }
@@ -1634,13 +1636,13 @@
   font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.015em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbSpare p {
   margin: 0 20px 22px;
   font-size: 12.5px;
   line-height: 1.6;
-  color: #979797;
+  color: #5a5a5a;
 }
 .nbSiemens {
   padding: clamp(66px, 8vw, 118px) 5vw;
@@ -1705,7 +1707,7 @@
    12. Services page
    -------------------------------------------------------------------------- */
 .nbSvcCaps {
-  background: #1c1c20;
+  background: #fdfdfb;
   border-top: 1px solid var(--nb-hair);
 }
 .nbSvcCapsInner {
@@ -1727,7 +1729,7 @@
   font-size: clamp(26px, 3.4vw, 46px);
   font-weight: 900;
   letter-spacing: -0.04em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbSvcCap span {
   display: block;
@@ -1735,11 +1737,11 @@
   font: 600 10px/1.3 var(--nb-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #7c7c7c;
+  color: #5a5a5a;
 }
 .nbSvcList {
-  background: #26262a;
-  background-image: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  background: #fdfdfb;
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%, transparent 100%);
 }
 .nbSvc {
   max-width: 1500px;
@@ -1809,13 +1811,13 @@
   line-height: 0.94;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbSvcCopy > p {
   margin: 0 0 22px;
   font-size: 14.5px;
   line-height: 1.7;
-  color: #a2a2a2;
+  color: #5a5a5a;
   max-width: 50ch;
 }
 .nbSvcBullets {
@@ -1831,7 +1833,7 @@
   padding-left: 24px;
   font-size: 13px;
   line-height: 1.5;
-  color: #cfcfcf;
+  color: #16161a;
 }
 .nbSvcBullets li::before {
   content: "";
@@ -1924,7 +1926,7 @@
 .nbTeam,
 .nbFacility {
   padding: clamp(64px, 8vw, 116px) 5vw;
-  background: #1c1c20;
+  background: #fdfdfb;
 }
 .nbValues,
 .nbGlobal {
@@ -1957,7 +1959,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbValuesHead h2,
 .nbGlobalCopy h2 {
@@ -1979,7 +1981,7 @@
   margin: 0 0 16px;
   font-size: 14px;
   line-height: 1.72;
-  color: #a2a2a2;
+  color: #5a5a5a;
   max-width: 56ch;
 }
 .nbGlobalCopy p {
@@ -1998,7 +2000,7 @@
   font: 700 9.5px/1 var(--nb-mono);
   letter-spacing: 0.11em;
   text-transform: uppercase;
-  color: #bdbdbd;
+  color: #16161a;
 }
 .nbAboutFilm {
   position: relative;
@@ -2007,7 +2009,7 @@
   overflow: hidden;
   border: 1px solid var(--nb-hair);
   aspect-ratio: 4 / 3;
-  background: #26262a;
+  background: #fdfdfb;
 }
 .nbAboutFilm video {
   width: 100%;
@@ -2125,7 +2127,7 @@
   display: block;
   font: 900 clamp(22px, 2.4vw, 32px) / 1 Inter, sans-serif;
   letter-spacing: -0.03em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbLineBody {
   padding: 0 22px 34px 0;
@@ -2134,13 +2136,13 @@
   margin: 12px 0 8px;
   font-size: 15px;
   font-weight: 800;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbLineBody p {
   margin: 0;
   font-size: 12px;
   line-height: 1.6;
-  color: #929292;
+  color: #5a5a5a;
 }
 .nbGlobalInner {
   display: grid;
@@ -2181,7 +2183,7 @@
   font: 600 9.5px/1.3 var(--nb-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #7a7a7a;
+  color: #5a5a5a;
 }
 .nbTeamGrid {
   display: grid;
@@ -2191,7 +2193,7 @@
 .nbMember {
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
   overflow: hidden;
   transition: transform 0.4s ease, border-color 0.4s ease;
 }
@@ -2202,7 +2204,7 @@
 .nbMemberShot {
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #303034;
+  background: #fdfdfb;
 }
 .nbMemberShot img {
   width: 100%;
@@ -2220,7 +2222,7 @@
   font-size: 15.5px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbMemberRole {
   display: block;
@@ -2236,7 +2238,7 @@
   padding-top: 14px;
   border-top: 1px solid var(--nb-hair);
   font-size: 11.5px;
-  color: #8d8d8d;
+  color: #5a5a5a;
   word-break: break-all;
   transition: color 0.2s ease;
 }
@@ -2273,7 +2275,7 @@
    -------------------------------------------------------------------------- */
 .nbContact {
   padding: clamp(64px, 8vw, 116px) 5vw;
-  background: #1c1c20;
+  background: #fdfdfb;
 }
 .nbContactInner {
   max-width: 1500px;
@@ -2290,7 +2292,7 @@
   line-height: 0.92;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbContactAside h2 span {
   color: transparent;
@@ -2300,7 +2302,7 @@
   margin: 0 0 26px;
   font-size: 14px;
   line-height: 1.7;
-  color: #9a9a9a;
+  color: #5a5a5a;
   max-width: 44ch;
 }
 .nbChannels {
@@ -2313,7 +2315,7 @@
   padding: 18px 20px;
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 .nbChannel:hover {
@@ -2330,11 +2332,11 @@
   font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbChannel small {
   font-size: 12px;
-  color: #8d8d8d;
+  color: #5a5a5a;
 }
 .nbOffices {
   padding: clamp(64px, 8vw, 116px) 5vw;
@@ -2436,7 +2438,7 @@
   display: block;
 }
 .nbPage .nbOffice address {
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbGroupContact {
   display: flex;
@@ -2468,7 +2470,7 @@
   border-top-color: var(--nb-hair);
 }
 .nbPage .nbGroupContact a {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbGroupContact a:hover {
   color: var(--red);
@@ -2508,7 +2510,7 @@
    -------------------------------------------------------------------------- */
 .nbBlog {
   position: relative;
-  background: linear-gradient(180deg, #1c1c20 0%, #0e0e11 50%, #1c1c20 100%);
+  background: linear-gradient(180deg, #fdfdfb 0%, #f4f4f0 50%, #fdfdfb 100%);
   padding: clamp(80px, 10vw, 150px) 5vw;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -2545,7 +2547,7 @@
   line-height: 0.88;
   letter-spacing: -0.05em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbBlogHead h2 span {
   color: transparent;
@@ -2556,7 +2558,7 @@
   max-width: 52ch;
   font-size: 15px;
   line-height: 1.75;
-  color: #8d8d8d;
+  color: #5a5a5a;
 }
 .nbBlogAllTop {
   flex: none;
@@ -2578,7 +2580,7 @@
   font: 700 10.5px/1 var(--nb-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #6f6f6f;
+  color: #5a5a5a;
 }
 
 /* byline / meta line */
@@ -2590,7 +2592,7 @@
   font: 700 10px/1 var(--nb-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7e7e7e;
+  color: #5a5a5a;
 }
 .nbBlogMeta i {
   flex: none;
@@ -2609,7 +2611,7 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   border: 1px solid var(--nb-hair);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
   overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
     border-color 0.4s ease;
@@ -2675,13 +2677,13 @@
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: -0.035em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbFeatBody > p {
   margin: 0;
   font-size: 14.5px;
   line-height: 1.75;
-  color: #9d9d9d;
+  color: #5a5a5a;
 }
 
 /* tag pills */
@@ -2700,7 +2702,7 @@
   font: 700 9.5px/1 var(--nb-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #8d8d8d;
+  color: #5a5a5a;
 }
 
 /* card grid */
@@ -2713,7 +2715,7 @@
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 12px;
-  background: linear-gradient(165deg, #121216 0%, #222226 100%);
+  background: linear-gradient(165deg, #fdfdfb 0%, #f4f4f0 100%);
   overflow: hidden;
   transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
     border-color 0.4s ease, box-shadow 0.4s ease;
@@ -2724,7 +2726,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 40%, transparent 60%, rgba(237, 28, 36, 0.15));
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.08), transparent 40%, transparent 60%, rgba(237, 28, 36, 0.15));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -2804,7 +2806,7 @@
   font-weight: 800;
   line-height: 1.18;
   letter-spacing: -0.025em;
-  color: var(--white);
+  color: var(--ink);
   transition: color 0.3s ease;
 }
 .nbBlogCard:hover .nbBlogBody h3 {
@@ -2814,7 +2816,7 @@
   margin: 0 0 20px;
   font-size: 13.5px;
   line-height: 1.75;
-  color: #8a8a8a;
+  color: #5a5a5a;
 }
 .nbBlogMore {
   display: inline-flex;
@@ -2873,7 +2875,7 @@
   margin: 0;
   padding: 40px 0;
   font-size: 14.5px;
-  color: #8d8d8d;
+  color: #5a5a5a;
 }
 .nbBlogEmpty a {
   color: var(--red2);
@@ -2884,7 +2886,7 @@
   position: relative;
   padding: clamp(120px, 10vw, 160px) 5vw 48px;
   overflow: hidden;
-  background: linear-gradient(160deg, #222226 0%, #26262a 40%, #1c1c20 100%);
+  background: linear-gradient(160deg, #fdfdfb 0%, #fdfdfb 40%, #fdfdfb 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .nbPostHead::before {
@@ -2901,9 +2903,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 20%, transparent 70%);
@@ -2927,10 +2928,10 @@
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: -0.05em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPostHeadCopy .nbBlogMeta {
-  color: #8a8a8a;
+  color: #5a5a5a;
   font-size: 12px;
 }
 .nbPostTitleRow {
@@ -2946,13 +2947,13 @@
   gap: 8px;
   padding: 16px 0 16px 22px;
   border-left: 2px solid var(--red);
-  color: #8a8a8a;
+  color: #5a5a5a;
   font: 700 9px/1.5 var(--nb-mono);
   letter-spacing: 0.14em;
   text-align: right;
 }
 .nbPostEdition strong {
-  color: #f3f3ef;
+  color: #16161a;
   font: 800 72px/0.88 Inter, Arial, sans-serif;
   letter-spacing: -0.08em;
   text-shadow: 0 0 40px rgba(237, 28, 36, 0.3);
@@ -2981,11 +2982,11 @@
 .nbPostCover figcaption {
   padding: 11px 16px;
   border-top: 1px solid rgba(14, 14, 12, 0.1);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(0, 0, 0, 0.72);
   font: 600 10px/1.5 var(--nb-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #686860;
+  color: #5a5a5a;
 }
 .nbPostBody > .nbPostLead {
   margin: 0 0 34px;
@@ -3005,20 +3006,20 @@
   border-left: 2px solid var(--red);
   font-size: clamp(17px, 1.5vw, 21px);
   line-height: 1.62;
-  color: #cfcfcf;
+  color: #16161a;
 }
 .nbPostBody > p {
   margin: 0 0 22px;
   font-size: 15.5px;
   line-height: 1.85;
-  color: #a3a3a3;
+  color: #5a5a5a;
 }
 .nbPostH {
   margin: 42px 0 16px;
   font-size: clamp(20px, 2vw, 27px);
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPostUl {
   margin: 0 0 24px;
@@ -3031,7 +3032,7 @@
   padding-left: 24px;
   font-size: 15px;
   line-height: 1.8;
-  color: #a3a3a3;
+  color: #5a5a5a;
 }
 .nbPostUl li::before {
   content: "";
@@ -3048,21 +3049,21 @@
   border: 1px solid var(--nb-hair);
   border-left: 2px solid var(--red);
   border-radius: 3px;
-  background: #242428;
+  background: #fdfdfb;
 }
 .nbPostQuote p {
   margin: 0 0 12px;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.6;
-  color: #e4e4e4;
+  color: #16161a;
 }
 .nbPostQuote cite {
   font: 700 10px/1 var(--nb-mono);
   font-style: normal;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #7c7c7c;
+  color: #5a5a5a;
 }
 .nbPostTableWrap {
   margin: 0 0 30px;
@@ -3083,18 +3084,18 @@
   font-size: 13.5px;
 }
 .nbPostTable thead th {
-  background: #222226;
+  background: #fdfdfb;
   font: 700 10px/1 var(--nb-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #8d8d8d;
+  color: #5a5a5a;
 }
 .nbPostTable tbody th {
   font-weight: 700;
-  color: #dcdcdc;
+  color: #16161a;
 }
 .nbPostTable tbody td {
-  color: #9d9d9d;
+  color: #5a5a5a;
 }
 .nbPostTable tbody tr:last-child th,
 .nbPostTable tbody tr:last-child td {
@@ -3128,13 +3129,13 @@
 }
 .nbPostBy div b {
   font-size: 14px;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPostBy div span {
   font: 600 10.5px/1 var(--nb-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7c7c7c;
+  color: #5a5a5a;
 }
 .nbPostBy .nbBtn {
   margin-top: 0;
@@ -3196,7 +3197,7 @@
   min-height: clamp(430px, 64vh, 740px);
   overflow: hidden;
   border-top: 1px solid var(--nb-hair);
-  background: #1e1e22;
+  background: #fdfdfb;
 }
 .nbReelVideo {
   position: absolute;
@@ -3267,7 +3268,7 @@
   line-height: 0.9;
   letter-spacing: -0.045em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--ink);
 }
 .nbReelCopy h2 span {
   color: transparent;
@@ -3961,7 +3962,7 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  background: #1c1c20;
+  background: #fdfdfb;
   text-align: center;
   padding: 20px;
 }
@@ -4171,10 +4172,10 @@
 /* Keep the image overlays reading as solid black now that the page base
    behind them is light. */
 .nbPage .nbPageHero {
-  background: #1a1a1e;
+  background: #fdfdfb;
 }
 .nbPage .nbPostHead {
-  background: linear-gradient(160deg, #222226 0%, #26262a 40%, #1c1c20 100%);
+  background: linear-gradient(160deg, #fdfdfb 0%, #fdfdfb 40%, #fdfdfb 100%);
 }
 
 /* --- About — hero(dark) story(light) values(dark) timeline(light)
@@ -4201,27 +4202,27 @@
 }
 
 .nbPage .nbValues {
-  background: #1c1c20;
-  color: var(--white);
+  background: #fdfdfb;
+  color: var(--ink);
 }
 .nbPage .nbValuesHead h2 {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbValuesHead h2 span {
   -webkit-text-stroke-color: rgba(244, 244, 241, 0.5);
 }
 .nbPage .nbValue {
-  background: #242428;
+  background: #fdfdfb;
   border-color: var(--nb-hair);
 }
 .nbPage .nbValue:hover {
   box-shadow: 0 26px 54px rgba(0, 0, 0, 0.5);
 }
 .nbPage .nbValue h3 {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbValue p {
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 
 .nbPage .nbTimeline {
@@ -4250,17 +4251,17 @@
 }
 
 .nbPage .nbGlobal {
-  background: #1c1c20;
-  color: var(--white);
+  background: #fdfdfb;
+  color: var(--ink);
 }
 .nbPage .nbGlobalCopy h2 {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbGlobalCopy h2 span {
   -webkit-text-stroke-color: rgba(244, 244, 241, 0.5);
 }
 .nbPage .nbGlobalCopy p {
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbPage .nbGlobalShot {
   border-color: var(--nb-hair);
@@ -4269,10 +4270,10 @@
   border-top-color: var(--nb-hair);
 }
 .nbPage .nbGlobalStats b {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbGlobalStats span {
-  color: #7c7c7c;
+  color: #5a5a5a;
 }
 
 .nbPage .nbFacility {
@@ -4295,10 +4296,10 @@
   color: #1e1e22;
 }
 .nbPage .nbSvcCap span {
-  color: #6a6a6a;
+  color: #5a5a5a;
 }
 .nbPage .nbSvcList {
-  color: var(--white);
+  color: var(--ink);
 }
 
 /* --- Products — hero(dark) catalogue(light) spares(dark) siemens(light) - */
@@ -4344,13 +4345,13 @@
 }
 .nbPage .nbProdTags em {
   border-color: var(--nb-hair-d);
-  color: #6a6a6a;
+  color: #5a5a5a;
 }
 .nbPage .nbEmpty {
   color: #5a5a5a;
 }
 .nbPage .nbSpares {
-  color: var(--white);
+  color: var(--ink);
 }
 
 /* --- Contact — hero(dark) form(light) offices(dark) --------------------- */
@@ -4378,24 +4379,24 @@
 }
 
 .nbPage .nbOffices {
-  background: #1c1c20;
-  color: var(--white);
+  background: #fdfdfb;
+  color: var(--ink);
 }
 .nbPage .nbOfficesHead h2 {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbOfficesHead h2 span {
   -webkit-text-stroke-color: rgba(244, 244, 241, 0.5);
 }
 .nbPage .nbOffice {
   border-color: var(--nb-hair);
-  background: #242428;
+  background: #fdfdfb;
 }
 .nbPage .nbOffice h3 {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbOffice p {
-  color: #9a9a9a;
+  color: #5a5a5a;
 }
 .nbPage .nbOfficesShot {
   border-color: var(--nb-hair);
@@ -4422,7 +4423,7 @@
   color: #5a5a5a;
 }
 .nbPage .nbBlogIndex .nbBlogMeta {
-  color: #6a6a6a;
+  color: #5a5a5a;
 }
 .nbPage .nbBlogIndex .nbFeatLink {
   border-color: var(--nb-hair-d);
@@ -4454,7 +4455,7 @@
 
 /* --- Journal article — dark header, light body, dark "more notes" ------- */
 .nbPage .nbBlog:not(.nbBlogIndex) {
-  color: var(--white);
+  color: var(--ink);
 }
 .nbPage .nbPostLead {
   color: #3a3a3a;
@@ -4476,7 +4477,7 @@
   color: #1c1c1c;
 }
 .nbPage .nbPostQuote cite {
-  color: #6a6a6a;
+  color: #5a5a5a;
 }
 .nbPage .nbPostTableWrap {
   border-color: var(--nb-hair-d);
@@ -4502,7 +4503,7 @@
   color: #1e1e22;
 }
 .nbPage .nbPostBy div span {
-  color: #6a6a6a;
+  color: #5a5a5a;
 }
 
 
@@ -4524,7 +4525,7 @@
   color: var(--nb-ink);
 }
 .statsBand.light .statCell small {
-  color: #7d7d76;
+  color: #5a5a5a;
 }
 
 .nbCases.light {
@@ -4556,7 +4557,7 @@
   color: #55534e;
 }
 .nbCases.light .nbCaseMetrics span {
-  color: #7d7d76;
+  color: #5a5a5a;
 }
 
 .industries.light {
@@ -4568,7 +4569,7 @@
   color: #55534e;
 }
 .industries.light .industryNo {
-  color: #8a8a83;
+  color: #5a5a5a;
 }
 .industries.light .industryDesc {
   color: #55534e;
@@ -4600,7 +4601,7 @@
   color: #1e1e22;
 }
 .nbFaq.light .nbFaqPlus i {
-  background: #2b2b2b;
+  background: #fdfdfb;
 }
 .nbFaq.light .nbFaqA > p {
   color: #52504b;
@@ -4654,7 +4655,7 @@
   padding: 6px 10px;
   background: rgba(26, 26, 28, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(0, 0, 0, 0.55);
   font: 800 9px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -4737,7 +4738,7 @@
 }
 .nbPostRailLabel {
   margin: 0 0 3px;
-  color: #77776f;
+  color: #5a5a5a;
 }
 .nbShareIcon {
   display: grid;
@@ -4747,7 +4748,7 @@
   padding: 10px;
   border: 1px solid var(--nb-hair-d);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(0, 0, 0, 0.76);
   color: #575750;
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease,
@@ -4807,7 +4808,7 @@
   padding: 20px;
   border: 1px solid var(--nb-hair-d);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(0, 0, 0, 0.78);
   box-shadow: 0 10px 30px rgba(23, 23, 18, 0.04);
 }
 .nbSideKicker {
@@ -4823,7 +4824,7 @@
 }
 .nbSideCard > p:not(.nbSideKicker) {
   margin: 0 0 17px;
-  color: #62625b;
+  color: #5a5a5a;
   font-size: 13px;
   line-height: 1.65;
 }
@@ -4855,7 +4856,7 @@
 }
 .nbSideList span,
 .nbSideList small {
-  color: #77776f;
+  color: #5a5a5a;
   font: 700 9px/1.3 var(--nb-mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4872,14 +4873,14 @@
 .nbSideCard.is-desk {
   display: grid;
   gap: 9px;
-  background: #26262a;
+  background: #fdfdfb;
   border-color: rgba(255, 255, 255, 0.12);
 }
 .nbSideCard.is-desk .nbSideKicker {
   color: #f06468;
 }
 .nbSideCard.is-desk a {
-  color: #ecece7;
+  color: #16161a;
   font-size: 12px;
   transition: color 0.2s ease;
 }
@@ -4935,7 +4936,7 @@
   content: counter(toc, decimal-leading-zero);
   flex: none;
   font: 700 10px/1 var(--nb-mono);
-  color: #a2a29a;
+  color: #5a5a5a;
 }
 .nbPostToc a:hover {
   color: var(--red);
@@ -4953,7 +4954,7 @@
   font: 700 10px/1 var(--nb-mono);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #8a8a82;
+  color: #5a5a5a;
 }
 .nbPostShare a,
 .nbPostShare button {
@@ -4993,7 +4994,7 @@
   }
   .nbPostInlineShare > span {
     margin-right: 3px;
-    color: #66665e;
+    color: #5a5a5a;
     font: 700 10px/1 var(--nb-mono);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -5111,7 +5112,7 @@
 }
 .nbWidgetPanel {
   width: min(320px, calc(100vw - 32px));
-  background: #242428;
+  background: #fdfdfb;
   border: 1px solid var(--nb-hair);
   border-radius: 14px;
   padding: 18px;
@@ -5144,8 +5145,8 @@
   height: 26px;
   border-radius: 7px;
   border: 1px solid var(--nb-hair);
-  background: #2e2e32;
-  color: #9a9a9a;
+  background: #fdfdfb;
+  color: #5a5a5a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5161,7 +5162,7 @@
 .nbWidgetText {
   font-size: 12px;
   line-height: 1.55;
-  color: #8b8b8b;
+  color: #5a5a5a;
   margin-bottom: 14px;
 }
 .nbWidgetLinks {
@@ -5175,7 +5176,7 @@
   padding: 10px 13px;
   border-radius: 11px;
   border: 1px solid var(--nb-hair);
-  background: #131318;
+  background: #fdfdfb;
   transition: transform 0.18s ease, border-color 0.18s ease,
     background 0.18s ease;
 }
@@ -5207,7 +5208,7 @@
 }
 .nbWidgetLink small {
   font-size: 10.5px;
-  color: #8b8b8b;
+  color: #5a5a5a;
 }
 .nbWidgetLink.is-wa i {
   background: rgba(37, 211, 102, 0.14);
@@ -5247,7 +5248,7 @@
 /* ===== Related pages (internal cross-linking) ===== */
 .nbRelated {
   padding: clamp(66px, 8vw, 118px) 5vw;
-  background: #1c1c20;
+  background: #fdfdfb;
   border-top: 1px solid var(--nb-hair);
 }
 .nbRelatedInner {
@@ -5281,13 +5282,13 @@
   position: relative;
   display: block;
   padding: 30px 26px 34px;
-  background: #202024;
-  color: #e9e9ee;
+  background: #fdfdfb;
+  color: #16161a;
   text-decoration: none;
   transition: background 0.3s;
 }
 .nbRelatedCard:hover {
-  background: #2a2a2e;
+  background: #fdfdfb;
 }
 .nbRelatedNo {
   position: absolute;
@@ -5313,7 +5314,7 @@
   letter-spacing: -0.03em;
 }
 .nbRelatedCard p {
-  color: #8a8a93;
+  color: #5a5a5a;
   font-size: 12.5px;
   line-height: 1.65;
 }
