@@ -14,8 +14,29 @@ const SECURITY_HEADERS = [
   },
 ];
 
-const IMMUTABLE_CACHE = [
-  { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+/**
+ * Photos and models live at stable URLs — the *file name* does not change when
+ * the artwork is swapped. Caching them as `immutable` means a browser or CDN
+ * keeps serving the old file for a year, so a deploy that replaces an image
+ * in place is invisible. These paths always revalidate (cheap 304 via ETag).
+ */
+const REVALIDATE = [
+  { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+];
+
+/** Heavy 3D payloads change rarely — cache them, but still allow revalidation. */
+const LONG_CACHE = [
+  { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+];
+
+/**
+ * HTML shells are prerendered, so Next marks them cacheable for a long time.
+ * A reverse proxy holding that response means a fresh deploy never reaches
+ * the visitor. Pages always revalidate; hashed build output keeps its own
+ * immutable cache.
+ */
+const PAGE_REVALIDATE = [
+  { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
 ];
 
 const nextConfig: NextConfig = {
@@ -41,10 +62,16 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // HTML — always revalidate so a new deploy is visible immediately.
+      {
+        source:
+          "/:path((?!_next/static|_next/image|oem|real|models|favicon.ico|robots.txt|sitemap.xml).*)",
+        headers: PAGE_REVALIDATE,
+      },
       { source: "/:path*", headers: SECURITY_HEADERS },
-      { source: "/real/:path*", headers: IMMUTABLE_CACHE },
-      { source: "/oem/:path*", headers: IMMUTABLE_CACHE },
-      { source: "/models/:path*", headers: IMMUTABLE_CACHE },
+      { source: "/real/:path*", headers: REVALIDATE },
+      { source: "/oem/:path*", headers: REVALIDATE },
+      { source: "/models/:path*", headers: LONG_CACHE },
     ];
   },
 };
