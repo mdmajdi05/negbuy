@@ -143,9 +143,7 @@ export function useLandingAnimation(refs: LandingRefs) {
       if (active && near.hero && core.current) {
         const rotation = current * 720;
         const scale = 1 + current * 0.8;
-        // the core sits on the left stage, so it drifts right only as far as
-        // the photo panel allows
-        const moveX = current * Math.min(vw * 0.1, 130);
+        const moveX = current * Math.min(vw * 0.24, 310);
         const moveY = -Math.sin(current * Math.PI) * 70;
         core.current.style.transform = `translate(calc(-50% + ${moveX}px),calc(-50% + ${moveY}px)) scale(${scale}) rotateZ(${current * 16}deg)`;
 
