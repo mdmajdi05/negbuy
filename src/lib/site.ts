@@ -80,8 +80,6 @@ export const SITE = {
   emails: {
     general: "contact@negbuy.com",
     group: "contact@negbuygroup.com",
-    service: "service@negbuy.com",
-    partners: "partners@negbuy.com",
   },
 
   phone: "+91 70111 23269",

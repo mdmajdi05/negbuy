@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/about", label: "About", index: "04" },
   { href: "/#industries", label: "Industries", index: "05" },
   { href: "/blog", label: "Blog", index: "06" },
+  { href: "/contact", label: "Contact", index: "07" },
 ];
 
 export default function Header() {

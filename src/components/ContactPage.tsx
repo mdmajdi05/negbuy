@@ -29,18 +29,6 @@ const CHANNELS = [
     note: "Plants and fleets down — marked urgent, fast-tracked.",
   },
   {
-    tag: "Service & field",
-    value: "service@negbuy.com",
-    href: "mailto:service@negbuy.com",
-    note: "Overhauls, installation, commissioning and site crews.",
-  },
-  {
-    tag: "Partnerships",
-    value: "partners@negbuy.com",
-    href: "mailto:partners@negbuy.com",
-    note: "OEM, EPC and distribution partnerships.",
-  },
-  {
     tag: "Group desk",
     value: SITE.emails.group,
     href: `mailto:${SITE.emails.group}`,

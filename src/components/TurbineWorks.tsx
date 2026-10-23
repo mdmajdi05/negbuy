@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   easeTo,
   prefersReducedMotion,
@@ -62,6 +62,7 @@ const CARDS = [
     title: "Gas Turbine Overhaul",
     desc: "Hot-gas-path inspection, blade replacement and balancing under ISO clean-room discipline.",
     stat: "98.2% availability",
+    place: "Plant deck",
   },
   {
     img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
@@ -70,6 +71,7 @@ const CARDS = [
     title: "Lube Oil Supply Skids",
     desc: "Pumps, coolers, filters and accumulators — complete oil circulation packages for turbines.",
     stat: "8 bar continuous",
+    place: "Oil room",
   },
   {
     img: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=800&auto=format&fit=crop",
@@ -78,6 +80,7 @@ const CARDS = [
     title: "Marine Propulsion",
     desc: "Propulsion turbines, gearboxes and control retrofits for vessels and offshore platforms.",
     stat: "40+ vessels served",
+    place: "Engine room",
   },
   {
     img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop",
@@ -86,6 +89,7 @@ const CARDS = [
     title: "Power Plant Support",
     desc: "Spares, commissioning and lifetime extension for generation and solar-hybrid sites.",
     stat: "240 MW supported",
+    place: "Grid site",
   },
 ];
 
@@ -101,6 +105,7 @@ export default function TurbineWorks() {
   const readoutRef = useRef<HTMLSpanElement>(null);
 
   const currentRef = useRef(0);
+  const [activeJob, setActiveJob] = useState(0);
 
   const draw = useCallback(() => {
     const sec = sectionRef.current;
@@ -114,7 +119,9 @@ export default function TurbineWorks() {
     );
     currentRef.current = next;
 
-    // real turbine reacts to scroll: the fan spools up, orbit + heat follow
+    // one scroll value drives the whole instrument: dial arc, rotor, heat, oil
+    sec.style.setProperty("--iw-p", next.toFixed(4));
+
     if (fanRef.current) {
       const spins = next * 1080;
       fanRef.current.style.transform = `rotate(${spins}deg) scale(${
@@ -126,9 +133,9 @@ export default function TurbineWorks() {
     }
     if (glowRef.current) {
       const heat = next;
-      glowRef.current.style.opacity = String(0.28 + heat * 0.62);
+      glowRef.current.style.opacity = String(0.24 + heat * 0.66);
       glowRef.current.style.transform = `translate(-50%,-50%) scale(${
-        0.74 + heat * 0.42
+        0.72 + heat * 0.44
       })`;
     }
     if (oilRef.current) {
@@ -165,28 +172,47 @@ export default function TurbineWorks() {
       <div className="iwTrack" ref={trackRef}>
         <div className="iwPin">
           <div className="iwGrid" aria-hidden="true" />
+          <span className="iwGhost" aria-hidden="true">
+            01.5
+          </span>
 
           <div className="iwInner">
             <header className="iwHead">
               <div className="iwHeadCopy">
-                <div className="kicker">01.5 / Inside the machine</div>
+                <div className="iwKicker">
+                  <i className="iwKickerDot" aria-hidden="true" />
+                  01.5 / Inside the machine
+                </div>
                 <h2>
                   WATCH A TURBINE
                   <br />
                   <span>BREATHE + BURN.</span>
                 </h2>
               </div>
-              <p className="iwLead">
-                Scroll — the rotor spools up, oil starts flowing and the core
-                heats to full power. A live look at the machines NEGBUY supplies
-                and services.
-              </p>
+              <div className="iwHeadSide">
+                <p className="iwLead">
+                  Scroll — the rotor spools up, oil starts flowing and the core
+                  heats to full power. A live look at the machines NEGBUY
+                  supplies and services.
+                </p>
+                <div className="iwHeadMeta">
+                  <span>4 stages</span>
+                  <span>Live scroll link</span>
+                </div>
+              </div>
             </header>
 
             <div className="iwBody">
-              {/* REAL TURBINE — transparent GE90 fan cut-out */}
+              {/* REAL TURBINE — transparent GE90 fan cut-out in a test-cell dial */}
               <figure className="iwVisual">
                 <div className="iwGlow" ref={glowRef} aria-hidden="true" />
+
+                <div className="iwDial" aria-hidden="true">
+                  <i className="iwDialTicks" />
+                  <i className="iwDialArc" />
+                  <i className="iwDialArcSoft" />
+                </div>
+
                 <div className="iwOrbit" ref={orbitRef} aria-hidden="true" />
                 <span className="iwAxis x" aria-hidden="true" />
                 <span className="iwAxis y" aria-hidden="true" />
@@ -209,6 +235,11 @@ export default function TurbineWorks() {
 
                 <span className="iwArc" ref={oilRef} aria-hidden="true" />
 
+                <span className="iwBracket tl" aria-hidden="true" />
+                <span className="iwBracket tr" aria-hidden="true" />
+                <span className="iwBracket bl" aria-hidden="true" />
+                <span className="iwBracket br" aria-hidden="true" />
+
                 {NOTES.map((n) => (
                   <span className={`iwNote ${n.cls}`} key={n.cls}>
                     <b>
@@ -217,34 +248,44 @@ export default function TurbineWorks() {
                     <small>{n.value}</small>
                   </span>
                 ))}
+
+                <span className="iwFigCap" aria-hidden="true">
+                  GE90 fan · cutaway
+                </span>
               </figure>
 
-              {/* STAGE LIST */}
-              <ol className="iwStages">
-                {STAGES.map((s, i) => (
-                  <li
-                    key={s.tag}
-                    ref={(el) => {
-                      stageEls.current[i] = el;
-                    }}
-                    className={`iwStage${i === 0 ? " active" : ""}`}
-                  >
-                    <span className="iwStageNo">{s.no}</span>
-                    <div className="iwStageBody">
-                      <span className="iwStageTag">{s.tag}</span>
-                      <h3>{s.title}</h3>
-                      <p>{s.desc}</p>
-                      <div className="iwBar">
-                        <i style={{ width: `${s.bar}%` }} />
+              {/* STAGE TELEMETRY */}
+              <div className="iwPanel">
+                <div className="iwPanelHead">
+                  <span>Stage telemetry</span>
+                  <span className="iwPanelHint">Scroll to cycle</span>
+                </div>
+                <ol className="iwStages">
+                  {STAGES.map((s, i) => (
+                    <li
+                      key={s.tag}
+                      ref={(el) => {
+                        stageEls.current[i] = el;
+                      }}
+                      className={`iwStage${i === 0 ? " active" : ""}`}
+                    >
+                      <span className="iwStageNo">{s.no}</span>
+                      <div className="iwStageBody">
+                        <span className="iwStageTag">{s.tag}</span>
+                        <h3>{s.title}</h3>
+                        <p>{s.desc}</p>
+                        <div className="iwBar">
+                          <i style={{ width: `${s.bar}%` }} />
+                        </div>
                       </div>
-                    </div>
-                    <div className="iwStageMetric">
-                      <b>{s.metric}</b>
-                      <small>{s.unit}</small>
-                    </div>
-                  </li>
-                ))}
-              </ol>
+                      <div className="iwStageMetric">
+                        <b>{s.metric}</b>
+                        <small>{s.unit}</small>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
 
             <div className="iwProgress">
@@ -254,8 +295,9 @@ export default function TurbineWorks() {
               <div className="iwProgressTrack">
                 <div className="iwProgressFill" ref={progressRef} />
               </div>
-              <em>SCROLL TO SPOOL UP</em>
+              <em>Scroll to spool up</em>
             </div>
+
             <p className="iwCredit">
               Turbine photo — GE90 fan, Wikimedia Commons / CC BY-SA 2.0
             </p>
@@ -263,33 +305,89 @@ export default function TurbineWorks() {
         </div>
       </div>
 
-      {/* FIELD WORK CARDS — normal flow, after the pinned track */}
+      {/* FIELD WORK — dossier index with a live preview panel */}
       <div className="iwCards">
         <div className="iwCardsHead reveal">
-          <div className="kicker">Field work / Oil + Turbines</div>
+          <div className="iwKicker">
+            <i className="iwKickerDot" aria-hidden="true" />
+            Field work / Oil + Turbines
+          </div>
           <h2>
             REAL MACHINES.
             <br />
-            REAL SITES.
+            <span>REAL SITES.</span>
           </h2>
+          <p className="iwCardsLead">
+            Every stage above exists somewhere in the field — on a plant deck, a
+            ship engine room or a service bay. Here is where NEGBUY does the
+            work.
+          </p>
         </div>
-        <div className="iwCardGrid">
-          {CARDS.map((c) => (
-            <article key={c.no} className="iwCard reveal">
-              <div className="iwShot">
-                <img src={c.img} alt={c.alt} loading="lazy" />
-                <span className="iwNo">{c.no}</span>
+
+        <div className="iwField reveal">
+          <div className="iwFieldBar">
+            <span>Selected field jobs</span>
+            <span>04 records · 2019 — 2026</span>
+          </div>
+
+          <div className="iwFieldGrid">
+            <ol className="iwFieldList">
+              {CARDS.map((c, i) => (
+                <li key={c.no}>
+                  <button
+                    type="button"
+                    className={`iwFieldRow${i === activeJob ? " is-active" : ""}`}
+                    onMouseEnter={() => setActiveJob(i)}
+                    onFocus={() => setActiveJob(i)}
+                    onClick={() => setActiveJob(i)}
+                    aria-pressed={i === activeJob}
+                  >
+                    <span className="iwFieldNo">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="iwFieldBody">
+                      <span className="iwFieldTag">
+                        {c.no} · {c.place}
+                      </span>
+                      <span className="iwFieldTitle">{c.title}</span>
+                      <span className="iwFieldDesc">{c.desc}</span>
+                    </span>
+                    <span className="iwFieldMeta">
+                      <span className="iwFieldStat">
+                        <i aria-hidden="true" />
+                        {c.stat}
+                      </span>
+                      <span className="iwFieldArrow" aria-hidden="true">
+                        →
+                      </span>
+                    </span>
+                    <span className="iwFieldThumb" aria-hidden="true">
+                      <img src={c.img} alt="" loading="lazy" />
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+
+            <div className="iwFieldPreview" aria-hidden="true">
+              {CARDS.map((c, i) => (
+                <figure
+                  key={c.no}
+                  className={`iwFieldPic${i === activeJob ? " is-on" : ""}`}
+                >
+                  <img src={c.img} alt="" loading="lazy" />
+                </figure>
+              ))}
+              <div className="iwFieldFrame" />
+              <span className="iwFieldCount">
+                {String(activeJob + 1).padStart(2, "0")} / 04
+              </span>
+              <div className="iwFieldCaption">
+                <span>{CARDS[activeJob].place}</span>
+                <b>{CARDS[activeJob].title}</b>
               </div>
-              <div className="iwCardBody">
-                <h3>{c.title}</h3>
-                <p>{c.desc}</p>
-                <div className="iwStat">
-                  <i aria-hidden="true" />
-                  {c.stat}
-                </div>
-              </div>
-            </article>
-          ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
