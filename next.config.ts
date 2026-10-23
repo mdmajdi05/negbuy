@@ -52,6 +52,10 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    // Selected upgrade policy, reused by `next upgrade --agent` and upgrade reminders.
+    agentUpgrade: "security",
+  },
   turbopack: {
     rules: {
       "*.css": {
